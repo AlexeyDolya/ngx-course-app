@@ -1,23 +1,52 @@
-<app-table [dataSource]="dataSource" [displayedColumns]="displayedColumns" [@listAnimation]="dataSource.length"></app-table>
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
 
-<!-- <mat-grid-list cols="3" rowHeight="1:1.5">
-  <mat-grid-tile *appNgForGrid="let src of images; likes as i, tags as t">
-      <mat-card class="example-card">
-         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-          </mat-card-header> -->
-          <!-- <img mat-card-image [src]="src" alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <p>
-              ${{t}}
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-          </mat-card-actions>
-        </mat-card>
-  </mat-grid-tile>
-</mat-grid-list> --> 
+  <div fxFlex="25">
+    <h2>Backlog</h2>
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[inProgressList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+  <div fxFlex="25">
+    <h2>In Progress</h2>
+    <div
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="progress"
+      [cdkDropListConnectedTo]="[qaList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+  <div fxFlex="25">
+    <h2>QA</h2>
+    <div
+      cdkDropList
+      #qaList="cdkDropList"
+      [cdkDropListData]="qa"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of qa" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div fxFlex="25">
+    <h2>Done</h2>
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList,qaList,inProgressList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div>
