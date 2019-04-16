@@ -10,14 +10,15 @@ import { NgForGridDirective } from './content/dashboard/ng-for-grid.directive';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-    declarations: [
-        BackofficeComponent,
-        HeaderComponent,
-        SidebarComponent,
-        UserSettingsComponent,
-        DashboardComponent,
-        NgForGridDirective,
-    ],
-    imports: [SharedModule, BackoffficeRoutingModule, HttpClientModule],
+  declarations: [
+    BackofficeComponent,
+    HeaderComponent,
+    SidebarComponent,
+    UserSettingsComponent,
+    DashboardComponent,
+    NgForGridDirective,
+  ],
+  imports: [SharedModule, BackoffficeRoutingModule, HttpClientModule],
 })
-export class BackofficeModule {}
+export class BackofficeModule {
+}
