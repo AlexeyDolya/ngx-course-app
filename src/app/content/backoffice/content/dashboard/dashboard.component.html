@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
 
-  <div fxFlex="25">
-    <h2>Backlog</h2>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <h3>Backlog</h3>
     <div
       cdkDropList
       #todoList="cdkDropList"
@@ -11,9 +11,15 @@
       (cdkDropListDropped)="drop($event)">
       <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
     </div>
+    <div>
+      <button mat-button>
+        <mat-icon>add</mat-icon>
+      </button>
+      <span> Add another card</span>
+    </div>
   </div>
-  <div fxFlex="25">
-    <h2>In Progress</h2>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <h3>In Progress</h3>
     <div
       cdkDropList
       #inProgressList="cdkDropList"
@@ -24,8 +30,8 @@
       <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item}}</div>
     </div>
   </div>
-  <div fxFlex="25">
-    <h2>QA</h2>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <h3>QA</h3>
     <div
       cdkDropList
       #qaList="cdkDropList"
@@ -36,9 +42,8 @@
       <div class="example-box" *ngFor="let item of qa" cdkDrag>{{item}}</div>
     </div>
   </div>
-
-  <div fxFlex="25">
-    <h2>Done</h2>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <h3>Done</h3>
     <div
       cdkDropList
       #doneList="cdkDropList"
