@@ -80,7 +80,6 @@ function initialLoggedState(): IAuthState {
     try {
         console.log(localStorage.getItem('accessToken'));
         const token: string = localStorage.getItem('accessToken') as string;
-        console.log(token);
         return {
             ...initialState,
             isLogged: token ? true : false,
