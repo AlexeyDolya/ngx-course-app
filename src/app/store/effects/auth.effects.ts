@@ -9,7 +9,7 @@ import {
   LoginSuccess, LOGOUT, LogoutFail, LogoutSuccess, SIGN_UP, SignUp, SignUpFail, SignUpSuccess
 } from '../actions/auth.action';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import {SetUser} from '../actions/user.action';
+import {SetUser} from '../actions/user.action'
 
 @Injectable()
 export class AuthEffects {
@@ -27,7 +27,7 @@ export class AuthEffects {
         switchMap((data: any) => this._authService.tokenToLocalStorage(data)),
         mergeMap((data: any) => {
           console.log(data)
-           return [new LoginSuccess(data), new SetUser(data)]
+           return [new LoginSuccess(data), new SetUser(data)];
         }),
         tap(() => {
           this._router.navigate(['/backoffice']);
