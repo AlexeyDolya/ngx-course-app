@@ -1,0 +1,21 @@
+<mat-sidenav-container>
+  <mat-sidenav #drawer mode="side">
+    <mat-list>
+      <mat-list-item>
+        <mat-icon matListIcon>dashboard</mat-icon>Dashboard
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon matListIcon>home</mat-icon>Pepper
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <span class="fill-remaining-space"></span>
+      <mat-list-item>
+        <mat-icon matListIcon>settings</mat-icon>Pepper
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content role="navigation">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
