@@ -1,16 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-user-settings',
-  templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.sass']
+    selector: 'app-user-settings',
+    templateUrl: './user-settings.component.html',
+    styleUrls: ['./user-settings.component.sass'],
 })
-export class UserSettingsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-    // https://api.instagram.com/v1/users/self/?access_token
-  }
-
-}
+export class UserSettingsComponent {}

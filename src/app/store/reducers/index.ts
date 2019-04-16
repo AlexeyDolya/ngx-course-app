@@ -1,9 +1,9 @@
-import {ActionReducer, ActionReducerMap, MetaReducer} from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 
-import {authReducer, IAuthState} from './auth.reducer';
+import { authReducer, IAuthState } from './auth.reducer';
 
-import {AuthActions, LOGOUT_SUCCESS} from '../actions/auth.action';
-import {userReducer} from './user.reducer';
+import { AuthActions, LOGOUT_SUCCESS } from '../actions/auth.action';
+import { userReducer } from './user.reducer';
 
 export interface IRootState {
   auth: IAuthState;

@@ -1,18 +1,18 @@
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../../../src/app/shared/shared.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup.component';
 import { SignupRoutingModule } from './signup-routing.module';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     SharedModule,
     FormsModule,
-    SignupRoutingModule
-  ]
+    SignupRoutingModule,
+  ],
 })
-export class SignupModule { }
+export class SignupModule {
+}
