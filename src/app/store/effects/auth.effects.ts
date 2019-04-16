@@ -41,6 +41,7 @@ export class AuthEffects {
                     this._router.navigate(['/backoffice']);
                 }),
                 catchError((err: any) => {
+                    // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
                         alert('Invalid username or password');

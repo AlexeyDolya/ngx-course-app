@@ -1,7 +1,4 @@
-import {AuthEffects} from './auth.effects';
-
+import { AuthEffects } from './auth.effects';
 
 // tslint:disable-next-line: typedef
-export const effects = [
-  AuthEffects
-];
+export const effectsArr = [AuthEffects];

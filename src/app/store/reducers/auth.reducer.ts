@@ -78,7 +78,6 @@ export function authReducer(state: IAuthState = initialLoggedState(), action: an
 
 function initialLoggedState(): IAuthState {
     try {
-        console.log(localStorage.getItem('accessToken'));
         const token: string = localStorage.getItem('accessToken') as string;
         return {
             ...initialState,
