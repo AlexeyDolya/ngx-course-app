@@ -29,7 +29,7 @@ export class DashboardComponent {
     public todo: string[] = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
     public progress: string[] = [];
     public qa: string[] = [];
-    public done: string[] = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+    public done: string[] = [];
 
     public drop(event: CdkDragDrop<string[]>): void {
         if (event.previousContainer === event.container) {

@@ -8,17 +8,20 @@ import { UserSettingsComponent } from './content/user-settings/user-settings.com
 import { DashboardComponent } from './content/dashboard/dashboard.component';
 import { NgForGridDirective } from './content/dashboard/ng-for-grid.directive';
 import { SharedModule } from '../../shared/shared.module';
+import { ChartsComponent } from './content/charts/charts.component';
+import { EventsComponent } from './content/events/events.component';
 
 @NgModule({
-  declarations: [
-    BackofficeComponent,
-    HeaderComponent,
-    SidebarComponent,
-    UserSettingsComponent,
-    DashboardComponent,
-    NgForGridDirective,
-  ],
-  imports: [SharedModule, BackoffficeRoutingModule, HttpClientModule],
+    declarations: [
+        BackofficeComponent,
+        HeaderComponent,
+        SidebarComponent,
+        UserSettingsComponent,
+        DashboardComponent,
+        NgForGridDirective,
+        ChartsComponent,
+        EventsComponent,
+    ],
+    imports: [SharedModule, BackoffficeRoutingModule, HttpClientModule],
 })
-export class BackofficeModule {
-}
+export class BackofficeModule {}

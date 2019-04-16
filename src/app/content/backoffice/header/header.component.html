@@ -3,15 +3,18 @@
     <!-- <mat-icon matListIcon (click)="drawer.toggle()">view_headline</mat-icon> -->
     <mat-icon matListIcon>view_headline</mat-icon>
   </button>
+  <h3>Team Board</h3>
   <span class="fill-remaining-space"></span>
   <p>
-    <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+    <mat-icon
+      [routerLink]="['events']"
+      matBadge="15" matBadgeColor="warn">notifications</mat-icon>
   </p>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/backoffice/user']">
+    <button mat-menu-item [routerLink]="['user']">
       <mat-icon>settings</mat-icon>
       <span>User settings</span>
     </button>
