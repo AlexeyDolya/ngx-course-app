@@ -15,6 +15,10 @@ import { reducers } from './store/reducers';
 import { effectsArr } from './store/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { BASE_URL_TOKEN } from './config';
+import { MessagingService } from './shared/services/notification.service';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
     declarations: [AppComponent],
@@ -26,6 +30,16 @@ import { BASE_URL_TOKEN } from './config';
         StoreModule.forRoot(reducers, { metaReducers }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(effectsArr),
+        AngularFireAuthModule,
+        AngularFireMessagingModule,
+        AngularFireModule.initializeApp({
+            apiKey: 'AIzaSyC9fggBzxM_9CXgdi82ZecI-Wu5NcOkNgg',
+            authDomain: 'ngx-course.firebaseapp.com',
+            databaseURL: 'https://ngx-course.firebaseio.com',
+            projectId: 'ngx-course',
+            storageBucket: 'ngx-course.appspot.com',
+            messagingSenderId: '881969052371',
+        }),
     ],
     providers: [
         {
@@ -39,6 +53,7 @@ import { BASE_URL_TOKEN } from './config';
         },
         AuthGuardService,
         AuthService,
+        MessagingService,
     ],
     bootstrap: [AppComponent],
 })
