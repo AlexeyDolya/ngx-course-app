@@ -3,7 +3,7 @@ import { animate, query, stagger, style, transition, trigger } from '@angular/an
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import { CardStatus, filtredByStatusCards, ICard } from './store/reducers/dashboard.reducer';
-import { ChangeCard, GetBoard } from './store/actions/dashboard.action';
+import { ChangeCard, GetBoard, RemoveCard } from './store/actions/dashboard.action';
 import { EntityState } from '@ngrx/entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -84,5 +84,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
             //     event.currentIndex
             // );
         }
+    }
+
+    public removeCard(card: ICard): void {
+        this._store.dispatch(new RemoveCard(card));
     }
 }

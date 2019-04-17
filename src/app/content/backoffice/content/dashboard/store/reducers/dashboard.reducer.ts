@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-import { CHANGE_CARD, GET_BOARD_SUCCESS } from '../actions/dashboard.action';
+import { CHANGE_CARD, GET_BOARD_SUCCESS, REMOVE_CARD } from '../actions/dashboard.action';
 
 export type CardStatus = 'backlog' | 'inprogress' | 'qa' | 'done';
 
@@ -23,6 +23,9 @@ export function dashboardReducer(state: EntityState<ICard> = initialState, actio
         }
         case CHANGE_CARD: {
             return adapter.upsertOne(action.payload, state);
+        }
+        case REMOVE_CARD: {
+            return adapter.removeOne(action.payload._id, state);
         }
 
         //

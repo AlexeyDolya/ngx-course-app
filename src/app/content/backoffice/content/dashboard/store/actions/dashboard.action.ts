@@ -7,6 +7,7 @@ export const GET_BOARD_SUCCESS: string = '[Board] GET_BOARDSuccess';
 export const GET_BOARD_FAIL: string = '[Board] GET_BOARD Fail';
 
 export const CHANGE_CARD: string = '[Board] CHANGE_CARD';
+export const REMOVE_CARD: string = '[Board] REMOVE_CARD';
 
 // tslint:disable-next-line: max-classes-per-file
 export class GetBoard implements Action {
@@ -33,4 +34,10 @@ export class ChangeCard implements Action {
     public constructor(public payload: ICard) {}
 }
 
-export type BoardActions = GetBoard | GetBoardSuccess | GetBoardFail | ChangeCard;
+// tslint:disable-next-line: max-classes-per-file
+export class RemoveCard implements Action {
+    public readonly type: string = REMOVE_CARD;
+    public constructor(public payload: ICard) {}
+}
+
+export type BoardActions = GetBoard | GetBoardSuccess | GetBoardFail | ChangeCard | RemoveCard;

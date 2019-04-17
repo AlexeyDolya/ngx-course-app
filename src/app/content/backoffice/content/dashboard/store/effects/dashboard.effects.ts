@@ -3,7 +3,7 @@ import { ICard } from '../reducers/dashboard.reducer';
 const mockedCard: ICard[] = [
     {
         _id: '1',
-        description: 'Task 1',
+        description: 'Task 1 asd asd asda sda das das dasd ad asd asd asda dsasd asd asd asd asda sda sdasd asd',
         status: 'backlog',
     },
     {
