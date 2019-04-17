@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component } from '@angular/core';
 
 export interface IPeriodicElement {
     name: string;
@@ -27,10 +26,13 @@ const ELEMENT_DATA: IPeriodicElement[] = [
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent {
+    public searchText: string = '';
     public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    public dataSource: MatTableDataSource<IPeriodicElement> = new MatTableDataSource(ELEMENT_DATA);
+    public dataSource: IPeriodicElement[] = ELEMENT_DATA;
 
-    public applyFilter(filterValue: string): void {
-        this.dataSource.filter = filterValue.trim().toLowerCase();
+    public applyFilter(event: KeyboardEvent): void {
+        const inputEl: HTMLInputElement = event.target as HTMLInputElement;
+        this.searchText = inputEl.value;
+        //  this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 }

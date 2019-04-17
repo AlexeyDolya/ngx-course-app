@@ -1,16 +1,79 @@
-<mat-card>
-    <div class="example-container">
-      <p>
-        <mat-form-field>
-          <mat-label>Name</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </p>
-      <p>
-        <mat-form-field>
-          <mat-label>Surname</mat-label>
-          <input matInput>
-        </mat-form-field>
-      </p>
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch " class="user-info">
+  <div fxFlex="50%"  class="user-info_card">
+    <span>Info</span>
+    <mat-card>
+      <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
+        <div fxFlex="50%">
+          <mat-form-field fxFlex="50%">
+            <mat-label>Name</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+        <div fxFlex="50%">
+          <mat-form-field fxFlex="50%">
+            <mat-label>Surname</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div fxFlex="50%"  class="user-info_card">
+    <span>Change password</span>
+    <mat-card>
+      <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
+        <div fxFlex="100%">
+          <mat-form-field>
+            <mat-label>Old password</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+        <div fxFlex="100%">
+          <mat-form-field>
+            <mat-label>New password</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Repeat new password</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch "  class="user-info">
+  <div fxFlex="100%"  class="user-info_card">
+    <div>
+      <span>Address</span>
+      <button mat-button>
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
-  </mat-card>
+    <mat-card>
+      <mat-card-content>
+        <div fxLayout="row" fxLayoutAlign="space-evenly stretch "   >
+          <mat-form-field fxFlex="100%">
+            <mat-label>Street</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between stretch "   >
+          <mat-form-field fxFlex="30%">
+            <mat-label>City</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field fxFlex="30%">
+            <mat-label>State</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field fxFlex="30%">
+            <mat-label>Zip code</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
