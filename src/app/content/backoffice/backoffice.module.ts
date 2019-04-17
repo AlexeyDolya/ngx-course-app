@@ -10,6 +10,7 @@ import { NgForGridDirective } from './content/dashboard/ng-for-grid.directive';
 import { SharedModule } from '../../shared/shared.module';
 import { ChartsComponent } from './content/charts/charts.component';
 import { EventsComponent } from './content/events/events.component';
+import { EventsFilterPipe } from './content/events/events-filter.pipe';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { EventsComponent } from './content/events/events.component';
         NgForGridDirective,
         ChartsComponent,
         EventsComponent,
+        EventsFilterPipe,
     ],
     imports: [SharedModule, BackoffficeRoutingModule, HttpClientModule],
 })
