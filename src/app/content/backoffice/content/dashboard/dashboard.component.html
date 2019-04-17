@@ -4,12 +4,13 @@
     <h3>Backlog</h3>
     <div
       cdkDropList
+      [id]="'backlog'"
       #todoList="cdkDropList"
       [cdkDropListData]="todo"
       [cdkDropListConnectedTo]="[inProgressList]"
       class="example-list"
-      (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+      (cdkDropListDropped)="drop($event)" >
+      <div class="example-box" *ngFor="let card of todo" cdkDrag>{{card.description}}</div>
     </div>
     <div>
       <button mat-button>
@@ -22,12 +23,13 @@
     <h3>In Progress</h3>
     <div
       cdkDropList
+      [id]="'inprogress'"
       #inProgressList="cdkDropList"
-      [cdkDropListData]="progress"
+      [cdkDropListData]="inprogress"
       [cdkDropListConnectedTo]="[qaList, doneList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of progress" cdkDrag>{{item}}</div>
+      <div class="example-box" *ngFor="let card of inprogress " cdkDrag>{{card.description}}</div>
     </div>
   </div>
   <div [ngClass]="'board-column'" fxFlex="25">
@@ -35,11 +37,12 @@
     <div
       cdkDropList
       #qaList="cdkDropList"
+      [id]="'qa'"
       [cdkDropListData]="qa"
       [cdkDropListConnectedTo]="[todoList, doneList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of qa" cdkDrag>{{item}}</div>
+      <div class="example-box" *ngFor="let card of qa " cdkDrag>{{card.description}}</div>
     </div>
   </div>
   <div [ngClass]="'board-column'" fxFlex="25">
@@ -47,11 +50,12 @@
     <div
       cdkDropList
       #doneList="cdkDropList"
+      [id]="'done'"
       [cdkDropListData]="done"
       [cdkDropListConnectedTo]="[todoList,qaList,inProgressList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+      <div class="example-box" *ngFor="let card of done " cdkDrag>{{card.description}}</div>
     </div>
   </div>
 </div>
