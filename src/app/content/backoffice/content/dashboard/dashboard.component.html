@@ -10,23 +10,9 @@
       [cdkDropListConnectedTo]="[inProgressList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)" >
-      <div class="example-box" *ngFor="let card of todo" cdkDrag fxLayout="row" fxLayoutAlign="space-between stretch">
-        <span>{{card.description}}</span>
-        <div>
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon>edit</mat-icon>
-              <span>Edit</span>
-            </button>
-            <button mat-menu-item (click)="removeCard(card)">
-              <mat-icon>delete</mat-icon>
-              <span>Remove</span>
-            </button>
-          </mat-menu>
-        </div>
+      <div class="example-box"
+           app-card [card]="card" (remove)="removeCard($event)"
+           *ngFor="let card of todo" cdkDrag fxLayout="row" fxLayoutAlign="space-between stretch">
       </div>
     </div>
     <div>
@@ -46,21 +32,9 @@
       [cdkDropListConnectedTo]="[qaList, doneList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let card of inprogress " cdkDrag>
-        {{card.description}}
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Remove</span>
-          </button>
-        </mat-menu>
+      <div class="example-box"
+           app-card [card]="card" (remove)="removeCard($event)"
+           *ngFor="let card of inprogress" cdkDrag fxLayout="row" fxLayoutAlign="space-between stretch">
       </div>
     </div>
   </div>
@@ -74,21 +48,9 @@
       [cdkDropListConnectedTo]="[todoList, doneList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let card of qa " cdkDrag>
-        {{card.description}}
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Remove</span>
-          </button>
-        </mat-menu>
+      <div class="example-box"
+           app-card [card]="card" (remove)="removeCard($event)"
+           *ngFor="let card of qa" cdkDrag fxLayout="row" fxLayoutAlign="space-between stretch">
       </div>
     </div>
   </div>
@@ -102,21 +64,9 @@
       [cdkDropListConnectedTo]="[todoList,qaList,inProgressList]"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let card of done " cdkDrag>
-        {{card.description}}
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Remove</span>
-          </button>
-        </mat-menu>
+      <div class="example-box"
+           app-card [card]="card" (remove)="removeCard($event)"
+           *ngFor="let card of done" cdkDrag fxLayout="row" fxLayoutAlign="space-between stretch">
       </div>
     </div>
   </div>
