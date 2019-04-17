@@ -7,9 +7,10 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { effectsArr } from './store/effects';
 import { dashboardReducer } from './store/reducers/dashboard.reducer';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
-    declarations: [DashboardComponent, NgForGridDirective],
+    declarations: [DashboardComponent, NgForGridDirective, CardComponent],
     imports: [
         SharedModule,
         DashboardRoutingModule,

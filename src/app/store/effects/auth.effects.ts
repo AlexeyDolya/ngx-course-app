@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import {
     AuthActions,
@@ -35,7 +35,11 @@ export class AuthEffects {
                 filter((data: any) => data.status !== 206),
                 switchMap((data: any) => this._authService.tokenToLocalStorage(data)),
                 mergeMap((data: any) => {
-                    return [new LoginSuccess(data), new SetUser(data)];
+                    return [
+                        new LoginSuccess(data),
+                        new SetUser(data),
+                        // new bellPending(),
+                    ];
                 }),
                 tap(() => {
                     this._router.navigate(['/backoffice']);
