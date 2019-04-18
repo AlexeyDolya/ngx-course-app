@@ -4,8 +4,8 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon (click)="editCard(card)">edit</mat-icon>
+        <button mat-menu-item (click)="editCard(card)">
+            <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>
         <button mat-menu-item (click)="removeCard(card)">

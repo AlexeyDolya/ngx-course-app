@@ -1,12 +1,14 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, Injector, OnDestroy, OnInit } from '@angular/core';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
-import { CardStatus, filtredByStatusCards, ICard } from './store/reducers/dashboard.reducer';
-import { ChangeCard, GetBoard, RemoveCard } from './store/actions/dashboard.action';
+import { CardStatus, filteredByStatusCards, ICard } from './store/reducers/dashboard.reducer';
+import { ChangeCardPending, GetBoardPending, RemoveCardPending } from './store/actions/dashboard.action';
 import { EntityState } from '@ngrx/entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CardModalComponent } from './card-modal/card-modal.component';
+import { ModalService } from '../../../../modal/modal.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -26,36 +28,41 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     public todo: ICard[] = [];
-    public inprogress: ICard[] = [];
+    public progress: ICard[] = [];
     public qa: ICard[] = [];
     public done: ICard[] = [];
 
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
-    public constructor(private _store: Store<EntityState<ICard>>) {}
+    public constructor(
+        private _store: Store<EntityState<ICard>>,
+        private _modalService: ModalService,
+        private _injector: Injector,
+        private _componentFactoryResolver: ComponentFactoryResolver
+    ) {}
 
     public ngOnInit(): void {
-        this._store.dispatch(new GetBoard());
+        this._store.dispatch(new GetBoardPending());
         this._store
-            .select(filtredByStatusCards('backlog'))
+            .select(filteredByStatusCards(CardStatus.BACKLOG))
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((cards: ICard[]) => {
                 this.todo = cards;
             });
         this._store
-            .select(filtredByStatusCards('inprogress'))
+            .select(filteredByStatusCards(CardStatus.PROGRESS))
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((cards: ICard[]) => {
-                this.inprogress = cards;
+                this.progress = cards;
             });
         this._store
-            .select(filtredByStatusCards('qa'))
+            .select(filteredByStatusCards(CardStatus.QA))
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((cards: ICard[]) => {
                 this.qa = cards;
             });
         this._store
-            .select(filtredByStatusCards('done'))
+            .select(filteredByStatusCards(CardStatus.DONE))
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((cards: ICard[]) => {
                 this.done = cards;
@@ -72,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         } else {
             // current item event.previousContainer.data[event.previousIndex]
             this._store.dispatch(
-                new ChangeCard({
+                new ChangeCardPending({
                     ...event.previousContainer.data[event.previousIndex],
                     status: event.container.id as CardStatus,
                 })
@@ -87,6 +94,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     public removeCard(card: ICard): void {
-        this._store.dispatch(new RemoveCard(card));
+        this._store.dispatch(new RemoveCardPending(card));
+    }
+
+    public addCard(): void {
+        this._modalService.open({
+            component: CardModalComponent,
+            resolver: this._componentFactoryResolver,
+            injector: this._injector,
+            context: { card: {}, mode: 'create' },
+        });
+    }
+
+    public editCard(card: ICard): void {
+        this._modalService.open({
+            component: CardModalComponent,
+            resolver: this._componentFactoryResolver,
+            injector: this._injector,
+            context: { card: { ...card }, mode: 'edit' },
+        });
     }
 }
