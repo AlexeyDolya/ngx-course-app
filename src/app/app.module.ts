@@ -19,6 +19,7 @@ import { MessagingService } from './shared/services/notification.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { ModalModule } from './modal/modal.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
         StoreModule.forRoot(reducers, { metaReducers }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(effectsArr),
+        ModalModule.forRoot(),
         AngularFireAuthModule,
         AngularFireMessagingModule,
         AngularFireModule.initializeApp({

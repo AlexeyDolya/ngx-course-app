@@ -38,8 +38,7 @@ export class MessagingService {
 
     public receiveMessage(): void {
         this.angularFireMessaging.messages.subscribe((payload: any) => {
-            // tslint:disable-next-line
-            console.log('new message received. ', payload);
+            new Notification(payload.notification.title, { body: payload.notification.body });
             this.currentMessage.next(payload);
         });
     }

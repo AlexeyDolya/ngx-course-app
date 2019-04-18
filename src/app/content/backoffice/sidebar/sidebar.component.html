@@ -1,17 +1,17 @@
 <mat-sidenav-container>
-  <mat-sidenav #drawer mode="side">
-    <mat-list>
-      <mat-list-item  [routerLink]="['dashboard']">
-        <mat-icon matListIcon >dashboard</mat-icon>Board
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item  [routerLink]="['events']">
-        <mat-icon matListIcon>notifications_active</mat-icon>Actions log
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </mat-list>
-  </mat-sidenav>
-  <mat-sidenav-content role="navigation">
-    <ng-content></ng-content>
-  </mat-sidenav-content>
+    <mat-sidenav #drawer mode="side">
+        <mat-list>
+            <mat-list-item [routerLink]="['dashboard']">
+                <mat-icon matListIcon>dashboard</mat-icon>Board
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <mat-list-item [routerLink]="['events']">
+                <mat-icon matListIcon>notifications_active</mat-icon>Actions log
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content role="navigation">
+        <ng-content></ng-content>
+    </mat-sidenav-content>
 </mat-sidenav-container>

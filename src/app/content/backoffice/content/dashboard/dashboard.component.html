@@ -6,7 +6,7 @@
             [id]="'backlog'"
             #todoList="cdkDropList"
             [cdkDropListData]="todo"
-            [cdkDropListConnectedTo]="[inProgressList]"
+            [cdkDropListConnectedTo]="[progressList]"
             class="example-list"
             (cdkDropListDropped)="drop($event)"
         >
@@ -15,6 +15,7 @@
                 app-card
                 [card]="card"
                 (remove)="removeCard($event)"
+                (edit)="editCard($event)"
                 *ngFor="let card of todo"
                 cdkDrag
                 fxLayout="row"
@@ -22,7 +23,7 @@
             ></div>
         </div>
         <div>
-            <button mat-button>
+            <button mat-button (click)="addCard()">
                 <mat-icon>add</mat-icon>
             </button>
             <span> Add another card</span>
@@ -32,9 +33,9 @@
         <h3>In Progress</h3>
         <div
             cdkDropList
-            [id]="'inprogress'"
-            #inProgressList="cdkDropList"
-            [cdkDropListData]="inprogress"
+            [id]="'progress'"
+            #progressList="cdkDropList"
+            [cdkDropListData]="progress"
             [cdkDropListConnectedTo]="[qaList, doneList]"
             class="example-list"
             (cdkDropListDropped)="drop($event)"
@@ -44,7 +45,8 @@
                 app-card
                 [card]="card"
                 (remove)="removeCard($event)"
-                *ngFor="let card of inprogress"
+                (edit)="editCard($event)"
+                *ngFor="let card of progress"
                 cdkDrag
                 fxLayout="row"
                 fxLayoutAlign="space-between stretch"
@@ -67,6 +69,7 @@
                 app-card
                 [card]="card"
                 (remove)="removeCard($event)"
+                (edit)="editCard($event)"
                 *ngFor="let card of qa"
                 cdkDrag
                 fxLayout="row"
@@ -81,7 +84,7 @@
             #doneList="cdkDropList"
             [id]="'done'"
             [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList, qaList, inProgressList]"
+            [cdkDropListConnectedTo]="[todoList, qaList, progressList]"
             class="example-list"
             (cdkDropListDropped)="drop($event)"
         >
@@ -90,6 +93,7 @@
                 app-card
                 [card]="card"
                 (remove)="removeCard($event)"
+                (edit)="editCard($event)"
                 *ngFor="let card of done"
                 cdkDrag
                 fxLayout="row"

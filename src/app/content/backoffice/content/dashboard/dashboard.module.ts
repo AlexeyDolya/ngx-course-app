@@ -8,14 +8,17 @@ import { EffectsModule } from '@ngrx/effects';
 import { effectsArr } from './store/effects';
 import { dashboardReducer } from './store/reducers/dashboard.reducer';
 import { CardComponent } from './card/card.component';
+import { CardModalComponent } from './card-modal/card-modal.component';
 
 @NgModule({
-    declarations: [DashboardComponent, NgForGridDirective, CardComponent],
+    declarations: [DashboardComponent, NgForGridDirective, CardComponent, CardModalComponent],
     imports: [
         SharedModule,
         DashboardRoutingModule,
         StoreModule.forFeature('dashboard', dashboardReducer),
         EffectsModule.forFeature(effectsArr),
     ],
+    exports: [CardModalComponent],
+    entryComponents: [CardModalComponent],
 })
 export class DashboardModule {}
