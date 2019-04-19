@@ -1,4 +1,4 @@
-import { InterceptorService } from './interceptor.service';
+import { InterceptorService } from './shared/services/interceptor.service';
 import { AuthService } from './shared/services/auth.service';
 import { metaReducers } from './store/reducers/index';
 import { AuthGuardService } from './shared/services/auth-guard.service';
@@ -20,6 +20,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ModalModule } from './modal/modal.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -42,21 +43,9 @@ import { ModalModule } from './modal/modal.module';
             storageBucket: 'ngx-course.appspot.com',
             messagingSenderId: '881969052371',
         }),
+        SharedModule,
     ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: InterceptorService,
-            multi: true,
-        },
-        {
-            provide: BASE_URL_TOKEN,
-            useValue: environment.baseUrl,
-        },
-        AuthGuardService,
-        AuthService,
-        MessagingService,
-    ],
+    providers: [AuthGuardService, AuthService, MessagingService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

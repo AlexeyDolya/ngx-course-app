@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { HttpEvent, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { BASE_URL_TOKEN } from './config';
-import { AuthService } from './shared/services/auth.service';
+import { BASE_URL_TOKEN } from '../../config';
+import { AuthService } from './auth.service';
 
 export interface IRes {
     data: any;
@@ -18,9 +18,9 @@ export class InterceptorService implements HttpInterceptor {
     public intercept<T extends IRes>(req: HttpRequest<T>, next: HttpHandler): Observable<HttpResponse<T>> {
         return this._authService.getTokenFromLocalStorage().pipe(
             switchMap((accessToken: string) => {
-                const headers: HttpHeaders = req.headers.append('Content-Type', 'application/json');
+                let headers: HttpHeaders = req.headers.append('Content-Type', 'application/json');
                 if (req.url !== '/auth/signup' && req.url !== '/auth/signin') {
-                    headers.append('Authorization', `Bearer ${accessToken}`);
+                    headers = headers.append('Authorization', `Bearer ${accessToken}`);
                 }
                 const jsonReq: HttpRequest<T> = req.clone({
                     headers,
