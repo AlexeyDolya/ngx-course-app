@@ -26,6 +26,10 @@ export class AuthService {
         return of(user);
     }
 
+    public getTokenFromLocalStorage(): Observable<any> {
+        return of(localStorage.getItem('accessToken'));
+    }
+
     public removeFromLocalStorage(name: string): Observable<boolean> {
         localStorage.removeItem(name);
         return of(true);
