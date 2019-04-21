@@ -1,27 +1,4 @@
-import { CardStatus, ICard } from '../reducers/dashboard.reducer';
-
-const mockedCard: ICard[] = [
-    {
-        _id: '1',
-        description: 'Task 1 asd asd asda sda das das dasd ad asd asd asda dsasd asd asd asd asda sda sdasd asd',
-        status: CardStatus.BACKLOG,
-    },
-    {
-        _id: '2',
-        description: 'Task 2',
-        status: CardStatus.BACKLOG,
-    },
-    {
-        _id: '3',
-        description: 'Task 3',
-        status: CardStatus.BACKLOG,
-    },
-    {
-        _id: '4',
-        description: 'Task 4',
-        status: CardStatus.BACKLOG,
-    },
-];
+import { ICard } from '../reducers/dashboard.reducer';
 
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -41,9 +18,9 @@ import {
     GetBoardSuccess,
     REMOVE_CARD_PENDING,
     RemoveCardError,
-    RemoveCardPending,
     RemoveCardSuccess,
 } from '../actions/dashboard.action';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class BoardEffects {
@@ -51,7 +28,7 @@ export class BoardEffects {
     public getBoard$: Observable<Action> = this.actions$.pipe(
         ofType<any>(GET_BOARD_PENDING),
         switchMap(() =>
-            of(mockedCard).pipe(
+            this._http.get<ICard[]>(`/cards/all`).pipe(
                 mergeMap((cards: ICard[]) => {
                     return [new GetBoardSuccess(cards)];
                 }),
@@ -71,8 +48,8 @@ export class BoardEffects {
     public createCard$: Observable<Action> = this.actions$.pipe(
         ofType<any>(CREATE_CARD_PENDING),
         map((action: any) => action.payload),
-        switchMap((_c: ICard) =>
-            of({ ..._c, status: CardStatus.BACKLOG, _id: Date.now().toString() }).pipe(
+        switchMap((c: ICard) =>
+            this._http.post<ICard>(`/cards/create`, c).pipe(
                 mergeMap((card: ICard) => {
                     return [new CreateCardSuccess(card)];
                 }),
@@ -93,7 +70,7 @@ export class BoardEffects {
         ofType<any>(REMOVE_CARD_PENDING),
         map((action: any) => action.payload),
         switchMap((_c: ICard) =>
-            of(_c).pipe(
+            this._http.delete<ICard>(`/cards/by/${_c._id}`).pipe(
                 mergeMap((card: ICard) => {
                     return [new RemoveCardSuccess(card)];
                 }),
@@ -114,7 +91,7 @@ export class BoardEffects {
         ofType<any>(CHANGE_CARD_PENDING),
         map((action: any) => action.payload),
         switchMap((_c: ICard) =>
-            of(_c).pipe(
+            this._http.put<ICard>(`/cards/by/${_c._id}`, _c).pipe(
                 mergeMap((card: ICard) => {
                     return [new ChangeCardSuccess(card)];
                 }),
@@ -130,5 +107,5 @@ export class BoardEffects {
         )
     );
 
-    public constructor(private actions$: Actions<BoardActions>) {}
+    public constructor(private actions$: Actions<BoardActions>, private _http: HttpClient) {}
 }

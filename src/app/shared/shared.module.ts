@@ -20,6 +20,10 @@ import { UsernameValidatorDirective } from './directives/username-validator.dire
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './services/interceptor.service';
+import { BASE_URL_TOKEN } from '../config';
+import { environment } from '../../environments/environment';
 
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
@@ -62,6 +66,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         FlexLayoutModule,
         UsernameValidatorDirective,
         EqualValidatorDirective,
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorService,
+            multi: true,
+        },
+        {
+            provide: BASE_URL_TOKEN,
+            useValue: environment.baseUrl,
+        },
     ],
 })
 export class SharedModule {}

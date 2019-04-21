@@ -5,6 +5,14 @@ export interface IAuthState {
     loading: boolean;
 }
 
+export interface IUser {
+    accessToken: string;
+    createdAt: Date;
+    email: string;
+    username: string;
+    _id: string;
+}
+
 export const initialState: any = {
     username: '',
     email: '',

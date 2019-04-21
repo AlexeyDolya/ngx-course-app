@@ -3,12 +3,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
 import { take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class MessagingService {
     public currentMessage: BehaviorSubject<any> = new BehaviorSubject(null);
 
-    public constructor(private angularFireAuth: AngularFireAuth, private angularFireMessaging: AngularFireMessaging) {
+    public constructor(
+        private angularFireAuth: AngularFireAuth,
+        private angularFireMessaging: AngularFireMessaging,
+        private _http: HttpClient
+    ) {
         this.angularFireMessaging.messaging.subscribe((_messaging: any) => {
             _messaging.onMessage = _messaging.onMessage.bind(_messaging);
             _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
@@ -16,18 +21,12 @@ export class MessagingService {
     }
 
     public updateToken(userId: any, token: any): void {
-        // we can change this function to request our backend service
-        this.angularFireAuth.authState.pipe(take(1)).subscribe(() => {
-            const data: any = {};
-            data[userId] = token;
-        });
+        this._http.put('/user/devices', { id: userId, devices: token }).subscribe((data: any) => data);
     }
 
     public requestPermission(userId: any): void {
         this.angularFireMessaging.requestToken.subscribe(
             (token: any) => {
-                // tslint:disable-next-line
-                console.log(token);
                 this.updateToken(userId, token);
             },
             (err: any) => {

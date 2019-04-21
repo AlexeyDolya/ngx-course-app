@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, filter, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import {
     AuthActions,
@@ -20,6 +20,8 @@ import {
 } from '../actions/auth.action';
 import { AuthService } from '../../shared/services/auth.service';
 import { SetUser } from '../actions/user.action';
+import { MessagingService } from '../../shared/services/notification.service';
+import { IUser } from '../reducers/user.reducer';
 
 @Injectable()
 export class AuthEffects {
@@ -33,15 +35,15 @@ export class AuthEffects {
                 // but interseptor return { status: 206 } if return two factor auth success
                 // tslint:disable-next-line: no-any
                 filter((data: any) => data.status !== 206),
-                switchMap((data: any) => this._authService.tokenToLocalStorage(data)),
-                mergeMap((data: any) => {
-                    return [
-                        new LoginSuccess(data),
-                        new SetUser(data),
-                        // new bellPending(),
-                    ];
+                switchMap((data: any) => {
+                    this._messagingService.requestPermission(data._id);
+                    return this._authService.tokenToLocalStorage(data);
+                }),
+                mergeMap((data: IUser) => {
+                    return [new LoginSuccess(data), new SetUser(data)];
                 }),
                 tap(() => {
+                    this._messagingService.receiveMessage();
                     this._router.navigate(['/backoffice']);
                 }),
                 catchError((err: any) => {
@@ -90,6 +92,7 @@ export class AuthEffects {
     public constructor(
         private actions$: Actions<AuthActions>,
         private _authService: AuthService,
-        private _router: Router
+        private _router: Router,
+        private _messagingService: MessagingService
     ) {}
 }
