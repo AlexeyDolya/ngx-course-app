@@ -31,19 +31,19 @@ export class AuthEffects {
         map((action: Login) => action.payload),
         switchMap((user: any) =>
             this._authService.login(user).pipe(
-                // TODO check, _authService returns User type,
-                // but interseptor return { status: 206 } if return two factor auth success
                 // tslint:disable-next-line: no-any
-                filter((data: any) => data.status !== 206),
+                // filter((data: any) => data.status !== 206),
                 switchMap((data: any) => {
-                    this._messagingService.requestPermission(data._id);
+                    return this._messagingService.requestPermission(data._id);
+                }),
+                switchMap((data: any) => {
                     return this._authService.tokenToLocalStorage(data);
                 }),
                 mergeMap((data: IUser) => {
-                    return [new LoginSuccess(data), new SetUser(data)];
+                    return [new LoginSuccess(data), new SetUser(data), new ConnectToNotify()];
                 }),
                 tap(() => {
-                    this._messagingService.receiveMessage();
+                    // this._messagingService.receiveMessage();
                     this._router.navigate(['/backoffice']);
                 }),
                 catchError((err: any) => {
