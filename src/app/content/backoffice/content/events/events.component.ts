@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { EntityState } from '@ngrx/entity';
+import { getUnread, INotify } from '../../../../store/reducers/notify.reducer';
+import { GetNotifyPending } from '../../../../store/actions/notify.actions';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 export interface IPeriodicElement {
     name: string;
@@ -25,14 +31,26 @@ const ELEMENT_DATA: IPeriodicElement[] = [
     templateUrl: './events.component.html',
     styleUrls: ['./events.component.scss'],
 })
-export class EventsComponent {
+export class EventsComponent implements OnInit, OnDestroy {
     public searchText: string = '';
     public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
     public dataSource: IPeriodicElement[] = ELEMENT_DATA;
+
+    private _controlUnsubscribe$$: Subject<boolean> = new Subject();
+
+    public constructor(private _store: Store<EntityState<INotify>>) {}
 
     public applyFilter(event: KeyboardEvent): void {
         const inputEl: HTMLInputElement = event.target as HTMLInputElement;
         this.searchText = inputEl.value;
         //  this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    public ngOnInit(): void {
+        this._store.dispatch(new GetNotifyPending());
+    }
+
+    public ngOnDestroy(): void {
+        this._controlUnsubscribe$$.next(true);
     }
 }

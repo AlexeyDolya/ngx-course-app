@@ -19,20 +19,21 @@ export class MessagingService {
         });
     }
 
+    public getEvents(): Observable<any> {
+        return this._http.get('/notification');
+    }
+
     public updateToken(userId: string, token: string | null): Observable<any> {
         return this._http.put('/user/devices', { id: userId, devices: token });
     }
 
     public requestPermission(userId: string): Observable<any> {
-        this.angularFireMessaging.requestToken.pipe(
+        return this.angularFireMessaging.requestToken.pipe(
             switchMap((token: string | null) => this.updateToken(userId, token))
         );
     }
 
     public receiveMessage(): Observable<any> {
         return this.angularFireMessaging.messages;
-        //  .subscribe((payload: any) => {
-        //     new Notification(payload.notification.title, { body: payload.notification.body });
-        // });
     }
 }
