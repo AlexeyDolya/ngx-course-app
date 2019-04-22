@@ -1,4 +1,3 @@
-import { InterceptorService } from './shared/services/interceptor.service';
 import { AuthService } from './shared/services/auth.service';
 import { metaReducers } from './store/reducers/index';
 import { AuthGuardService } from './shared/services/auth-guard.service';
@@ -7,14 +6,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { reducers } from './store/reducers';
 import { effectsArr } from './store/effects';
 import { EffectsModule } from '@ngrx/effects';
-import { BASE_URL_TOKEN } from './config';
 import { MessagingService } from './shared/services/notification.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
@@ -35,14 +33,7 @@ import { SharedModule } from './shared/shared.module';
         ModalModule.forRoot(),
         AngularFireAuthModule,
         AngularFireMessagingModule,
-        AngularFireModule.initializeApp({
-            apiKey: 'AIzaSyC9fggBzxM_9CXgdi82ZecI-Wu5NcOkNgg',
-            authDomain: 'ngx-course.firebaseapp.com',
-            databaseURL: 'https://ngx-course.firebaseio.com',
-            projectId: 'ngx-course',
-            storageBucket: 'ngx-course.appspot.com',
-            messagingSenderId: '881969052371',
-        }),
+        AngularFireModule.initializeApp(environment.fcmOptions),
         SharedModule,
     ],
     providers: [AuthGuardService, AuthService, MessagingService],

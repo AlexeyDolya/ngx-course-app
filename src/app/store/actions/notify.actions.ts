@@ -38,7 +38,6 @@ export class GetNotifyError implements Action {
     public constructor(public payload: Error) {}
 }
 
-
 export type NotifyActions =
     | ConnectNotifyChanel
     | FailedConnectNotifyChanel

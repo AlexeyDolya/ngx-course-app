@@ -8,7 +8,7 @@ export interface IUser {
     _id: string;
 }
 
-export const initialState: any = {
+export const initialState: IUser = {
     username: '',
     email: '',
     accessToken: '',

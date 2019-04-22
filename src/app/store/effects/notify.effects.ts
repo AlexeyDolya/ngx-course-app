@@ -5,10 +5,14 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { MessagingService } from '../../shared/services/notification.service';
 import {
-  CONNECT_NOTIFY_CHANEL, ConnectNotifyChanel,
-  FailedConnectNotifyChanel,
-  GET_NOTIFY_PENDING, GetNotifyError, GetNotifyPending, GetNotifySuccess,
-  NotifyActions,
+    CONNECT_NOTIFY_CHANEL,
+    ConnectNotifyChanel,
+    FailedConnectNotifyChanel,
+    GET_NOTIFY_PENDING,
+    GetNotifyError,
+    GetNotifyPending,
+    GetNotifySuccess,
+    NotifyActions,
 } from '../actions/notify.actions';
 import { INotify } from '../reducers/notify.reducer';
 
@@ -22,9 +26,9 @@ export class NotifyEffect {
                 tap((payload: any) => {
                     new Notification(payload.notification.title, { body: payload.notification.body });
                 }),
-              mergeMap(() => {
-                return [new GetNotifyPending(), new ConnectNotifyChanel()];
-              }),
+                mergeMap(() => {
+                    return [new GetNotifyPending(), new ConnectNotifyChanel()];
+                }),
                 catchError((err: any) => {
                     // tslint:disable-next-line
                     console.log(err);
@@ -42,7 +46,7 @@ export class NotifyEffect {
         ofType<any>(GET_NOTIFY_PENDING),
         switchMap(() =>
             this._messagingService.getEvents().pipe(
-              map((events: INotify[]) => {
+                map((events: INotify[]) => {
                     return new GetNotifySuccess(events);
                 }),
                 catchError((err: any) => {
