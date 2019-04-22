@@ -22,6 +22,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { SetUser } from '../actions/user.action';
 import { MessagingService } from '../../shared/services/notification.service';
 import { IUser } from '../reducers/user.reducer';
+import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions';
 
 @Injectable()
 export class AuthEffects {
@@ -29,21 +30,24 @@ export class AuthEffects {
     public login$: Observable<Action> = this.actions$.pipe(
         ofType<any>(LOGIN),
         map((action: Login) => action.payload),
-        switchMap((user: any) =>
+        switchMap((user: IUser) =>
             this._authService.login(user).pipe(
-                // TODO check, _authService returns User type,
-                // but interseptor return { status: 206 } if return two factor auth success
-                // tslint:disable-next-line: no-any
-                filter((data: any) => data.status !== 206),
-                switchMap((data: any) => {
-                    this._messagingService.requestPermission(data._id);
+                switchMap((data: IUser) => {
+                    return this._messagingService.requestPermission(data._id);
+                }),
+                switchMap((data: IUser) => {
                     return this._authService.tokenToLocalStorage(data);
                 }),
                 mergeMap((data: IUser) => {
-                    return [new LoginSuccess(data), new SetUser(data)];
+                    return [
+                        new LoginSuccess(data),
+                        new SetUser(data),
+                        new ConnectNotifyChanel(),
+                        new GetNotifyPending(),
+                    ];
                 }),
                 tap(() => {
-                    this._messagingService.receiveMessage();
+                    // this._messagingService.receiveMessage();
                     this._router.navigate(['/backoffice']);
                 }),
                 catchError((err: any) => {

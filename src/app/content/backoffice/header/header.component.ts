@@ -1,20 +1,32 @@
 import { Logout } from './../../../store/actions/auth.action';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IRootState } from './../../../../../src/app/store/reducers';
+import { getUnread } from '../../../store/reducers/notify.reducer';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.sass'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
     @Input()
     public drawer: any;
+    private counter: number = 0;
+    private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
     public constructor(private _store: Store<IRootState>) {}
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+        this._store
+            .select(getUnread())
+            .pipe(takeUntil(this._controlUnsubscribe$$))
+            .subscribe((counter: number) => {
+                this.counter = counter;
+            });
+    }
 
     public logout(): void {
         this._store.dispatch(new Logout());
@@ -22,5 +34,8 @@ export class HeaderComponent implements OnInit {
 
     public toggleSideBar(): void {
         this.drawer.toggle();
+    }
+    public ngOnDestroy(): void {
+        this._controlUnsubscribe$$.next(true);
     }
 }
