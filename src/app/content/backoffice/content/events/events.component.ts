@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
-import { getUnread, INotify } from '../../../../store/reducers/notify.reducer';
+import { INotify, selectAll } from '../../../../store/reducers/notify.reducer';
 import { GetNotifyPending } from '../../../../store/actions/notify.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
@@ -33,8 +33,8 @@ const ELEMENT_DATA: IPeriodicElement[] = [
 })
 export class EventsComponent implements OnInit, OnDestroy {
     public searchText: string = '';
-    public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-    public dataSource: IPeriodicElement[] = ELEMENT_DATA;
+    public displayedColumns: string[] = ['status', 'title', 'text', 'author', 'date'];
+    public dataSource: INotify[] = [];
 
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
@@ -48,6 +48,12 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this._store.dispatch(new GetNotifyPending());
+        this._store
+            .select(selectAll)
+            .pipe(takeUntil(this._controlUnsubscribe$$))
+            .subscribe((dataSource: INotify[]) => {
+                this.dataSource = dataSource;
+            });
     }
 
     public ngOnDestroy(): void {

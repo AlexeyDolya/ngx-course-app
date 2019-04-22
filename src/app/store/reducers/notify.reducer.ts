@@ -3,16 +3,16 @@ import { GetNotifySuccess, NotifyActions } from '../actions/notify.actions';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 
 export interface INotify {
-    _id: string;
+    status: boolean;
     title: string;
     text: string;
-    users: any;
-    dateSend: Date;
     author?: string;
+    dateSend: Date;
+    _id: string;
 }
 
 export const adapter: EntityAdapter<INotify> = createEntityAdapter({
-  selectId: (notify: INotify) => notify._id,
+    selectId: (notify: INotify) => notify._id,
 });
 
 const initialState: EntityState<INotify> = adapter.getInitialState([]);
@@ -30,7 +30,7 @@ export function getUnread(): MemoizedSelector<any, any> {
     return createSelector(
         selectAll,
         (notifys: INotify[]) => {
-            return notifys.filter((notify: INotify) => notify.users.status).length;
+            return notifys.filter((notify: INotify) => notify.status).length;
         }
     );
 }
