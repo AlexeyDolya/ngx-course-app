@@ -1,11 +1,19 @@
 import { SET_USER } from '../actions/user.action';
 
+export type IAdress = {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+};
+
 export interface IUser {
     accessToken: string;
     createdAt: Date;
     email: string;
     username: string;
     _id: string;
+    adress?:  IAdress[];
 }
 
 export const initialState: IUser = {
@@ -14,6 +22,7 @@ export const initialState: IUser = {
     accessToken: '',
     createdAt: new Date(),
     _id: '',
+    adress: [],
 };
 
 // tslint:disable-next-line: no-any
