@@ -25,6 +25,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
 import { environment } from '../../environments/environment';
 
+
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
     imports: [

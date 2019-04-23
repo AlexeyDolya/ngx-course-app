@@ -2,7 +2,13 @@
     <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
         <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
         <td mat-cell *matCellDef="let element" (click)="handleClick(element['_id'], element['status'])">
-            {{ column !== 'status' ? element[column] : element[column] === true ? '✅' : '' }}
+            <ng-container [ngSwitch]="column">
+                <ng-container *ngSwitchCase="'status'">
+                    <ng-container *ngIf="element[column] === false; else unreadLabel"></ng-container>
+                    <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
+                </ng-container>
+                <ng-container *ngSwitchDefault>{{ element[column] }}</ng-container>
+            </ng-container>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
