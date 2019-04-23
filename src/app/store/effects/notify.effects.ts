@@ -53,9 +53,6 @@ export class NotifyEffect {
                 catchError((err: any) => {
                     // tslint:disable-next-line
                     console.log(err);
-                    if (err.status !== 402) {
-                        alert('Can not get notification list');
-                    }
                     return of(new GetNotifyError(err));
                 })
             )

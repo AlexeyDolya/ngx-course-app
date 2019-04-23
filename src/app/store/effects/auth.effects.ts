@@ -10,6 +10,7 @@ import {
     LOGIN,
     LoginFail,
     LoginSuccess,
+    Logout,
     LOGOUT,
     LogoutFail,
     LogoutSuccess,
@@ -53,9 +54,6 @@ export class AuthEffects {
                 catchError((err: any) => {
                     // tslint:disable-next-line
                     console.log(err);
-                    if (err.status !== 402) {
-                        alert('Invalid username or password');
-                    }
                     return of(new LoginFail(err));
                 })
             )
@@ -73,7 +71,6 @@ export class AuthEffects {
                     this._router.navigate(['/backoffice']);
                 }),
                 catchError((err: Error) => {
-                    alert('Invalid username or email already exists');
                     return of(new SignUpFail(err));
                 })
             )
@@ -99,18 +96,12 @@ export class AuthEffects {
         mergeMap(() => this._authService.getTokenFromLocalStorage()),
         switchMap((token: string | null) => this._authService.checkUser(token)),
         mergeMap((user: IUser) => {
-             return [new SetUser(user),
-            new ConnectNotifyChanel(),
-            new GetNotifyPending(),
-            ];
+            return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
         }),
         catchError((err: any) => {
             // tslint:disable-next-line
             console.log(err);
-            if (err.status !== 402) {
-                alert('Loged out');
-            }
-            return of(new LoginFail(err));
+            return of(new Logout());
         })
     );
 
@@ -119,5 +110,5 @@ export class AuthEffects {
         private _authService: AuthService,
         private _router: Router,
         private _messagingService: MessagingService
-    ) { }
+    ) {}
 }
