@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Actions, Effect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
@@ -93,10 +93,31 @@ export class AuthEffects {
         })
     );
 
+    @Effect()
+    public init$: Observable<any> = this.actions$.pipe(
+        ofType(ROOT_EFFECTS_INIT),
+        mergeMap(() => this._authService.getTokenFromLocalStorage()),
+        switchMap((token: string | null) => this._authService.checkUser(token)),
+        mergeMap((user: IUser) => {
+             return [new SetUser(user),
+            new ConnectNotifyChanel(),
+            new GetNotifyPending(),
+            ];
+        }),
+        catchError((err: any) => {
+            // tslint:disable-next-line
+            console.log(err);
+            if (err.status !== 402) {
+                alert('Loged out');
+            }
+            return of(new LoginFail(err));
+        })
+    );
+
     public constructor(
         private actions$: Actions<AuthActions>,
         private _authService: AuthService,
         private _router: Router,
         private _messagingService: MessagingService
-    ) {}
+    ) { }
 }

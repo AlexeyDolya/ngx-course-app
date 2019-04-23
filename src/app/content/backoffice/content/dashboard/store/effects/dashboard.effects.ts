@@ -36,7 +36,7 @@ export class BoardEffects {
                     // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
-                        alert('Invalid username or password');
+                        alert('Can not get board');
                     }
                     return of(new GetBoardError(err));
                 })
@@ -57,7 +57,7 @@ export class BoardEffects {
                     // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
-                        alert('Invalid username or password');
+                        alert('Can not create card');
                     }
                     return of(new CreateCardError(err));
                 })
@@ -78,7 +78,7 @@ export class BoardEffects {
                     // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
-                        alert('Invalid username or password');
+                        alert('Can not remove card');
                     }
                     return of(new RemoveCardError(err));
                 })
@@ -99,7 +99,7 @@ export class BoardEffects {
                     // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
-                        alert('Invalid username or password');
+                        alert('Can not change card');
                     }
                     return of(new ChangeCardError(err));
                 })

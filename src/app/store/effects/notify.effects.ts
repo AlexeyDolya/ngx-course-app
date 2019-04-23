@@ -36,9 +36,6 @@ export class NotifyEffect {
                 catchError((err: any) => {
                     // tslint:disable-next-line
                     console.log(err);
-                    if (err.status !== 402) {
-                        alert('Invalid username or password');
-                    }
                     return of(new FailedConnectNotifyChanel(err));
                 })
             )
@@ -57,7 +54,7 @@ export class NotifyEffect {
                     // tslint:disable-next-line
                     console.log(err);
                     if (err.status !== 402) {
-                        alert('Invalid username or password');
+                        alert('Can not get notification list');
                     }
                     return of(new GetNotifyError(err));
                 })
