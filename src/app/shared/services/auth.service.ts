@@ -18,6 +18,10 @@ export class AuthService {
         return this._http.post(`/auth/signup`, { ...user });
     }
 
+    public checkUser(token: string | null): Observable<any> {
+        return this._http.post(`/auth/checkuser`, { token });
+    }
+
     public tokenToLocalStorage(user: any): Observable<any> {
         if (!user || !user.accessToken) {
             return of(null);
