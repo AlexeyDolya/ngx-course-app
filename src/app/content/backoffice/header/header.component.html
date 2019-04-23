@@ -4,11 +4,10 @@
   </button>
   <h3>Team Board</h3>
   <span class="fill-remaining-space"></span>
-  <p>
+  <button mat-icon-button    [routerLink]="['events']">
     <mat-icon
-      [routerLink]="['events']"
       matBadge='{{counter}}' [matBadgeHidden]="!counter"    matBadgeColor="warn">notifications</mat-icon>
-  </p>
+  </button>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>
   </button>
