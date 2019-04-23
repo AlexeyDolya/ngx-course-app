@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { GetNotifySuccess, NotifyActions } from '../actions/notify.actions';
+import { ChangeEventStatusSuccess, GetNotifySuccess, NotifyActions } from '../actions/notify.actions';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 
 export interface INotify {
@@ -20,6 +20,9 @@ const initialState: EntityState<INotify> = adapter.getInitialState([]);
 export function notifyReducer(state: EntityState<INotify> = initialState, action: NotifyActions): EntityState<INotify> {
     if (action instanceof GetNotifySuccess) {
         return adapter.upsertMany(action.payload, state);
+    }
+    if (action instanceof ChangeEventStatusSuccess) {
+        return adapter.upsertOne(action.payload, state);
     }
     return state;
 }

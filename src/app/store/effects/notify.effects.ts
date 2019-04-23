@@ -5,16 +5,18 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { MessagingService } from '../../shared/services/notification.service';
 import {
-    CONNECT_NOTIFY_CHANEL,
-    ConnectNotifyChanel,
-    FailedConnectNotifyChanel,
-    GET_NOTIFY_PENDING,
-    GetNotifyError,
-    GetNotifyPending,
-    GetNotifySuccess,
-    NotifyActions,
+  CHANGE_NOTIFY_STATUS, ChangeEventStatusError, ChangeEventStatusSuccess,
+  CONNECT_NOTIFY_CHANEL,
+  ConnectNotifyChanel,
+  FailedConnectNotifyChanel,
+  GET_NOTIFY_PENDING,
+  GetNotifyError,
+  GetNotifyPending,
+  GetNotifySuccess,
+  NotifyActions,
 } from '../actions/notify.actions';
 import { INotify } from '../reducers/notify.reducer';
+import { Login } from '../actions/auth.action';
 
 @Injectable()
 export class NotifyEffect {
@@ -56,6 +58,22 @@ export class NotifyEffect {
                         alert('Invalid username or password');
                     }
                     return of(new GetNotifyError(err));
+                })
+            )
+        )
+    );
+
+    @Effect()
+    public changeEventsStatus$: Observable<Action> = this.actions$.pipe(
+        ofType<any>(CHANGE_NOTIFY_STATUS),
+        map((action: Login) => action.payload),
+        switchMap((id: string) =>
+            this._messagingService.changeStatus(id).pipe(
+                map((event: INotify) => {
+                    return new ChangeEventStatusSuccess(event);
+                }),
+                catchError((err: any) => {
+                    return of(new ChangeEventStatusError(err));
                 })
             )
         )

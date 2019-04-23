@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
 import { INotify, selectAll } from '../../../../store/reducers/notify.reducer';
-import { GetNotifyPending } from '../../../../store/actions/notify.actions';
+import { ChangeEventStatus, GetNotifyPending } from '../../../../store/actions/notify.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
@@ -30,7 +30,6 @@ export class EventsComponent implements OnInit, OnDestroy {
     public applyFilter(event: KeyboardEvent): void {
         const inputEl: HTMLInputElement = event.target as HTMLInputElement;
         this.searchText = inputEl.value;
-        //  this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
     public ngOnInit(): void {
@@ -41,6 +40,10 @@ export class EventsComponent implements OnInit, OnDestroy {
             .subscribe((dataSource: INotify[]) => {
                 this.dataSource = dataSource;
             });
+    }
+
+    public changeStatus(_id: string): void {
+        this._store.dispatch(new ChangeEventStatus(_id));
     }
 
     public ngOnDestroy(): void {

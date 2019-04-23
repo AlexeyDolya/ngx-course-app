@@ -7,10 +7,7 @@ import { switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class MessagingService {
-    public constructor(
-        private angularFireMessaging: AngularFireMessaging,
-        private _http: HttpClient
-    ) {
+    public constructor(private angularFireMessaging: AngularFireMessaging, private _http: HttpClient) {
         this.angularFireMessaging.messaging.subscribe((_messaging: messaging.Messaging) => {
             _messaging.onMessage = _messaging.onMessage.bind(_messaging);
             _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
@@ -18,7 +15,11 @@ export class MessagingService {
     }
 
     public getEvents(): Observable<any> {
-        return this._http.get('/notification');
+        return this._http.get('/notification/getAll');
+    }
+
+    public changeStatus(_id: string): Observable<any> {
+        return this._http.put('/notification/updateStatus', { _id });
     }
 
     public updateToken(userId: string, token: string | null): Observable<any> {

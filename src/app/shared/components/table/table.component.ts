@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-table',
@@ -11,4 +11,13 @@ export class TableComponent {
 
     @Input()
     public dataSource: any;
+
+    @Output()
+    public eventId: EventEmitter<string> = new EventEmitter<string>();
+
+    public handleClick(_id: string, status: boolean): void {
+        if (status) {
+            this.eventId.emit(_id);
+        }
+    }
 }

@@ -1,4 +1,8 @@
 <mat-form-field>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
 </mat-form-field>
-<app-table [dataSource]="dataSource | eventsFilter:searchText" [displayedColumns]="displayedColumns"></app-table>
+<app-table
+    [dataSource]="dataSource | eventsFilter: searchText"
+    [displayedColumns]="displayedColumns"
+    (eventId)="changeStatus($event)"
+></app-table>
