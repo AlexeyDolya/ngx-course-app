@@ -1,6 +1,8 @@
 import { SET_USER } from '../actions/user.action';
 
 export interface IUser {
+    name: string;
+    surname: string;
     accessToken: string;
     createdAt: Date;
     email: string;
@@ -9,6 +11,8 @@ export interface IUser {
 }
 
 export const initialState: IUser = {
+    name: 'qwe',
+    surname: 'qwe',
     username: '',
     email: '',
     accessToken: '',

@@ -24,10 +24,12 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
 import { environment } from '../../environments/environment';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
     imports: [
+        ReactiveFormsModule,
         CommonModule,
         MatSidenavModule,
         MatFormFieldModule,
@@ -45,6 +47,7 @@ import { environment } from '../../environments/environment';
         MatCardModule,
     ],
     exports: [
+        ReactiveFormsModule,
         CommonModule,
         TableComponent,
         MatSidenavModule,
