@@ -1,6 +1,5 @@
 <mat-toolbar color="primary">
   <button mat-button (click)="toggleSideBar()">
-    <!-- <mat-icon matListIcon (click)="drawer.toggle()">view_headline</mat-icon> -->
     <mat-icon matListIcon>view_headline</mat-icon>
   </button>
   <h3>Team Board</h3>
@@ -8,7 +7,7 @@
   <p>
     <mat-icon
       [routerLink]="['events']"
-      matBadge='{{counter}}' matBadgeColor="warn">notifications</mat-icon>
+      matBadge='{{counter}}' [matBadgeHidden]="!counter"    matBadgeColor="warn">notifications</mat-icon>
   </p>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>

@@ -5,15 +5,17 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { MessagingService } from '../../shared/services/notification.service';
 import {
-  CHANGE_NOTIFY_STATUS, ChangeEventStatusError, ChangeEventStatusSuccess,
-  CONNECT_NOTIFY_CHANEL,
-  ConnectNotifyChanel,
-  FailedConnectNotifyChanel,
-  GET_NOTIFY_PENDING,
-  GetNotifyError,
-  GetNotifyPending,
-  GetNotifySuccess,
-  NotifyActions,
+    CHANGE_NOTIFY_STATUS,
+    ChangeEventStatusError,
+    ChangeEventStatusSuccess,
+    CONNECT_NOTIFY_CHANEL,
+    ConnectNotifyChanel,
+    FailedConnectNotifyChanel,
+    GET_NOTIFY_PENDING,
+    GetNotifyError,
+    GetNotifyPending,
+    GetNotifySuccess,
+    NotifyActions,
 } from '../actions/notify.actions';
 import { INotify } from '../reducers/notify.reducer';
 import { Login } from '../actions/auth.action';
