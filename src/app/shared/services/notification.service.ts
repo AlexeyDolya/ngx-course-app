@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { messaging } from 'firebase';
 import { switchMap } from 'rxjs/operators';
@@ -9,7 +8,6 @@ import { switchMap } from 'rxjs/operators';
 @Injectable()
 export class MessagingService {
     public constructor(
-        private angularFireAuth: AngularFireAuth,
         private angularFireMessaging: AngularFireMessaging,
         private _http: HttpClient
     ) {

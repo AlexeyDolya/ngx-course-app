@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterAnimation, routerTransition } from '../../../../src/app/shared/animations/router.animation';
-import { MessagingService } from '../../shared/services/notification.service';
 
 @Component({
     selector: 'app-backoffice',

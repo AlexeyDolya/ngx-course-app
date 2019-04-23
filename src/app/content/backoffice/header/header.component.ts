@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
     @Input()
     public drawer: any;
-    private counter: number = 0;
+    public counter: number = 0;
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
     public constructor(private _store: Store<IRootState>) {}

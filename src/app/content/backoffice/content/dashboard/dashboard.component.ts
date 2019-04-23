@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Injector, OnDestroy, OnInit } from '@angular/core';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import { CardStatus, filteredByStatusCards, ICard } from './store/reducers/dashboard.reducer';
 import { ChangeCardPending, GetBoardPending, RemoveCardPending } from './store/actions/dashboard.action';
