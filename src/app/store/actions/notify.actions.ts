@@ -2,62 +2,62 @@
 import { Action } from '@ngrx/store';
 import { INotify } from '../reducers/notify.reducer';
 
-export const CONNECT_NOTIFY_CHANEL: string = '[FCM] CONNECT_NOTIFY_CHANEL';
-export const FAILD_CONNECT_NOTIFY_CHANEL: string = '[FCM] FAILD_CONNECT_NOTIFY_CHANEL';
-
-export const GET_NOTIFY_PENDING: string = '[Notify] GET_NOTIFY_PENDING';
-export const GET_NOTIFY_SUCCESS: string = '[Notify] GET_NOTIFY_SUCCESS';
-export const GET_NOTIFY_ERROR: string = '[Notify] GET_NOTIFY_ERROR';
-
-export const CHANGE_NOTIFY_STATUS: string = '[Notify] CHANGE_NOTIFY_STATUS';
-export const CHANGE_NOTIFY_STATUS_SUCCESS: string = '[Notify] CHANGE_NOTIFY_STATUS_SUCCESS';
-export const CHANGE_NOTIFY_STATUS_ERROR: string = '[Notify] CHANGE_NOTIFY_STATUS_ERROR';
+export enum NotifyActions {
+    CONNECT_NOTIFY_CHANEL = '[FCM] CONNECT_NOTIFY_CHANEL',
+    FAILD_CONNECT_NOTIFY_CHANEL = '[FCM] FAILD_CONNECT_NOTIFY_CHANEL',
+    GET_NOTIFY_PENDING = '[Notify] GET_NOTIFY_PENDING',
+    GET_NOTIFY_SUCCESS = '[Notify] GET_NOTIFY_SUCCESS',
+    GET_NOTIFY_ERROR = '[Notify] GET_NOTIFY_ERROR',
+    CHANGE_NOTIFY_STATUS = '[Notify] CHANGE_NOTIFY_STATUS',
+    CHANGE_NOTIFY_STATUS_SUCCESS = '[Notify] CHANGE_NOTIFY_STATUS_SUCCESS',
+    CHANGE_NOTIFY_STATUS_ERROR = '[Notify] CHANGE_NOTIFY_STATUS_ERROR',
+}
 
 // tslint:disable-next-line: max-classes-per-file
 export class ConnectNotifyChanel implements Action {
-    public readonly type: string = CONNECT_NOTIFY_CHANEL;
+    public readonly type: string = NotifyActions.CONNECT_NOTIFY_CHANEL;
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class FailedConnectNotifyChanel implements Action {
-    public readonly type: string = FAILD_CONNECT_NOTIFY_CHANEL;
+    public readonly type: string = NotifyActions.FAILD_CONNECT_NOTIFY_CHANEL;
     public constructor(public payload: Error) {}
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class GetNotifyPending implements Action {
-    public readonly type: string = GET_NOTIFY_PENDING;
+    public readonly type: string = NotifyActions.GET_NOTIFY_PENDING;
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class GetNotifySuccess implements Action {
-    public readonly type: string = GET_NOTIFY_SUCCESS;
+    public readonly type: string = NotifyActions.GET_NOTIFY_SUCCESS;
 
     public constructor(public payload: any[]) {}
 }
 
 // tslint:disable-next-line: max-classes-per-file
 export class GetNotifyError implements Action {
-    public readonly type: string = GET_NOTIFY_ERROR;
+    public readonly type: string = NotifyActions.GET_NOTIFY_ERROR;
     public constructor(public payload: Error) {}
 }
 
 export class ChangeEventStatus implements Action {
-    public readonly type: string = CHANGE_NOTIFY_STATUS;
+    public readonly type: string = NotifyActions.CHANGE_NOTIFY_STATUS;
     public constructor(public payload: string) {}
 }
 
 export class ChangeEventStatusSuccess implements Action {
-    public readonly type: string = CHANGE_NOTIFY_STATUS_SUCCESS;
+    public readonly type: string = NotifyActions.CHANGE_NOTIFY_STATUS_SUCCESS;
     public constructor(public payload: INotify) {}
 }
 
 export class ChangeEventStatusError implements Action {
-    public readonly type: string = CHANGE_NOTIFY_STATUS_ERROR;
+    public readonly type: string = NotifyActions.CHANGE_NOTIFY_STATUS_ERROR;
     public constructor(public payload: Error) {}
 }
 
-export type NotifyActions =
+export type NotifyActionsTypes =
     | ChangeEventStatusSuccess
     | ChangeEventStatusError
     | ChangeEventStatus

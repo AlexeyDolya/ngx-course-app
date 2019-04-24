@@ -1,4 +1,4 @@
-import { EDIT_USER_SUCCESS, SET_USER } from '../actions/user.action';
+import { UserActions } from '../actions/user.action';
 
 export type IAdress = {
     street: string;
@@ -32,13 +32,13 @@ export const initialState: IUser = {
 // tslint:disable-next-line: no-any
 export function userReducer(state: IUser = initialState, action: any): IUser {
     switch (action.type) {
-        case SET_USER: {
+        case UserActions.SET_USER: {
             return {
                 ...state,
                 ...action.payload,
             };
         }
-        case EDIT_USER_SUCCESS: {
+        case UserActions.EDIT_USER_SUCCESS: {
             return {
                 ...state,
                 ...action.payload,
