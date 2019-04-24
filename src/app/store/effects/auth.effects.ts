@@ -19,9 +19,9 @@ import {
     SignUpFail,
     SignUpSuccess,
 } from '../actions/auth.action';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '@shared/services/auth.service';
 import { SetUser } from '../actions/user.action';
-import { MessagingService } from '../../shared/services/notification.service';
+import { MessagingService } from '@shared/services/notification.service';
 import { IUser } from '../reducers/user.reducer';
 import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions';
 

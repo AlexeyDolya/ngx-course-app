@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '@shared/services/auth.service';
 import {
     EDIT_USER_PENDING,
     EdittUserFail,

@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
-import { MessagingService } from '../../shared/services/notification.service';
+import { MessagingService } from '@shared/services/notification.service';
 import {
     CHANGE_NOTIFY_STATUS,
     ChangeEventStatusError,
