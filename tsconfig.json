@@ -80,5 +80,8 @@
     "emitDecoratorMetadata": true,
     /* Enables experimental support for emitting type metadata for decorators. */
     "skipLibCheck": true
+  },
+  "angularCompilerOptions": {
+    "enableIvy": "ngtsc"
   }
 }
