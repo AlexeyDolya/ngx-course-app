@@ -1,45 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-evenly stretch " class="user-info">
-  <div fxFlex="50%"  class="user-info_card">
-    <span>Info</span>
-    <mat-card>
-      <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
-        <div fxFlex="50%">
-          <mat-form-field fxFlex="50%">
-            <mat-label>Name</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </div>
-        <div fxFlex="50%">
-          <mat-form-field fxFlex="50%">
-            <mat-label>Surname</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div fxFlex="50%"  class="user-info_card">
-    <span>Change password</span>
-    <mat-card>
-      <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
-        <div fxFlex="100%">
-          <mat-form-field>
-            <mat-label>Old password</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </div>
-        <div fxFlex="100%">
-          <mat-form-field>
-            <mat-label>New password</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Repeat new password</mat-label>
-            <input matInput>
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
+    <app-initials fxFlex="50%" class="user-info_card"></app-initials>
+    <app-password fxFlex="50%" class="user-info_card"> </app-password>
 </div>
 <app-adresses></app-adresses>

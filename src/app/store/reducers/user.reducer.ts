@@ -1,4 +1,4 @@
-import { SET_USER } from '../actions/user.action';
+import { EDIT_USER_SUCCESS, SET_USER } from '../actions/user.action';
 
 export type IAdress = {
     street: string;
@@ -8,15 +8,19 @@ export type IAdress = {
 };
 
 export interface IUser {
+    name: string;
+    surname: string;
     accessToken: string;
     createdAt: Date;
     email: string;
     username: string;
     _id: string;
-    adress?:  IAdress[];
+    adress?: IAdress[];
 }
 
 export const initialState: IUser = {
+    name: '',
+    surname: '',
     username: '',
     email: '',
     accessToken: '',
@@ -34,7 +38,12 @@ export function userReducer(state: IUser = initialState, action: any): IUser {
                 ...action.payload,
             };
         }
-
+        case EDIT_USER_SUCCESS: {
+            return {
+                ...state,
+                ...action.payload,
+            };
+        }
         default: {
             return state;
         }
