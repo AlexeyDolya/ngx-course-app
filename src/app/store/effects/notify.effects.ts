@@ -5,17 +5,15 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import { MessagingService } from '@shared/services/notification.service';
 import {
-    CHANGE_NOTIFY_STATUS,
     ChangeEventStatusError,
     ChangeEventStatusSuccess,
-    CONNECT_NOTIFY_CHANEL,
     ConnectNotifyChanel,
     FailedConnectNotifyChanel,
-    GET_NOTIFY_PENDING,
     GetNotifyError,
     GetNotifyPending,
     GetNotifySuccess,
     NotifyActions,
+    NotifyActionsTypes,
 } from '../actions/notify.actions';
 import { INotify } from '../reducers/notify.reducer';
 import { Login } from '../actions/auth.action';
@@ -24,7 +22,7 @@ import { Login } from '../actions/auth.action';
 export class NotifyEffect {
     @Effect()
     public notify$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(CONNECT_NOTIFY_CHANEL),
+        ofType<any>(NotifyActions.CONNECT_NOTIFY_CHANEL),
         switchMap(() =>
             this._messagingService.receiveMessage().pipe(
                 tap((payload: any) => {
@@ -44,7 +42,7 @@ export class NotifyEffect {
 
     @Effect()
     public getEvents$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(GET_NOTIFY_PENDING),
+        ofType<any>(NotifyActions.GET_NOTIFY_PENDING),
         switchMap(() =>
             this._messagingService.getEvents().pipe(
                 map((events: INotify[]) => {
@@ -61,7 +59,7 @@ export class NotifyEffect {
 
     @Effect()
     public changeEventsStatus$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(CHANGE_NOTIFY_STATUS),
+        ofType<any>(NotifyActions.CHANGE_NOTIFY_STATUS),
         map((action: Login) => action.payload),
         switchMap((id: string) =>
             this._messagingService.changeStatus(id).pipe(
@@ -75,5 +73,5 @@ export class NotifyEffect {
         )
     );
 
-    public constructor(private actions$: Actions<NotifyActions>, private _messagingService: MessagingService) {}
+    public constructor(private actions$: Actions<NotifyActionsTypes>, private _messagingService: MessagingService) {}
 }

@@ -1,104 +1,114 @@
 <div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
-    <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>Backlog</h3>
-        <div
-            cdkDropList
-            [id]="'backlog'"
-            #todoList="cdkDropList"
-            [cdkDropListData]="todo"
-            [cdkDropListConnectedTo]="[progressList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)"
-        >
-            <div
-                class="example-box"
-                app-card
-                [card]="card"
-                (remove)="removeCard($event)"
-                (edit)="editCard($event)"
-                *ngFor="let card of todo"
-                cdkDrag
-                fxLayout="row"
-                fxLayoutAlign="space-between stretch"
-            ></div>
-        </div>
-        <div>
-            <button mat-button (click)="addCard()">
-                <mat-icon>add</mat-icon>
-            </button>
-            <span> Add another card</span>
-        </div>
+  <div  fxFlex="25">
+    <h3>Backlog</h3>
+  </div>
+  <div  fxFlex="25">
+    <h3>Progress</h3>
+  </div>
+  <div  fxFlex="25">
+    <h3>QA</h3>
+  </div>
+  <div  fxFlex="25">
+    <h3>Done</h3>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <div
+      cdkDropList
+      [id]="'backlog'"
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo"
+      [cdkDropListConnectedTo]="[progressList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div
+        class="example-box"
+        app-card
+        [card]="card"
+        (remove)="removeCard($event)"
+        (edit)="editCard($event)"
+        *ngFor="let card of todo"
+        cdkDrag
+        fxLayout="row"
+        fxLayoutAlign="space-between stretch"
+      ></div>
     </div>
-    <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>In Progress</h3>
-        <div
-            cdkDropList
-            [id]="'progress'"
-            #progressList="cdkDropList"
-            [cdkDropListData]="progress"
-            [cdkDropListConnectedTo]="[qaList, doneList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)"
-        >
-            <div
-                class="example-box"
-                app-card
-                [card]="card"
-                (remove)="removeCard($event)"
-                (edit)="editCard($event)"
-                *ngFor="let card of progress"
-                cdkDrag
-                fxLayout="row"
-                fxLayoutAlign="space-between stretch"
-            ></div>
-        </div>
+  </div>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <div
+      cdkDropList
+      [id]="'progress'"
+      #progressList="cdkDropList"
+      [cdkDropListData]="progress"
+      [cdkDropListConnectedTo]="[qaList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div
+        class="example-box"
+        app-card
+        [card]="card"
+        (remove)="removeCard($event)"
+        (edit)="editCard($event)"
+        *ngFor="let card of progress"
+        cdkDrag
+        fxLayout="row"
+        fxLayoutAlign="space-between stretch"
+      ></div>
     </div>
-    <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>QA</h3>
-        <div
-            cdkDropList
-            #qaList="cdkDropList"
-            [id]="'qa'"
-            [cdkDropListData]="qa"
-            [cdkDropListConnectedTo]="[todoList, doneList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)"
-        >
-            <div
-                class="example-box"
-                app-card
-                [card]="card"
-                (remove)="removeCard($event)"
-                (edit)="editCard($event)"
-                *ngFor="let card of qa"
-                cdkDrag
-                fxLayout="row"
-                fxLayoutAlign="space-between stretch"
-            ></div>
-        </div>
+  </div>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <div
+      cdkDropList
+      #qaList="cdkDropList"
+      [id]="'qa'"
+      [cdkDropListData]="qa"
+      [cdkDropListConnectedTo]="[todoList, doneList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div
+        class="example-box"
+        app-card
+        [card]="card"
+        (remove)="removeCard($event)"
+        (edit)="editCard($event)"
+        *ngFor="let card of qa"
+        cdkDrag
+        fxLayout="row"
+        fxLayoutAlign="space-between stretch"
+      ></div>
     </div>
-    <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>Done</h3>
-        <div
-            cdkDropList
-            #doneList="cdkDropList"
-            [id]="'done'"
-            [cdkDropListData]="done"
-            [cdkDropListConnectedTo]="[todoList, qaList, progressList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)"
-        >
-            <div
-                class="example-box"
-                app-card
-                [card]="card"
-                (remove)="removeCard($event)"
-                (edit)="editCard($event)"
-                *ngFor="let card of done"
-                cdkDrag
-                fxLayout="row"
-                fxLayoutAlign="space-between stretch"
-            ></div>
-        </div>
+  </div>
+  <div [ngClass]="'board-column'" fxFlex="25">
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [id]="'done'"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList, qaList, progressList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div
+        class="example-box"
+        app-card
+        [card]="card"
+        (remove)="removeCard($event)"
+        (edit)="editCard($event)"
+        *ngFor="let card of done"
+        cdkDrag
+        fxLayout="row"
+        fxLayoutAlign="space-between stretch"
+      ></div>
     </div>
+  </div>
+</div>
+<div>
+  <button mat-button (click)="addCard()">
+    <mat-icon>add</mat-icon>
+  </button>
+  <span> Add another card</span>
 </div>

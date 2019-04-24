@@ -17,3 +17,6 @@ html, body {
   width: 100%;
   margin-bottom: 15px;
 }
+[ng-reflect-router-link]:hover {
+  cursor: pointer;
+}

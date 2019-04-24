@@ -7,16 +7,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import {
     BoardActions,
-    CHANGE_CARD_PENDING,
+    BoardActionsTypes,
     ChangeCardError,
     ChangeCardSuccess,
-    CREATE_CARD_PENDING,
     CreateCardError,
     CreateCardSuccess,
-    GET_BOARD_PENDING,
     GetBoardError,
     GetBoardSuccess,
-    REMOVE_CARD_PENDING,
     RemoveCardError,
     RemoveCardSuccess,
 } from '../actions/dashboard.action';
@@ -26,7 +23,7 @@ import { HttpClient } from '@angular/common/http';
 export class BoardEffects {
     @Effect()
     public getBoard$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(GET_BOARD_PENDING),
+        ofType<any>(BoardActions.GET_BOARD_PENDING),
         switchMap(() =>
             this._http.get<ICard[]>(`/cards/all`).pipe(
                 mergeMap((cards: ICard[]) => {
@@ -43,7 +40,7 @@ export class BoardEffects {
 
     @Effect()
     public createCard$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(CREATE_CARD_PENDING),
+        ofType<any>(BoardActions.CREATE_CARD_PENDING),
         map((action: any) => action.payload),
         switchMap((c: ICard) =>
             this._http.post<ICard>(`/cards/create`, c).pipe(
@@ -61,7 +58,7 @@ export class BoardEffects {
 
     @Effect()
     public removeCard$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(REMOVE_CARD_PENDING),
+        ofType<any>(BoardActions.REMOVE_CARD_PENDING),
         map((action: any) => action.payload),
         switchMap((_c: ICard) =>
             this._http.delete<ICard>(`/cards/by/${_c._id}`).pipe(
@@ -79,7 +76,7 @@ export class BoardEffects {
 
     @Effect()
     public changeCard$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(CHANGE_CARD_PENDING),
+        ofType<any>(BoardActions.CHANGE_CARD_PENDING),
         map((action: any) => action.payload),
         switchMap((_c: ICard) =>
             this._http.put<ICard>(`/cards/by/${_c._id}`, _c).pipe(
@@ -95,5 +92,5 @@ export class BoardEffects {
         )
     );
 
-    public constructor(private actions$: Actions<BoardActions>, private _http: HttpClient) {}
+    public constructor(private actions$: Actions<BoardActionsTypes>, private _http: HttpClient) {}
 }

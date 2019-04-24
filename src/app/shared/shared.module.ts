@@ -25,6 +25,7 @@ import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
 import { environment } from '../../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
@@ -44,8 +45,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatRadioModule,
         MatInputModule,
         MatCardModule,
+        MatPaginatorModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     exports: [
         CommonModule,
@@ -70,7 +72,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         UsernameValidatorDirective,
         EqualValidatorDirective,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     providers: [
         {

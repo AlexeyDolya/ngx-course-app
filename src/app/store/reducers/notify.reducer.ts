@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { ChangeEventStatusSuccess, GetNotifyPending, GetNotifySuccess, NotifyActions } from '../actions/notify.actions';
+import { NotifyActions } from '../actions/notify.actions';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
 
 export interface INotify {
@@ -17,17 +17,21 @@ export const adapter: EntityAdapter<INotify> = createEntityAdapter({
 
 const initialState: EntityState<INotify> = adapter.getInitialState([]);
 
-export function notifyReducer(state: EntityState<INotify> = initialState, action: NotifyActions): EntityState<INotify> {
-    if (action instanceof GetNotifyPending) {
-        return adapter.removeAll(state);
+export function notifyReducer(state: EntityState<INotify> = initialState, action: any): EntityState<INotify> {
+    switch (action.type) {
+        case NotifyActions.GET_NOTIFY_PENDING: {
+            return adapter.removeAll(state);
+        }
+        case NotifyActions.GET_NOTIFY_SUCCESS: {
+            return adapter.upsertMany(action.payload, state);
+        }
+        case NotifyActions.CHANGE_NOTIFY_STATUS_SUCCESS: {
+            return adapter.upsertOne(action.payload, state);
+        }
+        default: {
+            return state;
+        }
     }
-    if (action instanceof GetNotifySuccess) {
-        return adapter.upsertMany(action.payload, state);
-    }
-    if (action instanceof ChangeEventStatusSuccess) {
-        return adapter.upsertOne(action.payload, state);
-    }
-    return state;
 }
 
 export const { selectAll } = adapter.getSelectors(createFeatureSelector('events'));

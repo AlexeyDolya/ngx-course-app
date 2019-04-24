@@ -6,15 +6,13 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, tap } from 'rxjs/operators';
 import {
     AuthActions,
+    AuthActionsType,
     Login,
-    LOGIN,
     LoginFail,
     LoginSuccess,
     Logout,
-    LOGOUT,
     LogoutFail,
     LogoutSuccess,
-    SIGN_UP,
     SignUp,
     SignUpFail,
     SignUpSuccess,
@@ -29,7 +27,7 @@ import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions
 export class AuthEffects {
     @Effect()
     public login$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(LOGIN),
+        ofType<any>(AuthActions.LOGIN),
         map((action: Login) => action.payload),
         switchMap((user: IUser) =>
             this._authService.login(user).pipe(
@@ -62,7 +60,7 @@ export class AuthEffects {
 
     @Effect()
     public signUp$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(SIGN_UP),
+        ofType<any>(AuthActions.SIGN_UP),
         map((action: SignUp) => action.payload),
         switchMap((user: any) =>
             this._authService.signUp(user).pipe(
@@ -79,7 +77,7 @@ export class AuthEffects {
 
     @Effect()
     public logout$: Observable<Action> = this.actions$.pipe(
-        ofType(LOGOUT),
+        ofType(AuthActions.LOGOUT),
         tap(() => this._authService.removeFromLocalStorage('accessToken')),
         tap(() => this._router.navigate(['/login'])),
         map(() => new LogoutSuccess()),
@@ -106,7 +104,7 @@ export class AuthEffects {
     );
 
     public constructor(
-        private actions$: Actions<AuthActions>,
+        private actions$: Actions<AuthActionsType>,
         private _authService: AuthService,
         private _router: Router,
         private _messagingService: MessagingService
