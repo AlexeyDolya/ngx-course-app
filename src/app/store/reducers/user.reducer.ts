@@ -13,7 +13,7 @@ export interface IUser {
     email: string;
     username: string;
     _id: string;
-    adress?:  IAdress[];
+    adress?: IAdress[];
 }
 
 export const initialState: IUser = {

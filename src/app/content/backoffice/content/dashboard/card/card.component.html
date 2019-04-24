@@ -1,16 +1,16 @@
 <span>{{ card.description }}</span>
 <div>
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="editCard(card)">
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
     </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="editCard(card)">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-        </button>
-        <button mat-menu-item (click)="removeCard(card)">
-            <mat-icon>delete</mat-icon>
-            <span>Remove</span>
-        </button>
-    </mat-menu>
+    <button mat-menu-item (click)="removeCard(card)">
+      <mat-icon>delete</mat-icon>
+      <span>Remove</span>
+    </button>
+  </mat-menu>
 </div>
