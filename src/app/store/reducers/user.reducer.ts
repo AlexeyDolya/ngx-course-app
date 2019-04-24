@@ -1,13 +1,15 @@
-import { SET_USER } from '../actions/user.action';
+import { EDIT_USER_SUCCESS, SET_USER } from '../actions/user.action';
 
 export type IAdress = {
     street: string;
     city: string;
     state: string;
-    zipCode: string;
+    zip: string;
 };
 
 export interface IUser {
+    name: string;
+    surname: string;
     accessToken: string;
     createdAt: Date;
     email: string;
@@ -17,6 +19,8 @@ export interface IUser {
 }
 
 export const initialState: IUser = {
+    name: '',
+    surname: '',
     username: '',
     email: '',
     accessToken: '',
@@ -34,7 +38,12 @@ export function userReducer(state: IUser = initialState, action: any): IUser {
                 ...action.payload,
             };
         }
-
+        case EDIT_USER_SUCCESS: {
+            return {
+                ...state,
+                ...action.payload,
+            };
+        }
         default: {
             return state;
         }

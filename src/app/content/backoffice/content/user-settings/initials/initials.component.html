@@ -1,0 +1,22 @@
+<form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()">
+    <span>Info</span>
+    <mat-card>
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
+            <div fxFlex="50%">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field fxFlex="50%">
+                    <mat-label>Surname</mat-label>
+                    <input matInput formControlName="surname" />
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button mat-raised-button color="primary" type="submit">Save</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
