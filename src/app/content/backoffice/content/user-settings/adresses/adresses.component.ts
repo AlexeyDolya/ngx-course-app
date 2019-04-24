@@ -79,7 +79,7 @@ export class AdressesComponent implements OnInit, OnDestroy {
                         street: new FormControl(item.street),
                         city: new FormControl(item.city),
                         state: new FormControl(item.state),
-                        zip: new FormControl(item.zipCode),
+                        zip: new FormControl(item.zip),
                     })
                 )
             );
