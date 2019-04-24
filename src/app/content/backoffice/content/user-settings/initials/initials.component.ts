@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { IRootState } from '../../../../../store/reducers';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { EdittUserPending } from '../../../../../store/actions/user.action';
 
 @Component({
     selector: 'app-initials',
@@ -19,6 +20,7 @@ export class InitialsComponent implements OnInit, OnDestroy {
         name: new FormControl(''),
         surname: new FormControl(''),
     });
+
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
     public constructor(private _store: Store<IRootState>) {}
 
@@ -42,7 +44,6 @@ export class InitialsComponent implements OnInit, OnDestroy {
             name: this.userInfoForm.value.name,
             surname: this.userInfoForm.value.surname,
         };
-        // TODO dispatch
-        this._store.dispatch();
+        this._store.dispatch(new EdittUserPending(this.user));
     }
 }
