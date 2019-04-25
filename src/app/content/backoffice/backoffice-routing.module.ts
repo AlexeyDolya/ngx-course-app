@@ -11,7 +11,6 @@ const routes: Routes = [
             {
                 path: '',
                 data: { state: 'dashboard' },
-                // loadChildren: './content/dashboard/dashboard.module#DashboardModule',
                 loadChildren: () => DashboardModule,
             },
             {

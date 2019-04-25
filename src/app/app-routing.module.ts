@@ -21,7 +21,6 @@ const routes: Routes = [
   },
   {
     path: 'backoffice',
-    // loadChildren: './content/backoffice/backoffice.module#BackofficeModule',
     loadChildren: () => BackofficeModule,
     canActivate: [AuthGuardService]
   },
