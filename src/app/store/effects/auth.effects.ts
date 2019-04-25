@@ -22,6 +22,7 @@ import { SetUser } from '../actions/user.action';
 import { MessagingService } from '@shared/services/notification.service';
 import { IUser } from '../reducers/user.reducer';
 import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions';
+// import { ROUTER_NAVIGATED } from '@ngrx/router-store';
 
 @Injectable()
 export class AuthEffects {
@@ -102,6 +103,12 @@ export class AuthEffects {
             return of(new Logout());
         })
     );
+
+    // @Effect()
+    // public navSuccess$: Observable<any> = this.actions$.pipe(
+    //     ofType(ROUTER_NAVIGATED),
+    //     tap((_routes: any) => console.log('HI MAN it works WATCH THIS'))
+    // );
 
     public constructor(
         private actions$: Actions<AuthActionsType>,

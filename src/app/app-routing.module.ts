@@ -2,6 +2,8 @@ import { AuthGuardService } from './shared/services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BackofficeModule } from './content/backoffice/backoffice.module';
+import { LoginModule } from './content/login/login.module';
+import { SignupModule } from './content/signup/signup.module';
 
 const routes: Routes = [
   {
@@ -11,12 +13,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: './content/login/login.module#LoginModule',
+    loadChildren: () => LoginModule,
     canActivate: [AuthGuardService]
   },
   {
     path: 'signup',
-    loadChildren: './content/signup/signup.module#SignupModule',
+    loadChildren: () => SignupModule,
     canActivate: [AuthGuardService]
   },
   {

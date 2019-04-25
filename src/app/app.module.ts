@@ -18,6 +18,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
 import { ModalModule } from './modal/modal.module';
 import { SharedModule } from './shared/shared.module';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
     declarations: [AppComponent],
@@ -29,6 +30,7 @@ import { SharedModule } from './shared/shared.module';
         StoreModule.forRoot(reducers, { metaReducers }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(effectsArr),
+        StoreRouterConnectingModule.forRoot(),
         ModalModule.forRoot(),
         AngularFireMessagingModule,
         AngularFireModule.initializeApp(environment.fcmOptions),
