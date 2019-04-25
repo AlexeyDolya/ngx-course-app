@@ -31,7 +31,7 @@ export class ValidatorService {
         const err: ValidationErrors | null = valid
             ? null
             : {
-                  'Только чила': true,
+                  'Только чиcла': true,
               };
         return err;
     }
