@@ -1,17 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
-import { INotify, selectAll } from '../../../../store/reducers/notify.reducer';
-import { ChangeEventStatus, GetNotifyPending } from '../../../../store/actions/notify.actions';
+import { INotify, selectAll } from '@rootStore/reducers/notify.reducer';
+import { ChangeEventStatus, GetNotifyPending } from '@rootStore/actions/notify.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
-export interface IPeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-}
 
 @Component({
     selector: 'app-events',

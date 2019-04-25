@@ -24,7 +24,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material';
 import { ValidatorService } from '@shared/services/validator.service';
@@ -39,27 +39,7 @@ import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-
         OldPasswordValidatorDirective,
         UsernameUniqValidatorDirective,
     ],
-    imports: [
-        CommonModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatToolbarModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatTableModule,
-        MatGridListModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatInputModule,
-        MatCardModule,
-        MatPaginatorModule,
-        MatSlideToggleModule,
-        FormsModule,
-        ReactiveFormsModule,
-    ],
+    imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule],
     exports: [
         CommonModule,
         TableComponent,

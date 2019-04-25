@@ -1,4 +1,4 @@
-import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, createFeatureSelector, MetaReducer } from '@ngrx/store';
 
 import { authReducer, IAuthState } from './auth.reducer';
 
@@ -6,17 +6,28 @@ import { AuthActions, AuthActionsType } from '../actions/auth.action';
 import { userReducer } from './user.reducer';
 
 import { notifyReducer } from './notify.reducer';
+import * as fromRouter from '@ngrx/router-store';
+import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
+import { RouterStateSerializer } from '@ngrx/router-store';
+
+export interface IRouterStateUrl {
+    url: string;
+    queryParams: Params;
+    params: Params;
+}
 
 export interface IRootState {
     auth: IAuthState;
     user: any;
     events: any;
+    routerReducer?: fromRouter.RouterReducerState<IRouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<IRootState> = {
     auth: authReducer,
     user: userReducer,
     events: notifyReducer,
+    routerReducer: fromRouter.routerReducer
 };
 
 export function logoutAndClearState(reducer: ActionReducer<IRootState>): ActionReducer<IRootState> {
@@ -30,4 +41,21 @@ export function logoutAndClearState(reducer: ActionReducer<IRootState>): ActionR
     };
 }
 
+export class CustomRouterSerializer
+  implements RouterStateSerializer<IRouterStateUrl> {
+  public serialize(routerState: RouterStateSnapshot): IRouterStateUrl {
+    const { url, root: { queryParams } } = routerState;
+
+    let state: ActivatedRouteSnapshot = routerState.root;
+    while (state.firstChild) {
+      state = state.firstChild;
+    }
+    const { params } = state;
+    return { url, queryParams, params };
+  }
+}
+
 export const metaReducers: MetaReducer<IRootState>[] = [logoutAndClearState];
+
+// tslint:disable-next-line:typedef
+export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<IRouterStateUrl>>('routerReducer');
