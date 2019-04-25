@@ -27,9 +27,18 @@ import { BASE_URL_TOKEN } from '../config';
 import { environment } from '@env/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material';
+import { ValidatorService } from '@shared/services/validator.service';
+import { OldPasswordValidatorDirective } from '@shared/directives/oldPassword-validator.directive';
+import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-validator.directive';
 
 @NgModule({
-    declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
+    declarations: [
+        TableComponent,
+        UsernameValidatorDirective,
+        EqualValidatorDirective,
+        OldPasswordValidatorDirective,
+        UsernameUniqValidatorDirective,
+    ],
     imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule],
     exports: [
         CommonModule,
@@ -56,6 +65,8 @@ import { MatPaginatorModule } from '@angular/material';
         MatSlideToggleModule,
         FormsModule,
         ReactiveFormsModule,
+        OldPasswordValidatorDirective,
+        UsernameUniqValidatorDirective,
     ],
     providers: [
         {
@@ -67,6 +78,7 @@ import { MatPaginatorModule } from '@angular/material';
             provide: BASE_URL_TOKEN,
             useValue: environment.baseUrl,
         },
+        ValidatorService,
     ],
 })
 export class SharedModule {}

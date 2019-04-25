@@ -1,28 +1,63 @@
 <div class="signup-content">
-  <mat-card>
-    <mat-card-content>
-      <form (submit)="signup(f.value)" #f="ngForm">
-        <p>Please registrate to continue</p>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Username" name="username" ngModel required appUsernameValidator #c="ngModel">
-          <mat-error *ngIf="c.errors">  <span *ngFor="let error of c.errors | keyvalue">{{error.key}}</span></mat-error>
-        </mat-form-field>
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Email" name="email" ngModel required>
-        </mat-form-field>
-        <div ngModelGroup="password" appEqualValidator #p="ngModelGroup">
-          <mat-error *ngIf="p.errors">  <span *ngFor="let error of p.errors | keyvalue">{{error.key}}</span></mat-error>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Password" name="password" ngModel type="password" required minlength="5">
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Confirm Password" name="cpassword" ngModel type="password" required minlength="5">
-          </mat-form-field>
-        </div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Registrate</button>
-        <a mat-button [routerLink]="['/login']">or login</a>
-      </form>
-
-    </mat-card-content>
-  </mat-card>
+    <mat-card>
+        <mat-card-content>
+            <form (submit)="signup(f.value)" #f="ngForm">
+                <p>Please registrate to continue</p>
+                <mat-form-field class="full-width">
+                    <input
+                        matInput
+                        placeholder="Username"
+                        name="username"
+                        ngModel
+                        required
+                        appUsernameValidator
+                        usernameUniqValidator
+                        #c="ngModel"
+                    />
+                    <mat-error *ngIf="c.errors">
+                        <span *ngFor="let error of c.errors | keyvalue">{{ error.key }}</span></mat-error
+                    >
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput placeholder="Email" name="email" ngModel required />
+                </mat-form-field>
+                <div ngModelGroup="password" appEqualValidator #p="ngModelGroup">
+                    <mat-error *ngIf="p.errors">
+                        <span *ngFor="let error of p.errors | keyvalue">{{ error.key }}</span></mat-error
+                    >
+                    <mat-form-field class="full-width">
+                        <input
+                            matInput
+                            placeholder="Password"
+                            name="password"
+                            ngModel
+                            type="password"
+                            required
+                            minlength="5"
+                        />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input
+                            matInput
+                            placeholder="Confirm Password"
+                            name="cpassword"
+                            ngModel
+                            type="password"
+                            required
+                            minlength="5"
+                        />
+                    </mat-form-field>
+                </div>
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit"
+                    [disabled]="f.invalid || f.pending || f.pristine"
+                >
+                    Registrate
+                </button>
+                <a mat-button [routerLink]="['/login']">or login</a>
+            </form>
+        </mat-card-content>
+    </mat-card>
 </div>

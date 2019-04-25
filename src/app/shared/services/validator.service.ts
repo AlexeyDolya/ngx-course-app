@@ -1,0 +1,73 @@
+import { ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map } from 'rxjs/operators';
+
+@Injectable()
+export class ValidatorService {
+    public constructor(private _http: HttpClient) {}
+    public equalValidator(value: any): ValidationErrors | null {
+        const [password, cpassword] = Object.values(value);
+        return password !== cpassword
+            ? {
+                  'Значение паролей не совпадает': true,
+              }
+            : null;
+    }
+
+    public usernameValidator(value: any): ValidationErrors | null {
+        if (value && value.value) {
+            value = value.value;
+        }
+        const valid: boolean = /^[a-zA-Z]*$/.test(value);
+        const err: ValidationErrors | null = valid
+            ? null
+            : {
+                  'Только буквы': true,
+              };
+        return err;
+    }
+
+    public zipCodeValidator(value: any): ValidationErrors | null {
+        if (value && value.value) {
+            value = value.value;
+        }
+        const valid: boolean = /^\d+$/.test(value);
+        const err: ValidationErrors | null = valid
+            ? null
+            : {
+                  'Только чиcла': true,
+              };
+        return err;
+    }
+    public oldPass(value: any): Observable<ValidationErrors | null> {
+        if (value && value.value) {
+            value = value.value;
+        }
+        return this._http.post('/user/checkPassword', { data: value }).pipe(
+            map((data: ValidationErrors) => (data ? data : null)),
+            // tslint:disable-next-line
+            catchError((err: any) => {
+                // tslint:disable-next-line
+                console.log(err);
+                return of({ ERROR: true });
+            })
+        );
+    }
+
+    public username(value: any): Observable<ValidationErrors | null> {
+        if (value && value.value) {
+            value = value.value;
+        }
+        return this._http.post('/auth/checkUsername', { username: value }).pipe(
+            map((data: ValidationErrors) => (data ? data : null)),
+            // tslint:disable-next-line
+            catchError((err: any) => {
+                // tslint:disable-next-line
+                console.log(err);
+                return of({ ERROR: true });
+            })
+        );
+    }
+}
