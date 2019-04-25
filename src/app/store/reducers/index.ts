@@ -5,7 +5,7 @@ import { authReducer, IAuthState } from './auth.reducer';
 import { AuthActions, AuthActionsType } from '../actions/auth.action';
 import { userReducer } from './user.reducer';
 
-import { notifyReducer } from './notify.reducer';
+import { INotifyState, notifyReducer } from './notify.reducer';
 import * as fromRouter from '@ngrx/router-store';
 import { ActivatedRouteSnapshot, Params, RouterStateSnapshot } from '@angular/router';
 import { RouterStateSerializer } from '@ngrx/router-store';
@@ -19,14 +19,14 @@ export interface IRouterStateUrl {
 export interface IRootState {
     auth: IAuthState;
     user: any;
-    events: any;
+    eventsTable: INotifyState;
     routerReducer?: fromRouter.RouterReducerState<IRouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<IRootState> = {
     auth: authReducer,
     user: userReducer,
-    events: notifyReducer,
+    eventsTable: notifyReducer,
     routerReducer: fromRouter.routerReducer
 };
 

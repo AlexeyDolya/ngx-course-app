@@ -11,22 +11,33 @@ export interface INotify {
     _id: string;
 }
 
+export interface INotifyState {
+    events: EntityState<INotify>;
+    page: number;
+}
+
 export const adapter: EntityAdapter<INotify> = createEntityAdapter({
     selectId: (notify: INotify) => notify._id,
 });
 
-const initialState: EntityState<INotify> = adapter.getInitialState([]);
+const initialState: INotifyState = {
+    events: adapter.getInitialState([]),
+    page: 0
+};
 
-export function notifyReducer(state: EntityState<INotify> = initialState, action: any): EntityState<INotify> {
+export function notifyReducer(state: INotifyState = initialState, action: any): INotifyState {
     switch (action.type) {
         case NotifyActions.GET_NOTIFY_PENDING: {
-            return adapter.removeAll(state);
+            return { ...state, events: adapter.removeAll(state.events) };
         }
         case NotifyActions.GET_NOTIFY_SUCCESS: {
-            return adapter.upsertMany(action.payload, state);
+            return { ...state, events: adapter.upsertMany(action.payload, state.events) };
         }
         case NotifyActions.CHANGE_NOTIFY_STATUS_SUCCESS: {
-            return adapter.upsertOne(action.payload, state);
+            return { ...state, events: adapter.upsertOne(action.payload, state.events) };
+        }
+        case NotifyActions.CHANGE_PAGE: {
+            return { ...state, page: action.payload };
         }
         default: {
             return state;
@@ -34,13 +45,38 @@ export function notifyReducer(state: EntityState<INotify> = initialState, action
     }
 }
 
-export const { selectAll } = adapter.getSelectors(createFeatureSelector('events'));
+export const page: any = createSelector(
+    createFeatureSelector<any>('eventsTable'),
+    (eventsTable: INotifyState) => {
+        return eventsTable.page;
+    }
+);
+
+
+export const { selectAll } = adapter.getSelectors(createSelector(
+    createFeatureSelector<any>('eventsTable'),
+    (eventsTable: INotifyState) => {
+        return eventsTable.events;
+    }
+));
+
 
 export function getUnread(): MemoizedSelector<any, any> {
     return createSelector(
         selectAll,
         (notifys: INotify[]) => {
             return notifys.filter((notify: INotify) => notify.status).length;
+        }
+    );
+}
+
+export function pagination(): MemoizedSelector<any, any> {
+    return createSelector(
+        page,
+        selectAll,
+        ( _page: number, notifys: INotify[]) => {
+            const perPage: number = 10;
+            return notifys.slice(_page * perPage, (_page + 1) * perPage);
         }
     );
 }
