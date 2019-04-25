@@ -16,7 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { MessagingService } from './shared/services/notification.service';
 import { AngularFireMessagingModule } from '@angular/fire/messaging';
 import { AngularFireModule } from '@angular/fire';
-import { ModalModule } from './modal/modal.module';
+import { ModalModule } from '@modal/modal.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

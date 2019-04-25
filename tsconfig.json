@@ -85,6 +85,6 @@
     "skipLibCheck": true
   },
   "angularCompilerOptions": {
-    "enableIvy": "ngtsc"
+    "enableIvy": "true"
   }
 }

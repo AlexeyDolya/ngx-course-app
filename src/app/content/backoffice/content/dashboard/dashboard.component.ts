@@ -8,7 +8,7 @@ import { EntityState } from '@ngrx/entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CardModalComponent } from './card-modal/card-modal.component';
-import { ModalService } from '../../../../modal/modal.service';
+import { ModalService } from '@modal/modal.service';
 
 @Component({
     selector: 'app-dashboard',
