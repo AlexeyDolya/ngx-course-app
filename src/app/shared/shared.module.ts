@@ -27,6 +27,7 @@ import { BASE_URL_TOKEN } from '../config';
 import { environment } from '../../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material';
+import { ValidatorService } from '@shared/services/validator.service';
 
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
@@ -87,6 +88,7 @@ import { MatPaginatorModule } from '@angular/material';
             provide: BASE_URL_TOKEN,
             useValue: environment.baseUrl,
         },
+        ValidatorService,
     ],
 })
 export class SharedModule {}

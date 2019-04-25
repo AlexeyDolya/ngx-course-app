@@ -5,7 +5,9 @@
             <button type="button" mat-button (click)="addAddress()">
                 <mat-icon>add</mat-icon>
             </button>
-            <button mat-raised-button color="primary" type="submit">Save</button>
+            <button mat-raised-button color="primary" [disabled]="!form.valid || form.pristine" type="submit">
+                Save
+            </button>
         </div>
         <div formArrayName="address">
             <mat-card *ngFor="let item of address.controls; index as i">

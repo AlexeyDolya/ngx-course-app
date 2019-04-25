@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IRootState } from '@rootStore/reducers';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IAdress, IUser } from '@rootStore/reducers/user.reducer';
 import { EdittUserPending } from '@rootStore/actions/user.action';
+import { ValidatorService } from '@shared/services/validator.service';
 
 @Component({
     selector: 'app-adresses',
@@ -20,17 +21,17 @@ export class AdressesComponent implements OnInit, OnDestroy {
     public form: FormGroup = new FormGroup({
         address: new FormArray([
             new FormGroup({
-                street: new FormControl(''),
-                city: new FormControl(''),
-                state: new FormControl(''),
-                zip: new FormControl(''),
+                street: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                city: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                state: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                zip: new FormControl('', [Validators.required, this._validatorService.zipCodeValidator]),
             }),
         ]),
     });
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
     private user!: IUser;
 
-    public constructor(private _store: Store<IRootState>) {}
+    public constructor(private _store: Store<IRootState>, private _validatorService: ValidatorService) {}
 
     public ngOnInit(): void {
         this._store
@@ -58,10 +59,10 @@ export class AdressesComponent implements OnInit, OnDestroy {
     public addAddress(): void {
         this.address.push(
             new FormGroup({
-                street: new FormControl(''),
-                city: new FormControl(''),
-                state: new FormControl(''),
-                zip: new FormControl(''),
+                street: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                city: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                state: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+                zip: new FormControl('', [Validators.required, this._validatorService.zipCodeValidator]),
             })
         );
     }
@@ -76,10 +77,19 @@ export class AdressesComponent implements OnInit, OnDestroy {
             address.forEach((item: IAdress) =>
                 this.address.push(
                     new FormGroup({
-                        street: new FormControl(item.street),
-                        city: new FormControl(item.city),
-                        state: new FormControl(item.state),
-                        zip: new FormControl(item.zip),
+                        street: new FormControl(item.street, [
+                            Validators.required,
+                            this._validatorService.usernameValidator,
+                        ]),
+                        city: new FormControl(item.city, [
+                            Validators.required,
+                            this._validatorService.usernameValidator,
+                        ]),
+                        state: new FormControl(item.state, [
+                            Validators.required,
+                            this._validatorService.usernameValidator,
+                        ]),
+                        zip: new FormControl(item.zip, [Validators.required, this._validatorService.zipCodeValidator]),
                     })
                 )
             );

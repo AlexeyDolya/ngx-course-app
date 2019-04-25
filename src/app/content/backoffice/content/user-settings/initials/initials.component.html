@@ -1,7 +1,7 @@
 <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()">
   <span>Info</span>
   <mat-card>
-    <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch ">
+    <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch">
       <mat-form-field fxFlex="50%">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name"/>
@@ -15,7 +15,7 @@
         <app-switcher formControlName="male"></app-switcher>
       </div>
       <div fxLayout="row" fxLayoutAlign="end">
-        <button mat-raised-button color="primary" type="submit">Save</button>
+        <button mat-raised-button color="primary" [disabled]="!userInfoForm.valid || userInfoForm.pristine" type="submit">Save</button>
       </div>
     </mat-card-content>
   </mat-card>

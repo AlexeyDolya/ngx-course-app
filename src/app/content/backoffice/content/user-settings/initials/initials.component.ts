@@ -1,11 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '@rootStore/reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { IRootState } from '@rootStore/reducers';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { EdittUserPending } from '@rootStore/actions/user.action';
+import { ValidatorService } from '@shared/services/validator.service';
 
 @Component({
     selector: 'app-initials',
@@ -17,13 +18,13 @@ export class InitialsComponent implements OnInit, OnDestroy {
     public user!: IUser;
 
     public userInfoForm: FormGroup = new FormGroup({
-        name: new FormControl(''),
-        surname: new FormControl(''),
+        name: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
+        surname: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
         male: new FormControl(true),
     });
 
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
-    public constructor(private _store: Store<IRootState>) {}
+    public constructor(private _store: Store<IRootState>, private _validatorService: ValidatorService) {}
 
     public ngOnInit(): void {
         this._store
