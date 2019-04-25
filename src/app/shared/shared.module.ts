@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TableComponent } from './components/table/table.component';
 import { CommonModule } from '@angular/common';
 import { UsernameValidatorDirective } from './directives/username-validator.directive';
@@ -46,6 +47,7 @@ import { MatPaginatorModule } from '@angular/material';
         MatInputModule,
         MatCardModule,
         MatPaginatorModule,
+        MatSlideToggleModule,
         FormsModule,
         ReactiveFormsModule,
     ],
@@ -71,6 +73,7 @@ import { MatPaginatorModule } from '@angular/material';
         FlexLayoutModule,
         UsernameValidatorDirective,
         EqualValidatorDirective,
+        MatSlideToggleModule,
         FormsModule,
         ReactiveFormsModule,
     ],

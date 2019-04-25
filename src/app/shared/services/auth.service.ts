@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IUser } from '../../store/reducers/user.reducer';
+import { IUser } from '@rootStore/reducers/user.reducer';
 
 @Injectable()
 export class AuthService {
