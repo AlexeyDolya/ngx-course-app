@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BackofficeComponent } from './backoffice.component';
+import { DashboardModule } from './content/dashboard/dashboard.module';
 
 const routes: Routes = [
     {
@@ -10,7 +11,8 @@ const routes: Routes = [
             {
                 path: '',
                 data: { state: 'dashboard' },
-                loadChildren: './content/dashboard/dashboard.module#DashboardModule',
+                // loadChildren: './content/dashboard/dashboard.module#DashboardModule',
+                loadChildren: () => DashboardModule,
             },
             {
                 path: 'user',

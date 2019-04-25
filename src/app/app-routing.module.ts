@@ -1,6 +1,7 @@
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BackofficeModule } from './content/backoffice/backoffice.module';
 
 const routes: Routes = [
   {
@@ -20,7 +21,8 @@ const routes: Routes = [
   },
   {
     path: 'backoffice',
-    loadChildren: './content/backoffice/backoffice.module#BackofficeModule',
+    // loadChildren: './content/backoffice/backoffice.module#BackofficeModule',
+    loadChildren: () => BackofficeModule,
     canActivate: [AuthGuardService]
   },
   {
