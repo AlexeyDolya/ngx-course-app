@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { TableComponent } from './components/table/table.component';
 import { CommonModule } from '@angular/common';
 import { UsernameValidatorDirective } from './directives/username-validator.directive';
@@ -23,32 +24,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor.service';
 import { BASE_URL_TOKEN } from '../config';
-import { environment } from '../../environments/environment';
+import { environment } from '@env/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
     declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
-    imports: [
-        CommonModule,
-        MatSidenavModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatToolbarModule,
-        MatListModule,
-        MatIconModule,
-        MatButtonModule,
-        MatBadgeModule,
-        MatTableModule,
-        MatGridListModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        MatInputModule,
-        MatCardModule,
-        MatPaginatorModule,
-        FormsModule,
-        ReactiveFormsModule,
-    ],
+    imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule],
     exports: [
         CommonModule,
         TableComponent,
@@ -71,6 +53,7 @@ import { MatPaginatorModule } from '@angular/material';
         FlexLayoutModule,
         UsernameValidatorDirective,
         EqualValidatorDirective,
+        MatSlideToggleModule,
         FormsModule,
         ReactiveFormsModule,
     ],

@@ -1,4 +1,4 @@
-import { environment } from '../environments/environment';
+import { environment } from '@env/environment';
 import { InjectionToken } from '@angular/core';
 
 export const BASE_URL: string = environment.baseUrl;

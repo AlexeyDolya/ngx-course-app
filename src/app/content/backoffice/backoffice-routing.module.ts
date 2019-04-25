@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BackofficeComponent } from './backoffice.component';
-import { DashboardModule } from './content/dashboard/dashboard.module';
-import { UserSettingsModule } from './content/user-settings/user-settings.module';
-import { EventsModule } from './content/events/events.module';
 
 const routes: Routes = [
     {
@@ -13,17 +10,17 @@ const routes: Routes = [
             {
                 path: '',
                 data: { state: 'dashboard' },
-                loadChildren: () => DashboardModule,
+                loadChildren: './content/dashboard/dashboard.module#DashboardModule',
             },
             {
                 path: 'user',
                 data: { state: 'user' },
-                loadChildren: () => UserSettingsModule,
+                loadChildren: './content/user-settings/user-settings.module#UserSettingsModule',
             },
             {
                 path: 'events',
                 data: { state: 'events' },
-                loadChildren: () => EventsModule,
+                loadChildren: './content/events/events.module#EventsModule',
             },
         ],
     },

@@ -1,11 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { IUser } from '../../../../../store/reducers/user.reducer';
+import { IUser } from '@rootStore/reducers/user.reducer';
 import { Store } from '@ngrx/store';
-import { IRootState } from '../../../../../store/reducers';
+import { IRootState } from '@rootStore/reducers';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { EdittUserPending } from '../../../../../store/actions/user.action';
+import { EdittUserPending } from '@rootStore/actions/user.action';
 
 @Component({
     selector: 'app-initials',
@@ -19,6 +19,7 @@ export class InitialsComponent implements OnInit, OnDestroy {
     public userInfoForm: FormGroup = new FormGroup({
         name: new FormControl(''),
         surname: new FormControl(''),
+        male: new FormControl(true),
     });
 
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();

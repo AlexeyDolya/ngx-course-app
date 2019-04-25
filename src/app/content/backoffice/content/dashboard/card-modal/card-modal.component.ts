@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ICard } from '../store/reducers/dashboard.reducer';
-import { ModalService } from '../../../../../modal/modal.service';
+import { ModalService } from '@modal/modal.service';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
 import { ChangeCardPending, CreateCardPending } from '../store/actions/dashboard.action';

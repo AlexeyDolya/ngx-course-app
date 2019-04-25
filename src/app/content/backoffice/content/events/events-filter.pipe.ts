@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { INotify } from '../../../../store/reducers/notify.reducer';
+import { INotify } from '@rootStore/reducers/notify.reducer';
 
 @Pipe({
     name: 'eventsFilter',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IRootState } from '../../../../../store/reducers';
-import { EdittUserPending } from '../../../../../store/actions/user.action';
+import { IRootState } from '@rootStore/reducers';
+import { EdittUserPending } from '@rootStore/actions/user.action';
 
 @Component({
     selector: 'app-password',

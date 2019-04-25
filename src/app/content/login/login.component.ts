@@ -1,7 +1,7 @@
-import { IRootState } from '../../store/reducers';
+import { IRootState } from '@rootStore/reducers';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Login } from '../../../../src/app/store/actions/auth.action';
+import { Login } from '@rootStore/actions/auth.action';
 
 @Component({
     selector: 'app-login',

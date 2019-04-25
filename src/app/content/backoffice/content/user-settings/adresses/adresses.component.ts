@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { IRootState } from '../../../../../store/reducers';
+import { IRootState } from '@rootStore/reducers';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { IAdress, IUser } from '../../../../../store/reducers/user.reducer';
-import { EdittUserPending } from '../../../../../store/actions/user.action';
+import { IAdress, IUser } from '@rootStore/reducers/user.reducer';
+import { EdittUserPending } from '@rootStore/actions/user.action';
 
 @Component({
     selector: 'app-adresses',
