@@ -1,5 +1,5 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthService } from './shared/services/auth.service';
-import { metaReducers } from './store/reducers/index';
 import { AuthGuardService } from './shared/services/auth-guard.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { CustomRouterSerializer, metaReducers } from './store/reducers/index';
 import { environment } from '../environments/environment';
 import { reducers } from './store/reducers';
 import { effectsArr } from './store/effects';
@@ -30,7 +30,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
         StoreModule.forRoot(reducers, { metaReducers }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(effectsArr),
-        StoreRouterConnectingModule.forRoot(),
+        StoreRouterConnectingModule.forRoot({
+            serializer: CustomRouterSerializer
+        }),
         ModalModule.forRoot(),
         AngularFireMessagingModule,
         AngularFireModule.initializeApp(environment.fcmOptions),
