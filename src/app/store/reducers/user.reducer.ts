@@ -16,6 +16,7 @@ export interface IUser {
     username: string;
     _id: string;
     adress?: IAdress[];
+    gender: boolean;
 }
 
 export const initialState: IUser = {
@@ -26,6 +27,7 @@ export const initialState: IUser = {
     accessToken: '',
     createdAt: new Date(),
     _id: '',
+    gender: false,
     adress: [],
 };
 

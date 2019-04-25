@@ -19,7 +19,7 @@ export class InterceptorService implements HttpInterceptor {
         return this._authService.getTokenFromLocalStorage().pipe(
             switchMap((accessToken: string) => {
                 let headers: HttpHeaders = req.headers.append('Content-Type', 'application/json');
-                if (req.url !== '/auth/signup' && req.url !== '/auth/signin') {
+                if (req.url !== '/auth/signup' && req.url !== '/auth/signin' && req.url !== '/auth/checkUsername') {
                     headers = headers.append('Authorization', `Bearer ${accessToken}`);
                 }
                 const jsonReq: HttpRequest<T> = req.clone({

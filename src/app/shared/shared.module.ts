@@ -28,9 +28,17 @@ import { environment } from '../../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material';
 import { ValidatorService } from '@shared/services/validator.service';
+import { OldPasswordValidatorDirective } from '@shared/directives/oldPassword-validator.directive';
+import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-validator.directive';
 
 @NgModule({
-    declarations: [TableComponent, UsernameValidatorDirective, EqualValidatorDirective],
+    declarations: [
+        TableComponent,
+        UsernameValidatorDirective,
+        EqualValidatorDirective,
+        OldPasswordValidatorDirective,
+        UsernameUniqValidatorDirective,
+    ],
     imports: [
         CommonModule,
         MatSidenavModule,
@@ -77,6 +85,8 @@ import { ValidatorService } from '@shared/services/validator.service';
         MatSlideToggleModule,
         FormsModule,
         ReactiveFormsModule,
+        OldPasswordValidatorDirective,
+        UsernameUniqValidatorDirective,
     ],
     providers: [
         {

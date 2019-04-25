@@ -32,7 +32,11 @@ export class InitialsComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((user: IUser) => {
                 this.user = user;
-                this.userInfoForm.patchValue({ name: this.user.name, surname: this.user.surname });
+                this.userInfoForm.patchValue({
+                    name: this.user.name,
+                    surname: this.user.surname,
+                    male: this.user.gender,
+                });
             });
     }
 
@@ -45,6 +49,7 @@ export class InitialsComponent implements OnInit, OnDestroy {
             ...this.user,
             name: this.userInfoForm.value.name,
             surname: this.userInfoForm.value.surname,
+            gender: this.userInfoForm.value.male,
         };
         this._store.dispatch(new EdittUserPending(this.user));
     }
