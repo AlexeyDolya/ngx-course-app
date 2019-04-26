@@ -9,8 +9,9 @@ import {
     UserActionsTypes,
 } from '../actions/user.action';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { IUser } from '../reducers/user.reducer';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class UserEffects {
@@ -20,12 +21,26 @@ export class UserEffects {
         map((action: EdittUserPending) => action.payload),
         switchMap((user: IUser) => this._authService.editUser(user)),
         map((user: IUser) => new EdittUserSuccess(user)),
+        tap(() =>
+            this._snackBar.open('Данные успешно обновлены', '', {
+                duration: 1500,
+                panelClass: ['color-snack'],
+                horizontalPosition: 'center',
+            })
+        ),
         catchError((err: any) => {
-            // tslint:disable-next-line
-            console.log(err);
+            this._snackBar.open('Ошибка при редактировании данных', '', {
+                duration: 1500,
+                panelClass: ['color-snack'],
+                horizontalPosition: 'center',
+            });
             return of(new EdittUserFail(err));
         })
     );
 
-    public constructor(private actions$: Actions<UserActionsTypes>, private _authService: AuthService) {}
+    public constructor(
+        private actions$: Actions<UserActionsTypes>,
+        private _authService: AuthService,
+        private _snackBar: MatSnackBar
+    ) {}
 }

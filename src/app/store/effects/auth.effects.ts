@@ -22,6 +22,7 @@ import { MessagingService } from '@shared/services/notification.service';
 import { IUser } from '../reducers/user.reducer';
 import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions';
 import { Go } from '../actions/router.action';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable()
 export class AuthEffects {
@@ -43,12 +44,15 @@ export class AuthEffects {
                         new SetUser(data),
                         new ConnectNotifyChanel(),
                         new GetNotifyPending(),
-                        new Go({path: ['backoffice']})
+                        new Go({ path: ['backoffice'] }),
                     ];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
+                    this._snackBar.open('Ошибка при входе', '', {
+                        duration: 1500,
+                        panelClass: ['color-snack'],
+                        horizontalPosition: 'center',
+                    });
                     return of(new LoginFail(err));
                 })
             )
@@ -61,8 +65,20 @@ export class AuthEffects {
         map((action: SignUp) => action.payload),
         switchMap((user: any) =>
             this._authService.signUp(user).pipe(
-                mergeMap((data: any) => [new SignUpSuccess(data), new SetUser(data), new Go({path: ['backoffice']})]),
+                mergeMap((data: any) => [new SignUpSuccess(data), new SetUser(data), new Go({ path: ['backoffice'] })]),
+                tap(() =>
+                    this._snackBar.open('Вы успешно зарегистрированы', '', {
+                        duration: 1500,
+                        panelClass: ['color-snack'],
+                        horizontalPosition: 'center',
+                    })
+                ),
                 catchError((err: Error) => {
+                    this._snackBar.open('Ошибка регистриции', '', {
+                        duration: 1500,
+                        panelClass: ['color-snack'],
+                        horizontalPosition: 'center',
+                    });
                     return of(new SignUpFail(err));
                 })
             )
@@ -73,10 +89,13 @@ export class AuthEffects {
     public logout$: Observable<Action> = this.actions$.pipe(
         ofType(AuthActions.LOGOUT),
         tap(() => this._authService.removeFromLocalStorage('accessToken')),
-        mergeMap(() => [new LogoutSuccess(), new Go({path: ['login']})]),
-        catchError((err: Error) => {
-            // tslint:disable-next-line
-            console.log(err);
+        mergeMap(() => [new LogoutSuccess(), new Go({ path: ['login'] })]),
+        catchError(() => {
+          this._snackBar.open('Ошибка при выходе', '', {
+            duration: 1500,
+            panelClass: ['color-snack'],
+            horizontalPosition: 'center',
+          });
             return of(new LogoutFail());
         })
     );
@@ -89,9 +108,12 @@ export class AuthEffects {
         mergeMap((user: IUser) => {
             return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
         }),
-        catchError((err: any) => {
-            // tslint:disable-next-line
-            console.log(err);
+        catchError(() => {
+          this._snackBar.open('Ошибка: не корректные данные', '', {
+            duration: 1500,
+            panelClass: ['color-snack'],
+            horizontalPosition: 'center',
+          });
             return of(new Logout());
         })
     );
@@ -99,6 +121,7 @@ export class AuthEffects {
     public constructor(
         private actions$: Actions<AuthActionsType>,
         private _authService: AuthService,
-        private _messagingService: MessagingService
+        private _messagingService: MessagingService,
+        private _snackBar: MatSnackBar
     ) {}
 }
