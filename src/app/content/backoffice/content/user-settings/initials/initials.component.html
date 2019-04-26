@@ -5,7 +5,7 @@
             <mat-form-field fxFlex="50%">
                 <mat-label>Имя</mat-label>
                 <input matInput formControlName="name" />
-                <mat-error *ngIf="userInfoForm.get('name').invalid"
+                <mat-error *ngIf="userInfoForm?.get('name')?.invalid"
                     ><span *ngFor="let error of userInfoForm.get('name').errors | keyvalue">{{
                         error.key
                     }}</span></mat-error
@@ -14,7 +14,7 @@
             <mat-form-field fxFlex="50%">
                 <mat-label>Фамилия</mat-label>
                 <input matInput formControlName="surname" />
-                <mat-error *ngIf="userInfoForm.get('surname').invalid"
+                <mat-error *ngIf="userInfoForm?.get('surname')?.invalid"
                     ><span *ngFor="let error of userInfoForm.get('surname').errors | keyvalue">{{
                         error.key
                     }}</span></mat-error
