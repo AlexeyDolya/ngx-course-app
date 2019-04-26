@@ -28,7 +28,7 @@ export class LoginSuccess implements Action {
 
 // tslint:disable-next-line: max-classes-per-file
 export class LoginFail implements Action {
-    public readonly type: string = AuthActions.LOGIN_SUCCESS;
+    public readonly type: string = AuthActions.LOGIN_FAIL;
     public constructor(public payload: Error) {}
 }
 
