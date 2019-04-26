@@ -1,14 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-import {
-    BoardActions,
-    ChangeCardSuccess,
-    CreateCardSuccess,
-    GetBoardSuccess,
-    RemoveCardSuccess,
-} from '../actions/dashboard.action';
-
-// export type CardStatus = 'backlog' | 'progress' | 'qa' | 'done';
+import { BoardActions } from '../actions/dashboard.action';
 
 export enum CardStatus {
     BACKLOG = 'backlog',
@@ -31,20 +23,24 @@ export const adapter: EntityAdapter<ICard> = createEntityAdapter({
 
 const initialState: EntityState<ICard> = adapter.getInitialState([]);
 
-export function dashboardReducer(state: EntityState<ICard> = initialState, action: BoardActions): EntityState<ICard> {
-    if (action instanceof GetBoardSuccess) {
-        return adapter.upsertMany(action.payload, state);
+export function dashboardReducer(state: EntityState<ICard> = initialState, action: any): EntityState<ICard> {
+    switch (action.type) {
+        case BoardActions.GET_BOARD_SUCCESS: {
+            return adapter.upsertMany(action.payload, state);
+        }
+        case BoardActions.CHANGE_CARD_SUCCESS: {
+            return adapter.upsertOne(action.payload, state);
+        }
+        case BoardActions.CREATE_CARD_SUCCESS: {
+            return adapter.addOne(action.payload, state);
+        }
+        case BoardActions.REMOVE_CARD_SUCCESS: {
+            return adapter.removeOne(action.payload._id, state);
+        }
+        default: {
+            return state;
+        }
     }
-    if (action instanceof ChangeCardSuccess) {
-        return adapter.upsertOne(action.payload, state);
-    }
-    if (action instanceof CreateCardSuccess) {
-        return adapter.addOne(action.payload, state);
-    }
-    if (action instanceof RemoveCardSuccess) {
-        return adapter.removeOne(action.payload._id, state);
-    }
-    return state;
 }
 
 export const { selectAll } = adapter.getSelectors(createFeatureSelector('dashboard'));

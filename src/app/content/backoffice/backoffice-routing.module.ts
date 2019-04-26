@@ -18,11 +18,6 @@ const routes: Routes = [
                 loadChildren: './content/user-settings/user-settings.module#UserSettingsModule',
             },
             {
-                path: 'charts',
-                data: { state: 'charts' },
-                loadChildren: './content/charts/charts.module#ChartsModule',
-            },
-            {
                 path: 'events',
                 data: { state: 'events' },
                 loadChildren: './content/events/events.module#EventsModule',

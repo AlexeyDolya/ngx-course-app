@@ -1,0 +1,64 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch " class="user-info">
+    <form [formGroup]="form" fxFlex="100%" class="user-info_card" (ngSubmit)="onSubmit()">
+        <div>
+            <span>Адрес</span>
+            <button type="button" mat-button (click)="addAddress()">
+                <mat-icon>add</mat-icon>
+            </button>
+            <button mat-raised-button color="primary" [disabled]="!form.valid || form.pristine" type="submit">
+                Save
+            </button>
+        </div>
+        <div formArrayName="address">
+            <mat-card *ngFor="let item of address.controls; index as i">
+                <mat-card-content>
+                    <div fxLayout="row" fxLayoutAlign="end" *ngIf="address.controls.length > 1">
+                        <button type="button" mat-button (click)="removeAdr(i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
+                        <mat-form-field fxFlex="100%">
+                            <mat-label>Улица</mat-label>
+                            <input matInput [formControl]="item.get('street')" />
+                            <mat-error *ngIf="item.get('street').invalid"
+                                ><span *ngFor="let error of item.get('street').errors | keyvalue">{{
+                                    error.key
+                                }}</span></mat-error
+                            >
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-between stretch ">
+                        <mat-form-field fxFlex="30%">
+                            <mat-label>Город</mat-label>
+                            <input matInput [formControl]="item.get('city')" />
+                            <mat-error *ngIf="item.get('city').invalid"
+                                ><span *ngFor="let error of item.get('city').errors | keyvalue">{{
+                                    error.key
+                                }}</span></mat-error
+                            >
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <mat-label>Облость</mat-label>
+                            <input matInput [formControl]="item.get('state')" />
+                            <mat-error *ngIf="item.get('state').invalid"
+                                ><span *ngFor="let error of item.get('state').errors | keyvalue">{{
+                                    error.key
+                                }}</span></mat-error
+                            >
+                        </mat-form-field>
+                        <mat-form-field fxFlex="30%">
+                            <mat-label>Индекс</mat-label>
+                            <input matInput [formControl]="item.get('zip')" />
+                            <mat-error *ngIf="item.get('zip').invalid"
+                                ><span *ngFor="let error of item.get('zip').errors | keyvalue">{{
+                                    error.key
+                                }}</span></mat-error
+                            >
+                        </mat-form-field>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+</div>

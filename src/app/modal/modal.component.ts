@@ -6,8 +6,6 @@ import {
     HostListener,
     Injector,
     OnInit,
-    ReflectiveInjector,
-    StaticProvider,
     ViewChild,
     ViewContainerRef,
 } from '@angular/core';

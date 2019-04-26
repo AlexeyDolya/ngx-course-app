@@ -1,10 +1,11 @@
-import { Logout } from './../../../store/actions/auth.action';
+import { Logout } from '@rootStore/actions/auth.action';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IRootState } from './../../../../../src/app/store/reducers';
-import { getUnread } from '../../../store/reducers/notify.reducer';
+import { IRootState } from '@rootStore/reducers';
+import { getUnread } from '@rootStore/reducers/notify.reducer';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-header',
@@ -14,10 +15,12 @@ import { Subject } from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy {
     @Input()
     public drawer: any;
-    private counter: number = 0;
+    public counter: number = 0;
+    public headerTitleColor: SafeStyle = this._sanitizer.bypassSecurityTrustStyle('color:orange;');
+
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
-    public constructor(private _store: Store<IRootState>) {}
+    public constructor(private _sanitizer: DomSanitizer, private _store: Store<IRootState>) {}
 
     public ngOnInit(): void {
         this._store
@@ -35,7 +38,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public toggleSideBar(): void {
         this.drawer.toggle();
     }
+
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 }

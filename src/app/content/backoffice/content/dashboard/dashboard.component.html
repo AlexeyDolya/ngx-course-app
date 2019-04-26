@@ -1,6 +1,19 @@
 <div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
+    <div fxFlex="25">
+        <h3>Резерв</h3>
+    </div>
+    <div fxFlex="25">
+        <h3>На выполнении</h3>
+    </div>
+    <div fxFlex="25">
+        <h3>Тестирование</h3>
+    </div>
+    <div fxFlex="25">
+        <h3>Готово</h3>
+    </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-evenly stretch ">
     <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>Backlog</h3>
         <div
             cdkDropList
             [id]="'backlog'"
@@ -22,15 +35,8 @@
                 fxLayoutAlign="space-between stretch"
             ></div>
         </div>
-        <div>
-            <button mat-button (click)="addCard()">
-                <mat-icon>add</mat-icon>
-            </button>
-            <span> Add another card</span>
-        </div>
     </div>
     <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>In Progress</h3>
         <div
             cdkDropList
             [id]="'progress'"
@@ -54,7 +60,6 @@
         </div>
     </div>
     <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>QA</h3>
         <div
             cdkDropList
             #qaList="cdkDropList"
@@ -78,7 +83,6 @@
         </div>
     </div>
     <div [ngClass]="'board-column'" fxFlex="25">
-        <h3>Done</h3>
         <div
             cdkDropList
             #doneList="cdkDropList"
@@ -101,4 +105,10 @@
             ></div>
         </div>
     </div>
+</div>
+<div>
+    <button mat-button (click)="addCard()">
+        <mat-icon>add</mat-icon>
+    </button>
+    <span> Добавить новую карточку</span>
 </div>

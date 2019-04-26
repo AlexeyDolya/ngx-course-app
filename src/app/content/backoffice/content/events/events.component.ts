@@ -1,30 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
-import { INotify, selectAll } from '../../../../store/reducers/notify.reducer';
-import { GetNotifyPending } from '../../../../store/actions/notify.actions';
-import { takeUntil } from 'rxjs/operators';
+
+import { INotify, pagination } from '@rootStore/reducers/notify.reducer';
+import { ChangeEventStatus } from '@rootStore/actions/notify.actions';
+import { skip, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
-export interface IPeriodicElement {
-    name: string;
-    position: number;
-    weight: number;
-    symbol: string;
-}
-
-const ELEMENT_DATA: IPeriodicElement[] = [
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-];
+import { ChangePage } from 'src/app/store/actions/notify.actions';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Go } from '@rootStore/actions/router.action';
 
 @Component({
     selector: 'app-events',
@@ -35,28 +19,53 @@ export class EventsComponent implements OnInit, OnDestroy {
     public searchText: string = '';
     public displayedColumns: string[] = ['status', 'title', 'text', 'author', 'date'];
     public dataSource: INotify[] = [];
-
+    public length: number = 0;
+    public page: number = 0;
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
-    public constructor(private _store: Store<EntityState<INotify>>) {}
+    public constructor(private _store: Store<EntityState<INotify>>, private _activatedRoute: ActivatedRoute) {}
+
+    public ngOnInit(): void {
+        this._activatedRoute.queryParams
+            .pipe(
+                skip(1),
+                takeUntil(this._controlUnsubscribe$$)
+            )
+            .subscribe((query: Params) => {
+                this._store.dispatch(new ChangePage(Number(query.page)));
+            });
+
+        //  this._store.dispatch(new GetNotifyPending());
+        this._store
+            .select(pagination())
+            .pipe(takeUntil(this._controlUnsubscribe$$))
+            .subscribe(({ page, events, count }: { page: number; events: INotify[]; count: number }) => {
+                this.dataSource = events;
+                this.length = count;
+                this.page = page;
+            });
+    }
 
     public applyFilter(event: KeyboardEvent): void {
         const inputEl: HTMLInputElement = event.target as HTMLInputElement;
         this.searchText = inputEl.value;
-        //  this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    public ngOnInit(): void {
-        this._store.dispatch(new GetNotifyPending());
-        this._store
-            .select(selectAll)
-            .pipe(takeUntil(this._controlUnsubscribe$$))
-            .subscribe((dataSource: INotify[]) => {
-                this.dataSource = dataSource;
-            });
+    public changeStatus(_id: string): void {
+        this._store.dispatch(new ChangeEventStatus(_id));
+    }
+
+    public changePage(index: number): void {
+        this._store.dispatch(
+            new Go({
+                path: ['/backoffice/events'],
+                extras: { queryParams: { page: index } },
+            })
+        );
     }
 
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 }

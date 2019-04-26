@@ -1,12 +1,4 @@
-import {
-    LOGIN,
-    LOGIN_FAIL,
-    LOGIN_SUCCESS,
-    LOGOUT_SUCCESS,
-    SIGN_UP,
-    SIGN_UP_FAIL,
-    SIGN_UP_SUCCESS,
-} from '../actions/auth.action';
+import { AuthActions, AuthActionsType } from '../actions/auth.action';
 
 export interface IAuthState {
     isLogged: boolean;
@@ -19,23 +11,23 @@ export const initialState: IAuthState = {
 };
 
 // tslint:disable-next-line: no-any
-export function authReducer(state: IAuthState = initialLoggedState(), action: any): IAuthState {
+export function authReducer(state: IAuthState = initialLoggedState(), action: AuthActionsType): IAuthState {
     switch (action.type) {
-        case SIGN_UP_SUCCESS: {
+        case AuthActions.SIGN_UP_SUCCESS: {
             return {
                 ...state,
                 loading: false,
             };
         }
 
-        case LOGIN: {
+        case AuthActions.LOGIN: {
             return {
                 ...state,
                 loading: true,
             };
         }
 
-        case LOGIN_SUCCESS: {
+        case AuthActions.LOGIN_SUCCESS: {
             return {
                 ...state,
                 loading: false,
@@ -43,28 +35,28 @@ export function authReducer(state: IAuthState = initialLoggedState(), action: an
             };
         }
 
-        case LOGIN_FAIL: {
+        case AuthActions.LOGIN_FAIL: {
             return {
                 ...state,
                 loading: false,
             };
         }
 
-        case SIGN_UP: {
+        case AuthActions.SIGN_UP: {
             return {
                 ...state,
                 loading: true,
             };
         }
 
-        case SIGN_UP_FAIL: {
+        case AuthActions.SIGN_UP_FAIL: {
             return {
                 ...state,
                 loading: false,
             };
         }
 
-        case LOGOUT_SUCCESS: {
+        case AuthActions.LOGOUT_SUCCESS: {
             return {
                 ...initialState,
             };

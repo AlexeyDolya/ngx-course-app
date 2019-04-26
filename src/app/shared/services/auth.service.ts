@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { IUser } from '@rootStore/reducers/user.reducer';
 
 @Injectable()
 export class AuthService {
@@ -10,12 +11,16 @@ export class AuthService {
         return this._http.post(`/auth/signin`, { ...user });
     }
 
-    // public getCurrentUser(): Observable<User> {
-    //   return this._http.authorizedRequest(`/account`, '', 'GET');
-    // }
+    public editUser(user: any): Observable<IUser> {
+        return this._http.put<IUser>('/user/updateuser', user);
+    }
 
     public signUp(user: any): Observable<any> {
         return this._http.post(`/auth/signup`, { ...user });
+    }
+
+    public checkUser(token: string | null): Observable<any> {
+        return this._http.post(`/auth/checkuser`, { token });
     }
 
     public tokenToLocalStorage(user: any): Observable<any> {

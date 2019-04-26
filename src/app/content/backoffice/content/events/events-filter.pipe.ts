@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IPeriodicElement } from './events.component';
+import { INotify } from '@rootStore/reducers/notify.reducer';
 
 @Pipe({
     name: 'eventsFilter',
 })
 export class EventsFilterPipe implements PipeTransform {
-    public transform(events: IPeriodicElement[], search: string): IPeriodicElement[] {
+    public transform(events: INotify[], search: string): INotify[] {
         if (!search) {
             return events;
         }
-        return events.filter((event: IPeriodicElement) => {
-            return event.name
+        return events.filter((event: INotify) => {
+            return event.text
                 .trim()
                 .toLowerCase()
                 .includes(search.toLowerCase());

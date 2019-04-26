@@ -1,27 +1,24 @@
 <mat-toolbar color="primary">
   <button mat-button (click)="toggleSideBar()">
-    <!-- <mat-icon matListIcon (click)="drawer.toggle()">view_headline</mat-icon> -->
     <mat-icon matListIcon>view_headline</mat-icon>
   </button>
-  <h3>Team Board</h3>
+  <h3 [style]="headerTitleColor">Team Board</h3>
   <span class="fill-remaining-space"></span>
-  <p>
+  <button mat-icon-button    [routerLink]="['events']">
     <mat-icon
-      [routerLink]="['events']"
-      matBadge="{{counter}}" matBadgeColor="warn">notifications</mat-icon>
-  </p>
+      matBadge='{{counter}}' [matBadgeHidden]="!counter"   matBadgeColor="warn">notifications</mat-icon>
+  </button>
   <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
     <button mat-menu-item [routerLink]="['user']">
       <mat-icon>settings</mat-icon>
-      <span>User settings</span>
+      <span>Настроки</span>
     </button>
     <button mat-menu-item (click)="logout()">
       <mat-icon>logout</mat-icon>
-      <span>Logout</span>
+      <span>Выйти</span>
     </button>
   </mat-menu>
-
 </mat-toolbar>

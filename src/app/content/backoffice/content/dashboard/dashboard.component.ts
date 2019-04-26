@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, Injector, OnDestroy, OnInit } from '@angular/core';
 import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 import { CardStatus, filteredByStatusCards, ICard } from './store/reducers/dashboard.reducer';
 import { ChangeCardPending, GetBoardPending, RemoveCardPending } from './store/actions/dashboard.action';
@@ -8,7 +8,7 @@ import { EntityState } from '@ngrx/entity';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CardModalComponent } from './card-modal/card-modal.component';
-import { ModalService } from '../../../../modal/modal.service';
+import { ModalService } from '@modal/modal.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 
     public drop(event: CdkDragDrop<ICard[]>): void {
@@ -84,12 +85,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
                     status: event.container.id as CardStatus,
                 })
             );
-            // transferArrayItem(
-            //     event.previousContainer.data,
-            //     event.container.data,
-            //     event.previousIndex,
-            //     event.currentIndex
-            // );
+            transferArrayItem(
+                event.previousContainer.data,
+                event.container.data,
+                event.previousIndex,
+                event.currentIndex
+            );
         }
     }
 

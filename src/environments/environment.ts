@@ -3,8 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: any = {
-  production: false,
-  baseUrl: 'http://localhost:8090'
+    production: false,
+    baseUrl: 'http://localhost:8090',
+    fcmOptions: {
+        apiKey: 'AIzaSyC9fggBzxM_9CXgdi82ZecI-Wu5NcOkNgg',
+        authDomain: 'ngx-course.firebaseapp.com',
+        databaseURL: 'https://ngx-course.firebaseio.com',
+        projectId: 'ngx-course',
+        storageBucket: 'ngx-course.appspot.com',
+        messagingSenderId: '881969052371',
+    },
 };
 
 /*
