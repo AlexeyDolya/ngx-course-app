@@ -39,7 +39,7 @@
                             >
                         </mat-form-field>
                         <mat-form-field fxFlex="30%">
-                            <mat-label>Облость</mat-label>
+                            <mat-label>Область</mat-label>
                             <input matInput [formControl]="item.get('state')" />
                             <mat-error *ngIf="item.get('state').invalid"
                                 ><span *ngFor="let error of item.get('state').errors | keyvalue">{{

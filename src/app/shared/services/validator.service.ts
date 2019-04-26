@@ -20,7 +20,7 @@ export class ValidatorService {
         if (value && value.value) {
             value = value.value;
         }
-        const valid: boolean = /^[a-zA-Z]*$/.test(value);
+        const valid: boolean = /^[a-zA-Zа-яА-Я]*$/.test(value);
         const err: ValidationErrors | null = valid
             ? null
             : {
