@@ -1,27 +1,27 @@
 <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()">
-    <span>Info</span>
+    <span>Информация</span>
     <mat-card>
         <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch">
             <mat-form-field fxFlex="50%">
-                <mat-label>Name</mat-label>
+                <mat-label>Имя</mat-label>
                 <input matInput formControlName="name" />
-                <mat-error *ngIf="userInfoForm.get('name').invalid"
+                <mat-error *ngIf="userInfoForm?.get('name')?.invalid"
                     ><span *ngFor="let error of userInfoForm.get('name').errors | keyvalue">{{
                         error.key
                     }}</span></mat-error
                 >
             </mat-form-field>
             <mat-form-field fxFlex="50%">
-                <mat-label>Surname</mat-label>
+                <mat-label>Фамилия</mat-label>
                 <input matInput formControlName="surname" />
-                <mat-error *ngIf="userInfoForm.get('surname').invalid"
+                <mat-error *ngIf="userInfoForm?.get('surname')?.invalid"
                     ><span *ngFor="let error of userInfoForm.get('surname').errors | keyvalue">{{
                         error.key
                     }}</span></mat-error
                 >
             </mat-form-field>
             <div fxFlex="50%">
-                <span>Male</span>
+                <span>Мужчина</span>
                 <app-switcher formControlName="male"></app-switcher>
             </div>
             <div fxLayout="row" fxLayoutAlign="end">
@@ -31,7 +31,7 @@
                     [disabled]="!userInfoForm.valid || userInfoForm.pristine"
                     type="submit"
                 >
-                    Save
+                    Сохранить
                 </button>
             </div>
         </mat-card-content>
