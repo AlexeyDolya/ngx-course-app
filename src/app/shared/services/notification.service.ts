@@ -23,7 +23,7 @@ export class MessagingService {
     }
 
     public updateToken(userId: string, token: string | null): Observable<any> {
-        return this._http.put('/user/devices', { id: userId, devices: token });
+        return this._http.put('/auth/devices', { id: userId, devices: token });
     }
 
     public requestPermission(userId: string): Observable<any> {
