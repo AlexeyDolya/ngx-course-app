@@ -22,7 +22,7 @@ export const adapter: EntityAdapter<INotify> = createEntityAdapter({
 
 const initialState: INotifyState = {
     events: adapter.getInitialState([]),
-    page: 0
+    page: 0,
 };
 
 export function notifyReducer(state: INotifyState = initialState, action: any): INotifyState {
@@ -52,14 +52,14 @@ export const page: any = createSelector(
     }
 );
 
-
-export const { selectAll } = adapter.getSelectors(createSelector(
-    createFeatureSelector<any>('eventsTable'),
-    (eventsTable: INotifyState) => {
-        return eventsTable.events;
-    }
-));
-
+export const { selectAll } = adapter.getSelectors(
+    createSelector(
+        createFeatureSelector<any>('eventsTable'),
+        (eventsTable: INotifyState) => {
+            return eventsTable.events;
+        }
+    )
+);
 
 export function getUnread(): MemoizedSelector<any, any> {
     return createSelector(
@@ -74,9 +74,13 @@ export function pagination(): MemoizedSelector<any, any> {
     return createSelector(
         page,
         selectAll,
-        ( _page: number, notifys: INotify[]) => {
+        (_page: number, notifies: INotify[]) => {
             const perPage: number = 10;
-            return notifys.slice(_page * perPage, (_page + 1) * perPage);
+            return {
+                events: notifies.slice(_page * perPage, (_page + 1) * perPage),
+                count: notifies.length,
+                page: _page,
+            };
         }
     );
 }

@@ -11,7 +11,8 @@ export enum NotifyActions {
     CHANGE_NOTIFY_STATUS = '[Notify] CHANGE_NOTIFY_STATUS',
     CHANGE_NOTIFY_STATUS_SUCCESS = '[Notify] CHANGE_NOTIFY_STATUS_SUCCESS',
     CHANGE_NOTIFY_STATUS_ERROR = '[Notify] CHANGE_NOTIFY_STATUS_ERROR',
-    CHANGE_PAGE= '[Notify] CHANGE_PAGE'
+    CHANGE_PAGE_PENDING = '[Notify] CHANGE_PAGE_PENDING',
+    CHANGE_PAGE = '[Notify] CHANGE_PAGE',
 }
 
 // tslint:disable-next-line: max-classes-per-file
@@ -58,10 +59,13 @@ export class ChangeEventStatusError implements Action {
     public constructor(public payload: Error) {}
 }
 
+export class ChangePagePending implements Action {
+    public readonly type: string = NotifyActions.CHANGE_PAGE_PENDING;
+    public constructor(public payload: number) {}
+}
 export class ChangePage implements Action {
     public readonly type: string = NotifyActions.CHANGE_PAGE;
     public constructor(public payload: number) {}
-
 }
 
 export type NotifyActionsTypes =
@@ -73,4 +77,5 @@ export type NotifyActionsTypes =
     | GetNotifyPending
     | GetNotifySuccess
     | GetNotifyError
+    | ChangePagePending
     | ChangePage;

@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 
     public drop(event: CdkDragDrop<ICard[]>): void {

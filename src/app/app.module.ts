@@ -32,7 +32,7 @@ import { CustomRouterSerializer } from './store/reducers';
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot(effectsArr),
         StoreRouterConnectingModule.forRoot({
-            serializer: CustomRouterSerializer
+            serializer: CustomRouterSerializer,
         }),
         ModalModule.forRoot(),
         AngularFireMessagingModule,

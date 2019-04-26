@@ -2,7 +2,7 @@
   <button mat-button (click)="toggleSideBar()">
     <mat-icon matListIcon>view_headline</mat-icon>
   </button>
-  <h3>Team Board</h3>
+  <h3 [style]="headerTitleColor">Team Board</h3>
   <span class="fill-remaining-space"></span>
   <button mat-icon-button    [routerLink]="['events']">
     <mat-icon

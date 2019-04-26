@@ -43,7 +43,7 @@ export class AuthEffects {
                         new SetUser(data),
                         new ConnectNotifyChanel(),
                         new GetNotifyPending(),
-                        new Go({path: ['backoffice']})
+                        new Go({ path: ['backoffice'] }),
                     ];
                 }),
                 catchError((err: any) => {
@@ -61,7 +61,7 @@ export class AuthEffects {
         map((action: SignUp) => action.payload),
         switchMap((user: any) =>
             this._authService.signUp(user).pipe(
-                mergeMap((data: any) => [new SignUpSuccess(data), new SetUser(data), new Go({path: ['backoffice']})]),
+                mergeMap((data: any) => [new SignUpSuccess(data), new SetUser(data), new Go({ path: ['backoffice'] })]),
                 catchError((err: Error) => {
                     return of(new SignUpFail(err));
                 })
@@ -73,7 +73,7 @@ export class AuthEffects {
     public logout$: Observable<Action> = this.actions$.pipe(
         ofType(AuthActions.LOGOUT),
         tap(() => this._authService.removeFromLocalStorage('accessToken')),
-        mergeMap(() => [new LogoutSuccess(), new Go({path: ['login']})]),
+        mergeMap(() => [new LogoutSuccess(), new Go({ path: ['login'] })]),
         catchError((err: Error) => {
             // tslint:disable-next-line
             console.log(err);
