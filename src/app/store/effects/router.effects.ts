@@ -10,32 +10,26 @@ import { IRouterPayload } from '../actions/router.action';
 
 @Injectable()
 export class RouterEffects {
-
     @Effect({ dispatch: false })
-    public navigate$: Observable<IRouterPayload> = this.actions$
-        .pipe(
-            ofType(RoutersActions.GO),
-            map((action: Go) => action.payload),
-            tap(({ path, query: queryParams, extras }: IRouterPayload) => {
-                this.router.navigate(path, { queryParams, ...extras });
-            })
-        );
+    public navigate$: Observable<IRouterPayload> = this.actions$.pipe(
+        ofType(RoutersActions.GO),
+        map((action: Go) => action.payload),
+        tap(({ path, query: queryParams, extras }: IRouterPayload) => {
+            this.router.navigate(path, { queryParams, ...extras });
+        })
+    );
 
     @Effect({ dispatch: false })
     public navigateBack$: Observable<Action> = this.actions$.pipe(
-            ofType(RoutersActions.BACK),
-            tap(() => this.location.back())
-        );
+        ofType(RoutersActions.BACK),
+        tap(() => this.location.back())
+    );
 
     @Effect({ dispatch: false })
     public navigateForward$: Observable<Action> = this.actions$.pipe(
-            ofType(RoutersActions.FORWARD),
-            tap(() => this.location.forward())
-        );
+        ofType(RoutersActions.FORWARD),
+        tap(() => this.location.forward())
+    );
 
-    public constructor(
-        private actions$: Actions,
-        private router: Router,
-        private location: Location
-    ) { }
+    public constructor(private actions$: Actions, private router: Router, private location: Location) {}
 }

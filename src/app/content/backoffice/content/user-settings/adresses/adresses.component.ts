@@ -45,6 +45,7 @@ export class AdressesComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 
     public onSubmit(): void {

@@ -27,7 +27,7 @@ export const reducers: ActionReducerMap<IRootState> = {
     auth: authReducer,
     user: userReducer,
     eventsTable: notifyReducer,
-    routerReducer: fromRouter.routerReducer
+    routerReducer: fromRouter.routerReducer,
 };
 
 export function logoutAndClearState(reducer: ActionReducer<IRootState>): ActionReducer<IRootState> {
@@ -41,18 +41,20 @@ export function logoutAndClearState(reducer: ActionReducer<IRootState>): ActionR
     };
 }
 
-export class CustomRouterSerializer
-  implements RouterStateSerializer<IRouterStateUrl> {
-  public serialize(routerState: RouterStateSnapshot): IRouterStateUrl {
-    const { url, root: { queryParams } } = routerState;
+export class CustomRouterSerializer implements RouterStateSerializer<IRouterStateUrl> {
+    public serialize(routerState: RouterStateSnapshot): IRouterStateUrl {
+        const {
+            url,
+            root: { queryParams },
+        } = routerState;
 
-    let state: ActivatedRouteSnapshot = routerState.root;
-    while (state.firstChild) {
-      state = state.firstChild;
+        let state: ActivatedRouteSnapshot = routerState.root;
+        while (state.firstChild) {
+            state = state.firstChild;
+        }
+        const { params } = state;
+        return { url, queryParams, params };
     }
-    const { params } = state;
-    return { url, queryParams, params };
-  }
 }
 
 export const metaReducers: MetaReducer<IRootState>[] = [logoutAndClearState];

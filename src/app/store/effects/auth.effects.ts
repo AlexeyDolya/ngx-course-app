@@ -91,11 +91,11 @@ export class AuthEffects {
         tap(() => this._authService.removeFromLocalStorage('accessToken')),
         mergeMap(() => [new LogoutSuccess(), new Go({ path: ['login'] })]),
         catchError(() => {
-          this._snackBar.open('Ошибка при выходе', '', {
-            duration: 1500,
-            panelClass: ['color-snack'],
-            horizontalPosition: 'center',
-          });
+            this._snackBar.open('Ошибка при выходе', '', {
+                duration: 1500,
+                panelClass: ['color-snack'],
+                horizontalPosition: 'center',
+            });
             return of(new LogoutFail());
         })
     );
@@ -109,11 +109,11 @@ export class AuthEffects {
             return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
         }),
         catchError(() => {
-          this._snackBar.open('Ошибка: не корректные данные', '', {
-            duration: 1500,
-            panelClass: ['color-snack'],
-            horizontalPosition: 'center',
-          });
+            this._snackBar.open('Ошибка: не корректные данные', '', {
+                duration: 1500,
+                panelClass: ['color-snack'],
+                horizontalPosition: 'center',
+            });
             return of(new Logout());
         })
     );

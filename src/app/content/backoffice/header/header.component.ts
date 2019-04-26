@@ -5,6 +5,7 @@ import { IRootState } from '@rootStore/reducers';
 import { getUnread } from '@rootStore/reducers/notify.reducer';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-header',
@@ -15,9 +16,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Input()
     public drawer: any;
     public counter: number = 0;
+    public headerTitleColor: SafeStyle = this._sanitizer.bypassSecurityTrustStyle('color:orange;');
+
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
-    public constructor(private _store: Store<IRootState>) {}
+    public constructor(private _sanitizer: DomSanitizer, private _store: Store<IRootState>) {}
 
     public ngOnInit(): void {
         this._store
@@ -35,7 +38,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public toggleSideBar(): void {
         this.drawer.toggle();
     }
+
     public ngOnDestroy(): void {
         this._controlUnsubscribe$$.next(true);
+        this._controlUnsubscribe$$.complete();
     }
 }
