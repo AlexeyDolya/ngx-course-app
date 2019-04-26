@@ -1,22 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
-html, body {
-  height: 100%;
-  margin: 0;
-  background-image: url("assets/img/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-user-select: none;  /* Chrome all / Safari all */
-  -moz-user-select: none;     /* Firefox all */
-  -ms-user-select: none;      /* IE 10+ */
-  user-select: none;          /* Likely future */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    background-image: url('assets/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
 }
 
 .full-width {
-  width: 100%;
-  margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 [ng-reflect-router-link]:hover {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+.color-snack {
+    color: #ffd740;
 }

@@ -31,6 +31,7 @@ import { ValidatorService } from '@shared/services/validator.service';
 import { OldPasswordValidatorDirective } from '@shared/directives/oldPassword-validator.directive';
 import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-validator.directive';
 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
     declarations: [
         TableComponent,
@@ -67,6 +68,7 @@ import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-
         ReactiveFormsModule,
         OldPasswordValidatorDirective,
         UsernameUniqValidatorDirective,
+        MatSnackBarModule,
     ],
     providers: [
         {
