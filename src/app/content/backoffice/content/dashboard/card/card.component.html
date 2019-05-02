@@ -1,6 +1,6 @@
 <mat-icon>bookmark</mat-icon>
 <div>
-    <p>Карточка № {{ card._id | slice: 0:4 }}</p>
+    <p>Карточка № {{ card._id | slice: -4 }}</p>
     <p>Описание: {{ card.description }}</p>
 </div>
 <div>
