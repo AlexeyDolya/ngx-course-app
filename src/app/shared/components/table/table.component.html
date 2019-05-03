@@ -15,7 +15,7 @@
 <!--    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
 <!--</table>-->
 
-<table *appNgTable="let item of dataSource; index as i; headers as h" class="mat-table">
+<ng-container *appNgTable="let item of dataSource; index as i; headers as h" class="mat-table">
     <tr class="mat-header-row" *ngIf="!i">
         <td *ngFor="let header of h" class="mat-header-cell">
             {{ header }}
@@ -39,6 +39,6 @@
             <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
         </td>
     </tr>
-</table>
+</ng-container>
 
 <mat-paginator [length]="length" [pageSize]="10" [pageIndex]="page" (page)="changePage($event)"></mat-paginator>
