@@ -14,31 +14,31 @@
 <!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
 <!--    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
 <!--</table>-->
-
-<ng-container *appNgTable="let item of dataSource; index as i; headers as h" class="mat-table">
-    <tr class="mat-header-row" *ngIf="!i">
-        <td *ngFor="let header of h" class="mat-header-cell">
-            {{ header }}
-        </td>
-    </tr>
-    <tr class="mat-row" (click)="handleClick(item._id, item.status)">
-        <td class="mat-cell">
-            {{ item.title }}
-        </td>
-        <td class="mat-cell">
-            {{ item.text }}
-        </td>
-        <td class="mat-cell">
-            {{ item.author }}
-        </td>
-        <td class="mat-cell">
-            {{ item.date | date: 'medium' }}
-        </td>
-        <td class="mat-cell">
-            <ng-container *ngIf="!item.status; else unreadLabel"></ng-container>
-            <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
-        </td>
-    </tr>
-</ng-container>
-
-<mat-paginator [length]="length" [pageSize]="10" [pageIndex]="page" (page)="changePage($event)"></mat-paginator>
+<div class="table">
+    <ng-container *appNgTable="let item of dataSource; index as i; headers as h" >
+        <tr class="header-row" *ngIf="!i">
+            <td *ngFor="let header of h" class="header-cell">
+                {{ header }}
+            </td>
+        </tr>
+        <tr class="row" (click)="handleClick(item._id, item.status)">
+            <td class="cell">
+                {{ item.title }}
+            </td>
+            <td class="cell">
+                {{ item.text }}
+            </td>
+            <td class="cell">
+                {{ item.author }}
+            </td>
+            <td class="cell">
+                {{ item.date | date: 'medium' }}
+            </td>
+            <td class="cell">
+                <ng-container *ngIf="!item.status; else unreadLabel"></ng-container>
+                <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
+            </td>
+        </tr>
+    </ng-container>
+    <mat-paginator [length]="length" [pageSize]="10" [pageIndex]="page" (page)="changePage($event)"></mat-paginator>
+</div>
