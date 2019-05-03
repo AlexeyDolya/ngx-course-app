@@ -16,6 +16,7 @@ import { Go } from '@rootStore/actions/router.action';
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
+    public numbers: number[] = [1, 2, 3];
     public searchText: string = '';
     public displayedColumns: string[] = ['status', 'title', 'text', 'author', 'date'];
     public dataSource: INotify[] = [];

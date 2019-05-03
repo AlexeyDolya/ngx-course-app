@@ -32,6 +32,8 @@ import { OldPasswordValidatorDirective } from '@shared/directives/oldPassword-va
 import { UsernameUniqValidatorDirective } from '@shared/directives/usernameUniq-validator.directive';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgTableDirective } from '@shared/directives/ng-table.directive';
+import { CdkColumnDef } from '@angular/cdk/table';
 @NgModule({
     declarations: [
         TableComponent,
@@ -39,6 +41,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         EqualValidatorDirective,
         OldPasswordValidatorDirective,
         UsernameUniqValidatorDirective,
+        NgTableDirective,
     ],
     imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule],
     exports: [
@@ -81,6 +84,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
             useValue: environment.baseUrl,
         },
         ValidatorService,
+        CdkColumnDef,
     ],
 })
 export class SharedModule {}
