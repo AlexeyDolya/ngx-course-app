@@ -12,7 +12,7 @@ export enum UserActions {
 // tslint:disable-next-line: max-classes-per-file
 export class SetUser implements Action {
     public readonly type: string = UserActions.SET_USER;
-    public constructor(public payload: any) {}
+    public constructor(public payload: IUser) {}
 }
 
 // tslint:disable-next-line: max-classes-per-file

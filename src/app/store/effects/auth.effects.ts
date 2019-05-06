@@ -103,17 +103,12 @@ export class AuthEffects {
     @Effect()
     public init$: Observable<any> = this.actions$.pipe(
         ofType(ROOT_EFFECTS_INIT),
-        mergeMap(() => this._authService.getTokenFromLocalStorage()),
+        switchMap(() => this._authService.getTokenFromLocalStorage()),
         switchMap((token: string | null) => this._authService.checkUser(token)),
         mergeMap((user: IUser) => {
             return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
         }),
         catchError(() => {
-            this._snackBar.open('Ошибка: не корректные данные', '', {
-                duration: 1500,
-                panelClass: ['color-snack'],
-                horizontalPosition: 'center',
-            });
             return of(new Logout());
         })
     );
