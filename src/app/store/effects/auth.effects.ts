@@ -109,7 +109,7 @@ export class AuthEffects {
             return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
         }),
         catchError(() => {
-            this._snackBar.open('Ошибка: не корректные данные', '', {
+            this._snackBar.open('Ошибка при логине', '', {
                 duration: 1500,
                 panelClass: ['color-snack'],
                 horizontalPosition: 'center',
