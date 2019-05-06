@@ -15,7 +15,7 @@
 <!--    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>-->
 <!--</table>-->
 <div class="table">
-    <ng-container *appNgTable="let item of dataSource; index as i; headers as h" >
+    <ng-container *appNgTable="let item of dataSource; index as i; headers as h">
         <tr class="header-row" *ngIf="!i">
             <td *ngFor="let header of h" class="header-cell">
                 {{ header }}
@@ -23,20 +23,20 @@
         </tr>
         <tr class="row" (click)="handleClick(item._id, item.status)">
             <td class="cell">
-                {{ item.title }}
+                <ng-container *ngIf="!item.status; else unreadLabel"></ng-container>
+                <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
             </td>
             <td class="cell">
-                {{ item.text }}
+                {{ item._id | slice: -4 }}
+            </td>
+            <td class="cell">
+                {{ item.title }}
             </td>
             <td class="cell">
                 {{ item.author }}
             </td>
             <td class="cell">
                 {{ item.date | date: 'medium' }}
-            </td>
-            <td class="cell">
-                <ng-container *ngIf="!item.status; else unreadLabel"></ng-container>
-                <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
             </td>
         </tr>
     </ng-container>
