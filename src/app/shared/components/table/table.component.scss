@@ -1,3 +1,28 @@
-table {
-  width: 100%
+.table {
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    display: table;
+    width: 100%;
+    font-size: 15px;
+}
+.table:first-child {
+    width: 100%;
+}
+
+.row,
+.header-row {
+    display: flex;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #e0e0e0;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 24px;
+}
+
+.cell,
+.header-cell {
+    flex: 1;
+    overflow: hidden;
+    word-wrap: break-word;
 }
