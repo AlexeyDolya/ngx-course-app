@@ -11,7 +11,6 @@ export class AuthGuardService implements CanActivate {
 
     public canActivate(_activatedRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         const url: string = state.url;
-        //  return of(true);
         return this._store.select('auth', 'isLogged').pipe(
             take(1),
             switchMap((isLogged: boolean) => {

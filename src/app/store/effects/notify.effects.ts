@@ -32,8 +32,6 @@ export class NotifyEffect {
                     return [new GetUnreadPending(), new ConnectNotifyChanel()];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new FailedConnectNotifyChanel(err));
                 })
             )
@@ -49,8 +47,6 @@ export class NotifyEffect {
                     return new GetUnreadSuccess(data);
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new GetUnreadError(err));
                 })
             )
