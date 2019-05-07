@@ -4,9 +4,8 @@ import { EntityState } from '@ngrx/entity';
 
 import { INotify } from '@rootStore/reducers/notify.reducer';
 import { ChangeEventStatus } from '@rootStore/actions/notify.actions';
-import { skip, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Go } from '@rootStore/actions/router.action';
 import { ChangePagePending } from '@rootStore/actions/eventsTable.actions';
 import { getTable } from '@rootStore/selectors/notify.selectors';
@@ -17,28 +16,16 @@ import { getTable } from '@rootStore/selectors/notify.selectors';
     styleUrls: ['./events.component.scss'],
 })
 export class EventsComponent implements OnInit, OnDestroy {
-    public numbers: number[] = [1, 2, 3];
     public searchText: string = '';
     public displayedColumns: string[] = ['status', 'title', 'text', 'author', 'date'];
     public dataSource: INotify[] = [];
     public length: number = 0;
     public page: number = 0;
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
-    private _curPage: number = 0;
 
-    public constructor(private _store: Store<EntityState<INotify>>, private _activatedRoute: ActivatedRoute) {}
+    public constructor(private _store: Store<EntityState<INotify>>) {}
 
     public ngOnInit(): void {
-        this._activatedRoute.queryParams
-            .pipe(
-                skip(1),
-                takeUntil(this._controlUnsubscribe$$)
-            )
-            .subscribe((query: Params) => {
-                this._curPage = Number(query.page);
-            });
-
-        this._store.dispatch(new ChangePagePending(this._curPage));
         this._store
             .select(getTable())
             .pipe(takeUntil(this._controlUnsubscribe$$))
