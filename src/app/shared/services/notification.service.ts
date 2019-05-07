@@ -32,6 +32,10 @@ export class MessagingService {
         );
     }
 
+    public getPerPage(page: number): Observable<any> {
+        return this._http.get(`/notification/table?page=${page}`);
+    }
+
     public receiveMessage(): Observable<any> {
         return this.angularFireMessaging.messages;
     }

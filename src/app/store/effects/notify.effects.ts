@@ -9,9 +9,9 @@ import {
     ChangeEventStatusSuccess,
     ConnectNotifyChanel,
     FailedConnectNotifyChanel,
-    GetNotifyError,
-    GetNotifyPending,
-    GetNotifySuccess,
+    GetUnreadError,
+    GetUnreadPending,
+    GetUnreadSuccess,
     NotifyActions,
     NotifyActionsTypes,
 } from '../actions/notify.actions';
@@ -29,7 +29,7 @@ export class NotifyEffect {
                     new Notification(payload.notification.title, { body: payload.notification.body });
                 }),
                 mergeMap(() => {
-                    return [new GetNotifyPending(), new ConnectNotifyChanel()];
+                    return [new GetUnreadPending(), new ConnectNotifyChanel()];
                 }),
                 catchError((err: any) => {
                     // tslint:disable-next-line
@@ -42,16 +42,16 @@ export class NotifyEffect {
 
     @Effect()
     public getEvents$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(NotifyActions.GET_NOTIFY_PENDING),
+        ofType<any>(NotifyActions.GET_UNREAD_PENDING),
         switchMap(() =>
             this._messagingService.getEvents().pipe(
-                map((events: INotify[]) => {
-                    return new GetNotifySuccess(events);
+                map((data: number) => {
+                    return new GetUnreadSuccess(data);
                 }),
                 catchError((err: any) => {
                     // tslint:disable-next-line
                     console.log(err);
-                    return of(new GetNotifyError(err));
+                    return of(new GetUnreadError(err));
                 })
             )
         )
@@ -63,8 +63,8 @@ export class NotifyEffect {
         map((action: Login) => action.payload),
         switchMap((id: string) =>
             this._messagingService.changeStatus(id).pipe(
-                map((event: INotify) => {
-                    return new ChangeEventStatusSuccess(event);
+                mergeMap((event: INotify) => {
+                    return [new ChangeEventStatusSuccess(event), new GetUnreadPending()];
                 }),
                 catchError((err: any) => {
                     return of(new ChangeEventStatusError(err));

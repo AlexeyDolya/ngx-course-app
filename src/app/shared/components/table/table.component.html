@@ -27,8 +27,11 @@
                 <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
             </td>
             <td class="cell">
-                {{ item._id | slice: -4 }}
+                {{ item.cardId }}
             </td>
+          <td class="cell">
+            {{ item.title }}
+          </td>
             <td class="cell">
                 {{ item.text }}
             </td>

@@ -12,18 +12,13 @@ export class NgTableDirective {
         data.forEach((item: any, index: number) => {
             this._container.createEmbeddedView(this._template, {
                 $implicit: item,
-                headers: !index ? this._getHeaders(Object.keys(data[0])) : null,
+                headers: !index ? this._getHeaders() : null,
                 index,
             });
         });
     }
 
-    private _getHeaders(headers: string[]): string[] {
-        const res: string[] = headers.filter((i: string) => i !== 'title' && i !== '__v');
-        const status: string | undefined = res.pop();
-        if (status) {
-            res.unshift(status);
-        }
-        return res;
+    private _getHeaders(): string[] {
+        return ['Status', 'Card Id', 'Card Title', 'Text', 'Author', 'Date'];
     }
 }

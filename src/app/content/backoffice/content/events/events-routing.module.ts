@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EventsComponent } from './events.component';
-import { EventsGuardService } from './events-guard.service';
+// import { EventsGuardService } from './events-guard.service';
 
 const routes: Routes = [
     {
         path: '',
         component: EventsComponent,
-        canActivate: [EventsGuardService],
+        // canActivate: [EventsGuardService],
     },
 ];
 
