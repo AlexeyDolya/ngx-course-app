@@ -1,9 +1,9 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
     selector: '[appNgForGrid]',
 })
-export class NgForGridDirective implements OnInit {
+export class NgForGridDirective {
     @Input()
     public set appNgForGrid(_condition: any) {
         this._viewContainer.createEmbeddedView(this._templateRef);
@@ -29,6 +29,4 @@ export class NgForGridDirective implements OnInit {
     public images: any = [];
 
     public constructor(private _templateRef: TemplateRef<any>, private _viewContainer: ViewContainerRef) {}
-
-    public ngOnInit(): void {}
 }

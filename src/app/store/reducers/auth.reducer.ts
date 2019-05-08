@@ -10,7 +10,6 @@ export const initialState: IAuthState = {
     loading: false,
 };
 
-// tslint:disable-next-line: no-any
 export function authReducer(state: IAuthState = initialLoggedState(), action: AuthActionsType): IAuthState {
     switch (action.type) {
         case AuthActions.SIGN_UP_SUCCESS: {
@@ -76,8 +75,6 @@ function initialLoggedState(): IAuthState {
             isLogged: token ? true : false,
         };
     } catch (err) {
-        // tslint:disable-next-line
-        console.log(err);
         localStorage.removeItem('accessToken');
         return {
             ...initialState,
