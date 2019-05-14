@@ -47,10 +47,7 @@ export class ValidatorService {
         }
         return this._http.post('/user/checkPassword', { data: value }).pipe(
             map((data: ValidationErrors) => (data ? data : null)),
-            // tslint:disable-next-line
-            catchError((err: any) => {
-                // tslint:disable-next-line
-                console.log(err);
+            catchError(() => {
                 return of({ ERROR: true });
             })
         );
@@ -62,10 +59,7 @@ export class ValidatorService {
         }
         return this._http.post('/auth/checkUsername', { username: value }).pipe(
             map((data: ValidationErrors) => (data ? data : null)),
-            // tslint:disable-next-line
-            catchError((err: any) => {
-                // tslint:disable-next-line
-                console.log(err);
+            catchError(() => {
                 return of({ ERROR: true });
             })
         );
