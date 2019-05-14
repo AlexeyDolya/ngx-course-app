@@ -33,7 +33,7 @@ export class AuthEffects {
         switchMap((user: IUser) =>
             this._authService.login(user).pipe(
                 switchMap((data: IUser) => {
-                    return this._messagingService.requestPermission(data._id);
+                    return this._messagingService.requestFCMPermission(data);
                 }),
                 switchMap((data: IUser) => {
                     return this._authService.tokenToLocalStorage(data);

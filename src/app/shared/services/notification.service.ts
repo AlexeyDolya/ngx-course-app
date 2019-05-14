@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { messaging } from 'firebase';
-import { switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 
 @Injectable()
 export class MessagingService {
@@ -26,9 +26,10 @@ export class MessagingService {
         return this._http.put('/auth/devices', { id: userId, devices: token });
     }
 
-    public requestPermission(userId: string): Observable<any> {
+    public requestFCMPermission(data: any): Observable<any> {
         return this.angularFireMessaging.requestToken.pipe(
-            switchMap((token: string | null) => this.updateToken(userId, token))
+            switchMap((token: string | null) => this.updateToken(data.id, token)),
+            catchError(() => of(data))
         );
     }
 
