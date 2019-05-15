@@ -9,7 +9,6 @@ import {
     Login,
     LoginFail,
     LoginSuccess,
-    Logout,
     LogoutFail,
     LogoutSuccess,
     SignUp,
@@ -20,7 +19,7 @@ import { AuthService } from '@shared/services/auth.service';
 import { SetUser } from '../actions/user.action';
 import { MessagingService } from '@shared/services/notification.service';
 import { IUser } from '../reducers/user.reducer';
-import { ConnectNotifyChanel, GetNotifyPending } from '../actions/notify.actions';
+import { ConnectNotifyChanel, GetUnreadPending } from '../actions/notify.actions';
 import { Go } from '../actions/router.action';
 import { MatSnackBar } from '@angular/material';
 
@@ -33,7 +32,7 @@ export class AuthEffects {
         switchMap((user: IUser) =>
             this._authService.login(user).pipe(
                 switchMap((data: IUser) => {
-                    return this._messagingService.requestPermission(data._id);
+                    return this._messagingService.requestFCMPermission(data);
                 }),
                 switchMap((data: IUser) => {
                     return this._authService.tokenToLocalStorage(data);
@@ -43,7 +42,7 @@ export class AuthEffects {
                         new LoginSuccess(data),
                         new SetUser(data),
                         new ConnectNotifyChanel(),
-                        new GetNotifyPending(),
+                        new GetUnreadPending(),
                         new Go({ path: ['backoffice'] }),
                     ];
                 }),
@@ -103,18 +102,13 @@ export class AuthEffects {
     @Effect()
     public init$: Observable<any> = this.actions$.pipe(
         ofType(ROOT_EFFECTS_INIT),
-        mergeMap(() => this._authService.getTokenFromLocalStorage()),
+        switchMap(() => this._authService.getTokenFromLocalStorage()),
         switchMap((token: string | null) => this._authService.checkUser(token)),
         mergeMap((user: IUser) => {
-            return [new SetUser(user), new ConnectNotifyChanel(), new GetNotifyPending()];
+            return [new SetUser(user), new ConnectNotifyChanel(), new GetUnreadPending()];
         }),
-        catchError(() => {
-            this._snackBar.open('Ошибка: не корректные данные', '', {
-                duration: 1500,
-                panelClass: ['color-snack'],
-                horizontalPosition: 'center',
-            });
-            return of(new Logout());
+        catchError((e: Error) => {
+            return of(new LoginFail(e));
         })
     );
 

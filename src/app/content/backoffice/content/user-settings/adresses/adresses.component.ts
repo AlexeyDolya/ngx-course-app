@@ -70,6 +70,12 @@ export class AdressesComponent implements OnInit, OnDestroy {
 
     public removeAdr(index: number): void {
         this.address.removeAt(index);
+        this._store.dispatch(
+            new EdittUserPending({
+                ...this.user,
+                adress: this.address.getRawValue(),
+            })
+        );
     }
 
     private fillAddress(address: IAdress[] | undefined): void {

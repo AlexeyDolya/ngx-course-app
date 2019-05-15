@@ -15,8 +15,12 @@
             },
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-builders/custom-webpack:browser",
                     "options": {
+                        "customWebpackConfig": {
+                          "path": "./webpack.partial.js",
+                          "replaceDuplicatePlugins": true
+                        },
                         "outputPath": "dist/course-app",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -39,11 +43,11 @@
                             "outputHashing": "all",
                             "sourceMap": false,
                             "extractCss": true,
-                            "namedChunks": false,
-                            "aot": false,
+                            "namedChunks": true,
+                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
-                            "buildOptimizer": false,
+                            "buildOptimizer": true,
                             "budgets": [
                                 {
                                     "type": "initial",

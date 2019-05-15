@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EntityState } from '@ngrx/entity';
 
-import { INotify, pagination } from '@rootStore/reducers/notify.reducer';
+import { INotify } from '@rootStore/reducers/notify.reducer';
 import { ChangeEventStatus } from '@rootStore/actions/notify.actions';
-import { skip, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { ChangePage } from 'src/app/store/actions/notify.actions';
-import { ActivatedRoute, Params } from '@angular/router';
 import { Go } from '@rootStore/actions/router.action';
+import { ChangePagePending } from '@rootStore/actions/eventsTable.actions';
+import { getTable } from '@rootStore/selectors/notify.selectors';
 
 @Component({
     selector: 'app-events',
@@ -23,21 +23,11 @@ export class EventsComponent implements OnInit, OnDestroy {
     public page: number = 0;
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
-    public constructor(private _store: Store<EntityState<INotify>>, private _activatedRoute: ActivatedRoute) {}
+    public constructor(private _store: Store<EntityState<INotify>>) {}
 
     public ngOnInit(): void {
-        this._activatedRoute.queryParams
-            .pipe(
-                skip(1),
-                takeUntil(this._controlUnsubscribe$$)
-            )
-            .subscribe((query: Params) => {
-                this._store.dispatch(new ChangePage(Number(query.page)));
-            });
-
-        //  this._store.dispatch(new GetNotifyPending());
         this._store
-            .select(pagination())
+            .select(getTable())
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe(({ page, events, count }: { page: number; events: INotify[]; count: number }) => {
                 this.dataSource = events;
@@ -62,6 +52,7 @@ export class EventsComponent implements OnInit, OnDestroy {
                 extras: { queryParams: { page: index } },
             })
         );
+        this._store.dispatch(new ChangePagePending(index));
     }
 
     public ngOnDestroy(): void {

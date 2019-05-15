@@ -30,8 +30,6 @@ export class BoardEffects {
                     return [new GetBoardSuccess(cards)];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new GetBoardError(err));
                 })
             )
@@ -48,8 +46,6 @@ export class BoardEffects {
                     return [new CreateCardSuccess(card)];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new CreateCardError(err));
                 })
             )
@@ -66,8 +62,6 @@ export class BoardEffects {
                     return [new RemoveCardSuccess(card)];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new RemoveCardError(err));
                 })
             )
@@ -84,8 +78,6 @@ export class BoardEffects {
                     return [new ChangeCardSuccess(card)];
                 }),
                 catchError((err: any) => {
-                    // tslint:disable-next-line
-                    console.log(err);
                     return of(new ChangeCardError(err));
                 })
             )

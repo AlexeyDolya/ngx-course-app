@@ -2,10 +2,10 @@ import { Logout } from '@rootStore/actions/auth.action';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IRootState } from '@rootStore/reducers';
-import { getUnread } from '@rootStore/reducers/notify.reducer';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { unread } from '@rootStore/selectors/notify.selectors';
 
 @Component({
     selector: 'app-header',
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this._store
-            .select(getUnread())
+            .select(unread)
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((counter: number) => {
                 this.counter = counter;

@@ -1,4 +1,4 @@
-import { ActionReducer, ActionReducerMap, createFeatureSelector, MetaReducer } from '@ngrx/store';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import { authReducer, IAuthState } from './auth.reducer';
 
@@ -58,6 +58,3 @@ export class CustomRouterSerializer implements RouterStateSerializer<IRouterStat
 }
 
 export const metaReducers: MetaReducer<IRootState>[] = [logoutAndClearState];
-
-// tslint:disable-next-line:typedef
-export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<IRouterStateUrl>>('routerReducer');

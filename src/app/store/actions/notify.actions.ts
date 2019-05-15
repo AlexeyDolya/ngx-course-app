@@ -5,14 +5,12 @@ import { INotify } from '../reducers/notify.reducer';
 export enum NotifyActions {
     CONNECT_NOTIFY_CHANEL = '[FCM] CONNECT_NOTIFY_CHANEL',
     FAILD_CONNECT_NOTIFY_CHANEL = '[FCM] FAILD_CONNECT_NOTIFY_CHANEL',
-    GET_NOTIFY_PENDING = '[Notify] GET_NOTIFY_PENDING',
-    GET_NOTIFY_SUCCESS = '[Notify] GET_NOTIFY_SUCCESS',
-    GET_NOTIFY_ERROR = '[Notify] GET_NOTIFY_ERROR',
+    GET_UNREAD_PENDING = '[Notify] GET_UNREAD_PENDING',
+    GET_UNREAD_SUCCESS = '[Notify] GET_UNREAD_SUCCESS',
+    GET_UNREAD_ERROR = '[Notify] GET_UNREAD_ERROR',
     CHANGE_NOTIFY_STATUS = '[Notify] CHANGE_NOTIFY_STATUS',
     CHANGE_NOTIFY_STATUS_SUCCESS = '[Notify] CHANGE_NOTIFY_STATUS_SUCCESS',
     CHANGE_NOTIFY_STATUS_ERROR = '[Notify] CHANGE_NOTIFY_STATUS_ERROR',
-    CHANGE_PAGE_PENDING = '[Notify] CHANGE_PAGE_PENDING',
-    CHANGE_PAGE = '[Notify] CHANGE_PAGE',
 }
 
 // tslint:disable-next-line: max-classes-per-file
@@ -27,20 +25,20 @@ export class FailedConnectNotifyChanel implements Action {
 }
 
 // tslint:disable-next-line: max-classes-per-file
-export class GetNotifyPending implements Action {
-    public readonly type: string = NotifyActions.GET_NOTIFY_PENDING;
+export class GetUnreadPending implements Action {
+    public readonly type: string = NotifyActions.GET_UNREAD_PENDING;
 }
 
 // tslint:disable-next-line: max-classes-per-file
-export class GetNotifySuccess implements Action {
-    public readonly type: string = NotifyActions.GET_NOTIFY_SUCCESS;
+export class GetUnreadSuccess implements Action {
+    public readonly type: string = NotifyActions.GET_UNREAD_SUCCESS;
 
-    public constructor(public payload: any[]) {}
+    public constructor(public payload: number) {}
 }
 
 // tslint:disable-next-line: max-classes-per-file
-export class GetNotifyError implements Action {
-    public readonly type: string = NotifyActions.GET_NOTIFY_ERROR;
+export class GetUnreadError implements Action {
+    public readonly type: string = NotifyActions.GET_UNREAD_ERROR;
     public constructor(public payload: Error) {}
 }
 
@@ -59,23 +57,12 @@ export class ChangeEventStatusError implements Action {
     public constructor(public payload: Error) {}
 }
 
-export class ChangePagePending implements Action {
-    public readonly type: string = NotifyActions.CHANGE_PAGE_PENDING;
-    public constructor(public payload: number) {}
-}
-export class ChangePage implements Action {
-    public readonly type: string = NotifyActions.CHANGE_PAGE;
-    public constructor(public payload: number) {}
-}
-
 export type NotifyActionsTypes =
     | ChangeEventStatusSuccess
     | ChangeEventStatusError
     | ChangeEventStatus
     | ConnectNotifyChanel
     | FailedConnectNotifyChanel
-    | GetNotifyPending
-    | GetNotifySuccess
-    | GetNotifyError
-    | ChangePagePending
-    | ChangePage;
+    | GetUnreadPending
+    | GetUnreadSuccess
+    | GetUnreadError;
