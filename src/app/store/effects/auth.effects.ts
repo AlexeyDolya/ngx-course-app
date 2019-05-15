@@ -9,7 +9,6 @@ import {
     Login,
     LoginFail,
     LoginSuccess,
-    Logout,
     LogoutFail,
     LogoutSuccess,
     SignUp,
@@ -108,8 +107,8 @@ export class AuthEffects {
         mergeMap((user: IUser) => {
             return [new SetUser(user), new ConnectNotifyChanel(), new GetUnreadPending()];
         }),
-        catchError(() => {
-            return of(new Logout());
+        catchError((e: Error) => {
+            return of(new LoginFail(e));
         })
     );
 

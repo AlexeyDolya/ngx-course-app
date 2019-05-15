@@ -28,7 +28,7 @@ export class MessagingService {
 
     public requestFCMPermission(data: any): Observable<any> {
         return this.angularFireMessaging.requestToken.pipe(
-            switchMap((token: string | null) => this.updateToken(data.id, token)),
+            switchMap((token: string | null) => this.updateToken(data._id, token)),
             catchError(() => of(data))
         );
     }
