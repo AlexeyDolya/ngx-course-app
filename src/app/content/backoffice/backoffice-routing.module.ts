@@ -15,7 +15,7 @@ const routes: Routes = [
             {
                 path: 'user',
                 data: { state: 'user' },
-                loadChildren: './content/user-settings/user-settings.module#UserSettingsModule',
+                loadChildren: './content/user-settings/profile.module#ProfileModule',
             },
             {
                 path: 'events',
