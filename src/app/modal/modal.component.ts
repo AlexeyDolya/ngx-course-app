@@ -49,6 +49,7 @@ export class ModalComponent implements OnInit {
         );
     }
 
+    // @HostListener('window:keyup.esc')
     @HostListener('window:keyup', ['$event.keyCode'])
     public close(code: number = 27): void {
         if (code !== 27) {
