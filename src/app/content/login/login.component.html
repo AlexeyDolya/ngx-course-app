@@ -2,16 +2,16 @@
   <mat-card>
     <mat-card-content>
       <form (submit)="login(f.value)" #f="ngForm">
-        <p>Войдите для продолжения</p>
+        <p>Log in to continue </p>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Имя пользователя" name="username" ngModel required appUsernameValidator #c="ngModel">
+          <input matInput placeholder="User name" name="username" ngModel required appUsernameValidator #c="ngModel">
           <mat-error *ngIf="c.errors && c.errors.onlyLetters">{{c.errors.onlyLetters}}</mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="Пароль" name="password" ngModel type="password" required>
+          <input matInput placeholder="Password" name="password" ngModel type="password" required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Войти</button>
-        <a mat-button [routerLink]="['/signup']">Зарегистрируйтесь</a>
+        <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Log in</button>
+        <a mat-button [routerLink]="['/signup']">Sign up</a>
       </form>
 
     </mat-card-content>

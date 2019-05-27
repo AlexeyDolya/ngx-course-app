@@ -2,11 +2,11 @@
     <mat-card>
         <mat-card-content>
             <form (submit)="signup(f.value)" #f="ngForm">
-                <p>Зарегистрируйтесь для продолжения</p>
+                <p>Sin up for continue</p>
                 <mat-form-field class="full-width">
                     <input
                         matInput
-                        placeholder="Имя пользователя"
+                        placeholder="User name"
                         name="username"
                         ngModel
                         required
@@ -28,7 +28,7 @@
                     <mat-form-field class="full-width">
                         <input
                             matInput
-                            placeholder="Пароль"
+                            placeholder="Password"
                             name="password"
                             ngModel
                             type="password"
@@ -39,7 +39,7 @@
                     <mat-form-field class="full-width">
                         <input
                             matInput
-                            placeholder="Повторите пароль"
+                            placeholder="Confirm password"
                             name="cpassword"
                             ngModel
                             type="password"
@@ -54,9 +54,9 @@
                     type="submit"
                     [disabled]="f.invalid || f.pending || f.pristine"
                 >
-                    Зарегистрироваться
+                    Sign up
                 </button>
-                <a mat-button [routerLink]="['/login']">Войти</a>
+                <a mat-button [routerLink]="['/login']">Log in</a>
             </form>
         </mat-card-content>
     </mat-card>

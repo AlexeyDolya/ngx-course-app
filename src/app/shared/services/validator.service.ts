@@ -11,7 +11,7 @@ export class ValidatorService {
         const [password, cpassword] = Object.values(value);
         return password !== cpassword
             ? {
-                  'Значение паролей не совпадает': true,
+                  'Passwords do not match': true,
               }
             : null;
     }
@@ -24,7 +24,7 @@ export class ValidatorService {
         const err: ValidationErrors | null = valid
             ? null
             : {
-                  'Только буквы': true,
+                  'Only letters': true,
               };
         return err;
     }
@@ -37,7 +37,7 @@ export class ValidatorService {
         const err: ValidationErrors | null = valid
             ? null
             : {
-                  'Только чиcла': true,
+                  'Only numbers': true,
               };
         return err;
     }
