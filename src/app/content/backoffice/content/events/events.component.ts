@@ -6,8 +6,6 @@ import { INotify } from '@rootStore/reducers/notify.reducer';
 import { ChangeEventStatus } from '@rootStore/actions/notify.actions';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { Go } from '@rootStore/actions/router.action';
-import { ChangePagePending } from '@rootStore/actions/eventsTable.actions';
 import { getTable } from '@rootStore/selectors/notify.selectors';
 
 @Component({
@@ -17,10 +15,7 @@ import { getTable } from '@rootStore/selectors/notify.selectors';
 })
 export class EventsComponent implements OnInit, OnDestroy {
     public searchText: string = '';
-    public displayedColumns: string[] = ['status', 'title', 'text', 'author', 'date'];
     public dataSource: INotify[] = [];
-    public length: number = 0;
-    public page: number = 0;
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
 
     public constructor(private _store: Store<EntityState<INotify>>) {}
@@ -29,10 +24,8 @@ export class EventsComponent implements OnInit, OnDestroy {
         this._store
             .select(getTable())
             .pipe(takeUntil(this._controlUnsubscribe$$))
-            .subscribe(({ page, events, count }: { page: number; events: INotify[]; count: number }) => {
+            .subscribe(({ events}: { events: INotify[]; }) => {
                 this.dataSource = events;
-                this.length = count;
-                this.page = page;
             });
     }
 
@@ -43,16 +36,6 @@ export class EventsComponent implements OnInit, OnDestroy {
 
     public changeStatus(_id: string): void {
         this._store.dispatch(new ChangeEventStatus(_id));
-    }
-
-    public changePage(index: number): void {
-        this._store.dispatch(
-            new Go({
-                path: ['/backoffice/events'],
-                extras: { queryParams: { page: index } },
-            })
-        );
-        this._store.dispatch(new ChangePagePending(index));
     }
 
     public ngOnDestroy(): void {

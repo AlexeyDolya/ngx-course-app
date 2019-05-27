@@ -27,27 +27,27 @@ import { MatSnackBar } from '@angular/material';
 export class AuthEffects {
     @Effect()
     public login$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(AuthActions.LOGIN),
+        ofType(AuthActions.LOGIN),
         map((action: Login) => action.payload),
-        switchMap((user: IUser) =>
-            this._authService.login(user).pipe(
-                switchMap((data: IUser) => {
-                    return this._messagingService.requestFCMPermission(data);
+        switchMap((userData: IUser) =>
+            this._authService.login(userData).pipe(
+                switchMap((user: IUser) => {
+                    return this._messagingService.requestFCMPermission(user);
                 }),
-                switchMap((data: IUser) => {
-                    return this._authService.tokenToLocalStorage(data);
+                switchMap((user: IUser) => {
+                    return this._authService.tokenToLocalStorage(user);
                 }),
-                mergeMap((data: IUser) => {
+                mergeMap((user: IUser) => {
                     return [
-                        new LoginSuccess(data),
-                        new SetUser(data),
+                        new LoginSuccess(user),
+                        new SetUser(user),
                         new ConnectNotifyChanel(),
                         new GetUnreadPending(),
                         new Go({ path: ['backoffice'] }),
                     ];
                 }),
-                catchError((err: any) => {
-                    this._snackBar.open('Ошибка при входе', '', {
+                catchError((err: Error) => {
+                    this._snackBar.open('Log in error', '', {
                         duration: 1500,
                         panelClass: ['color-snack'],
                         horizontalPosition: 'center',
@@ -60,20 +60,32 @@ export class AuthEffects {
 
     @Effect()
     public signUp$: Observable<Action> = this.actions$.pipe(
-        ofType<any>(AuthActions.SIGN_UP),
+        ofType(AuthActions.SIGN_UP),
         map((action: SignUp) => action.payload),
-        switchMap((user: any) =>
-            this._authService.signUp(user).pipe(
-                mergeMap((data: any) => [new SignUpSuccess(data), new SetUser(data), new Go({ path: ['backoffice'] })]),
+        switchMap((userData: IUser) =>
+            this._authService.signUp(userData).pipe(
+                switchMap((user: IUser) => {
+                    return this._messagingService.requestFCMPermission(user);
+                }),
+                switchMap((user: IUser) => {
+                    return this._authService.tokenToLocalStorage(user);
+                }),
+                mergeMap((data: IUser) => [
+                    new SignUpSuccess(data),
+                    new SetUser(data),
+                    new ConnectNotifyChanel(),
+                    new GetUnreadPending(),
+                    new Go({ path: ['backoffice'] }),
+                ]),
                 tap(() =>
-                    this._snackBar.open('Вы успешно зарегистрированы', '', {
+                    this._snackBar.open('Sign up ready', '', {
                         duration: 1500,
                         panelClass: ['color-snack'],
                         horizontalPosition: 'center',
                     })
                 ),
                 catchError((err: Error) => {
-                    this._snackBar.open('Ошибка регистриции', '', {
+                    this._snackBar.open('Sign up error', '', {
                         duration: 1500,
                         panelClass: ['color-snack'],
                         horizontalPosition: 'center',
@@ -90,7 +102,7 @@ export class AuthEffects {
         tap(() => this._authService.removeFromLocalStorage('accessToken')),
         mergeMap(() => [new LogoutSuccess(), new Go({ path: ['login'] })]),
         catchError(() => {
-            this._snackBar.open('Ошибка при выходе', '', {
+            this._snackBar.open('Log in error', '', {
                 duration: 1500,
                 panelClass: ['color-snack'],
                 horizontalPosition: 'center',
@@ -100,7 +112,7 @@ export class AuthEffects {
     );
 
     @Effect()
-    public init$: Observable<any> = this.actions$.pipe(
+    public init$: Observable<Action> = this.actions$.pipe(
         ofType(ROOT_EFFECTS_INIT),
         switchMap(() => this._authService.getTokenFromLocalStorage()),
         switchMap((token: string | null) => this._authService.checkUser(token)),

@@ -4,16 +4,16 @@ import { Store } from '@ngrx/store';
 import { IRootState } from '@rootStore/reducers';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { IAdress, IUser } from '@rootStore/reducers/user.reducer';
+import { IAddress, IUser } from '@rootStore/reducers/user.reducer';
 import { EdittUserPending } from '@rootStore/actions/user.action';
 import { ValidatorService } from '@shared/services/validator.service';
 
 @Component({
-    selector: 'app-adresses',
-    templateUrl: './adresses.component.html',
-    styleUrls: ['./adresses.component.scss'],
+    selector: 'app-addresses',
+    templateUrl: './addresses.component.html',
+    styleUrls: ['./addresses.component.scss'],
 })
-export class AdressesComponent implements OnInit, OnDestroy {
+export class AddressesComponent implements OnInit, OnDestroy {
     public get address(): FormArray {
         return this.form.get('address') as FormArray;
     }
@@ -40,7 +40,7 @@ export class AdressesComponent implements OnInit, OnDestroy {
             .subscribe((user: IUser) => {
                 this.user = user;
             });
-        this.fillAddress(this.user.adress);
+        this.fillAddress(this.user.address);
     }
 
     public ngOnDestroy(): void {
@@ -52,7 +52,7 @@ export class AdressesComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             new EdittUserPending({
                 ...this.user,
-                adress: this.address.getRawValue(),
+                address: this.address.getRawValue(),
             })
         );
     }
@@ -73,15 +73,15 @@ export class AdressesComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             new EdittUserPending({
                 ...this.user,
-                adress: this.address.getRawValue(),
+                address: this.address.getRawValue(),
             })
         );
     }
 
-    private fillAddress(address: IAdress[] | undefined): void {
+    private fillAddress(address: IAddress[] | undefined): void {
         if (address && address.length > 0) {
             this.address.removeAt(0);
-            address.forEach((item: IAdress) =>
+            address.forEach((item: IAddress) =>
                 this.address.push(
                     new FormGroup({
                         street: new FormControl(item.street, [

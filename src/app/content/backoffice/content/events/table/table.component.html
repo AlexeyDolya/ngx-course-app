@@ -1,0 +1,39 @@
+<div class="container">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="status" >
+      <th mat-header-cell *matHeaderCellDef>Status </th>
+      <td mat-cell *matCellDef="let element" (click)="handleClick(element._id, element.status)">
+        <ng-container *ngIf="!element.status; else unreadLabel"></ng-container>
+        <ng-template #unreadLabel><mat-icon>check</mat-icon></ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cardId">
+      <th mat-header-cell *matHeaderCellDef >Card Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.cardId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef > Card Title </th>
+      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="text">
+      <th mat-header-cell *matHeaderCellDef > Text </th>
+      <td mat-cell *matCellDef="let element"> {{element.text}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef > Author </th>
+      <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef > Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.date | date: 'medium' }} </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['status', 'cardId', 'title', 'text', 'author', 'date'] sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['status', 'cardId', 'title', 'text', 'author', 'date'];"></tr>
+  </table>
+
+</div>

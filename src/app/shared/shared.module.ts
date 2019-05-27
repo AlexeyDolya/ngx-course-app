@@ -15,7 +15,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { TableComponent } from './components/table/table.component';
 import { CommonModule } from '@angular/common';
 import { UsernameValidatorDirective } from './directives/username-validator.directive';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
@@ -36,7 +35,6 @@ import { NgTableDirective } from '@shared/directives/ng-table.directive';
 import { CdkColumnDef } from '@angular/cdk/table';
 @NgModule({
     declarations: [
-        TableComponent,
         UsernameValidatorDirective,
         EqualValidatorDirective,
         OldPasswordValidatorDirective,
@@ -46,7 +44,6 @@ import { CdkColumnDef } from '@angular/cdk/table';
     imports: [CommonModule, MatTableModule, MatPaginatorModule, MatIconModule],
     exports: [
         CommonModule,
-        TableComponent,
         MatSidenavModule,
         MatFormFieldModule,
         MatSelectModule,

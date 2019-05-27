@@ -16,6 +16,7 @@ export function authReducer(state: IAuthState = initialLoggedState(), action: Au
             return {
                 ...state,
                 loading: false,
+                isLogged: true,
             };
         }
 

@@ -3,10 +3,6 @@
 </mat-form-field>
 
 <app-table
-    [page]="page"
     [dataSource]="dataSource | eventsFilter: searchText"
-    [displayedColumns]="displayedColumns"
     (eventId)="changeStatus($event)"
-    [length]="length"
-    (newPage)="changePage($event)"
 ></app-table>

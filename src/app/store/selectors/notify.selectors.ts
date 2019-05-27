@@ -33,14 +33,10 @@ export const unread: any = createSelector(
 
 export function getTable(): MemoizedSelector<any, any> {
     return createSelector(
-        length,
-        page,
         selectAll,
-        (_length: number, _page: number, notifies: INotify[]) => {
+        ( notifies: INotify[]) => {
             return {
                 events: notifies,
-                count: _length,
-                page: _page,
             };
         }
     );

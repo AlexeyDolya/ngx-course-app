@@ -15,8 +15,8 @@ export class AuthService {
         return this._http.put<IUser>('/user/updateuser', user);
     }
 
-    public signUp(user: any): Observable<any> {
-        return this._http.post(`/auth/signup`, { ...user });
+    public signUp(user: any): Observable<IUser> {
+        return this._http.post<IUser>(`/auth/signup`, { ...user });
     }
 
     public checkUser(token: string | null): Observable<any> {

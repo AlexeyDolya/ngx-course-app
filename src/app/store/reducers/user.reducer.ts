@@ -1,6 +1,6 @@
 import { UserActions } from '../actions/user.action';
 
-export type IAdress = {
+export type IAddress = {
     street: string;
     city: string;
     state: string;
@@ -15,7 +15,7 @@ export interface IUser {
     email: string;
     username: string;
     _id: string;
-    adress?: IAdress[];
+    address?: IAddress[];
     gender: boolean;
 }
 
@@ -28,7 +28,7 @@ export const initialState: IUser = {
     createdAt: new Date(),
     _id: '',
     gender: false,
-    adress: [],
+    address: [],
 };
 
 // tslint:disable-next-line: no-any
