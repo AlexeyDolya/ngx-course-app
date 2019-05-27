@@ -17,7 +17,7 @@ import { ModalService } from './modal.service';
     styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-    @ViewChild('modalContent', { read: ViewContainerRef })
+    @ViewChild('modalContent', { read: ViewContainerRef, static: false })
     public modal!: ViewContainerRef;
 
     public childComponent!: ComponentFactory<any>;
@@ -49,6 +49,7 @@ export class ModalComponent implements OnInit {
         );
     }
 
+    // @HostListener('window:keyup.esc')
     @HostListener('window:keyup', ['$event.keyCode'])
     public close(code: number = 27): void {
         if (code !== 27) {

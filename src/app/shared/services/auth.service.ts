@@ -24,7 +24,7 @@ export class AuthService {
     }
 
     public tokenToLocalStorage(user: any): Observable<any> {
-      if (!user || !user.accessToken) {
+        if (!user || !user.accessToken) {
             return of(null);
         }
         localStorage.setItem('accessToken', user.accessToken);
