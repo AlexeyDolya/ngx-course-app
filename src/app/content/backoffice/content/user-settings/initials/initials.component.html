@@ -1,5 +1,5 @@
 <form [formGroup]="userInfoForm" (ngSubmit)="onSubmit()">
-    <span>Информация</span>
+    <p>Информация</p>
     <mat-card>
         <mat-card-content fxLayout="column" fxLayoutAlign="space-evenly stretch">
             <mat-form-field fxFlex="50%">
@@ -21,7 +21,7 @@
                 >
             </mat-form-field>
             <div fxFlex="50%">
-                <span>Мужчина</span>
+                <p>Мужчина</p>
                 <app-switcher formControlName="male"></app-switcher>
             </div>
             <div fxLayout="row" fxLayoutAlign="end">
