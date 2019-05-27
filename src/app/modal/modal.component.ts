@@ -17,7 +17,7 @@ import { ModalService } from './modal.service';
     styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent implements OnInit {
-    @ViewChild('modalContent', { read: ViewContainerRef })
+    @ViewChild('modalContent', { read: ViewContainerRef, static: false })
     public modal!: ViewContainerRef;
 
     public childComponent!: ComponentFactory<any>;

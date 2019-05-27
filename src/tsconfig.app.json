@@ -7,8 +7,13 @@
       "@shared/*": ["src/app/shared/*"],
       "@modal/*": ["src/app/modal/*"],
       "@rootStore/*": ["src/app/store/*"],
-      "@env/*": ["src/environments/*"]
-
+      "@env/*": ["src/environments/*"],
+      "core-js/es7/reflect": [
+        "./node_modules/core-js/proposals/reflect-metadata"
+      ],
+      "core-js/es6/*": [
+        "./node_modules/core-js/es/*"
+      ]
     }
   },
   "exclude": [
