@@ -13,7 +13,7 @@ import { ValidatorService } from '@shared/services/validator.service';
     templateUrl: './addresses.component.html',
     styleUrls: ['./addresses.component.scss'],
 })
-export class AdressesComponent implements OnInit, OnDestroy {
+export class AddressesComponent implements OnInit, OnDestroy {
     public get address(): FormArray {
         return this.form.get('address') as FormArray;
     }
@@ -21,27 +21,25 @@ export class AdressesComponent implements OnInit, OnDestroy {
         street: ['', [Validators.required, this._validatorService.usernameValidator]],
         city: ['', [Validators.required, this._validatorService.usernameValidator]],
         state: ['', [Validators.required, this._validatorService.usernameValidator]],
-        zip: ['', [Validators.required, this._validatorService.zipCodeValidator]]
+        zip: ['', [Validators.required, this._validatorService.zipCodeValidator]],
     });
     public form: FormGroup = this.fb.group({
-        address: new FormArray([
-            this.emptyForm
-        ]),
+        address: new FormArray([this.emptyForm]),
     });
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
-    private user!: IUser;
 
     public constructor(
         private _store: Store<IRootState>,
         private _validatorService: ValidatorService,
-        private fb: FormBuilder) {}
+        private fb: FormBuilder
+    ) {}
 
     public ngOnInit(): void {
         this._store
             .select('user')
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((user: IUser) => {
-                this.fillAddress(user.adress);
+                this.fillAddress(user.address);
             });
     }
 
@@ -53,38 +51,27 @@ export class AdressesComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         this._store.dispatch(
             new EdittUserPending({
-                ...this.user,
                 address: this.address.getRawValue(),
             })
         );
     }
 
     public addAddress(): void {
-        this.address.push(
-            this.emptyForm
-        );
+        this.address.push(this.emptyForm);
     }
 
-    public removeAdr(_index: number ): void {
-        // const newAdresses: IAdress[] = this.address.getRawValue()
-        //     .filter((_adress: IAdress, i: number) => _index !== i );
-        // console.log('new adress', newAdresses,  this.address.getRawValue());
-        // this._store.dispatch(
-        //     new EdittUserPending({
-        //         adress: newAdresses,
-        //     })
-        // );
-        this.address.removeAt(_index);
+    public removeAdr(_index: number): void {
         this._store.dispatch(
             new EdittUserPending({
-                ...this.user,
-                address: this.address.getRawValue(),
+                index: _index,
             })
         );
     }
     private fillAddress(address: IAddress[] | undefined): void {
         if (address && address.length > 0) {
-            this.address.removeAt(0);
+            while (this.address.length !== 0) {
+              this.address.removeAt(0);
+            }
             address.forEach((item: IAddress) =>
                 this.address.push(
                     new FormGroup({

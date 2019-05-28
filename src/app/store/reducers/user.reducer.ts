@@ -15,7 +15,7 @@ export interface IUser {
     email?: string;
     username?: string;
     _id?: string;
-    adress?: IAdress[];
+    address?: IAddress[];
     gender: boolean;
 }
 
@@ -42,8 +42,8 @@ export function userReducer(state: IUser = initialState, action: any): IUser {
         }
         case UserActions.EDIT_USER_SUCCESS: {
             return {
-                ...state,
-                ...action.payload,
+              // ...state,
+              ...action.payload
             };
         }
         default: {

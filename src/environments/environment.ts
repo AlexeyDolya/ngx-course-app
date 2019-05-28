@@ -4,7 +4,7 @@
 
 export const environment: any = {
     production: false,
-    baseUrl: 'https://ngx-course-server.herokuapp.com',
+    baseUrl: 'http://localhost:8090',
     fcmOptions: {
         apiKey: 'AIzaSyC9fggBzxM_9CXgdi82ZecI-Wu5NcOkNgg',
         authDomain: 'ngx-course.firebaseapp.com',

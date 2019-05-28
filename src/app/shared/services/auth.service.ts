@@ -11,7 +11,7 @@ export class AuthService {
         return this._http.post(`/auth/signin`, { ...user });
     }
 
-    public editUser(user: any): Observable<IUser> {
+    public editUser(user: Partial<IUser>): Observable<IUser> {
         return this._http.put<IUser>('/user/updateuser', user);
     }
 
