@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class ValidatorService {
     public constructor(private _http: HttpClient) {}
+
     public equalValidator(value: any): ValidationErrors | null {
         const [password, cpassword] = Object.values(value);
         return password !== cpassword
@@ -41,6 +42,7 @@ export class ValidatorService {
               };
         return err;
     }
+
     public oldPass(value: any): Observable<ValidationErrors | null> {
         if (value && value.value) {
             value = value.value;
