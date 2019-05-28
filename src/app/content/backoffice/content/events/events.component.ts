@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit, OnDestroy {
         this._store
             .select(getTable())
             .pipe(takeUntil(this._controlUnsubscribe$$))
-            .subscribe(({ events}: { events: INotify[]; }) => {
+            .subscribe(({ events }: { events: INotify[] }) => {
                 this.dataSource = events;
             });
     }

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
-import { NgForGridDirective } from './ng-for-grid.directive';
 import { SharedModule } from '@shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { StoreModule } from '@ngrx/store';
@@ -11,7 +10,7 @@ import { CardComponent } from './card/card.component';
 import { CardModalComponent } from './card-modal/card-modal.component';
 
 @NgModule({
-    declarations: [DashboardComponent, NgForGridDirective, CardComponent, CardModalComponent],
+    declarations: [DashboardComponent, CardComponent, CardModalComponent],
     imports: [
         SharedModule,
         DashboardRoutingModule,

@@ -6,7 +6,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./table.component.scss'],
 })
 export class TableComponent {
-
     @Input()
     public dataSource: any;
 
