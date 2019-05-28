@@ -10,12 +10,12 @@ export type IAddress = {
 export interface IUser {
     name: string;
     surname: string;
-    accessToken: string;
-    createdAt: Date;
-    email: string;
-    username: string;
-    _id: string;
-    address?: IAddress[];
+    accessToken?: string;
+    createdAt?: Date;
+    email?: string;
+    username?: string;
+    _id?: string;
+    adress?: IAdress[];
     gender: boolean;
 }
 

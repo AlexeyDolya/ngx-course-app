@@ -1,4 +1,4 @@
-import { ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -7,7 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable()
 export class ValidatorService {
     public constructor(private _http: HttpClient) {}
-    public equalValidator(value: any): ValidationErrors | null {
+    public equalValidator(value: FormControl): ValidationErrors | null {
         const [password, cpassword] = Object.values(value);
         return password !== cpassword
             ? {
@@ -16,11 +16,12 @@ export class ValidatorService {
             : null;
     }
 
-    public usernameValidator(value: any): ValidationErrors | null {
-        if (value && value.value) {
-            value = value.value;
+    public usernameValidator(control: AbstractControl): ValidationErrors | null {
+        let checkControl: string = '';
+        if (control && control.value) {
+            checkControl = control.value;
         }
-        const valid: boolean = /^[a-zA-Zа-яА-Я]*$/.test(value);
+        const valid: boolean = /^[a-zA-Zа-яА-Я]*$/.test(checkControl);
         const err: ValidationErrors | null = valid
             ? null
             : {
@@ -29,11 +30,12 @@ export class ValidatorService {
         return err;
     }
 
-    public zipCodeValidator(value: any): ValidationErrors | null {
-        if (value && value.value) {
-            value = value.value;
+    public zipCodeValidator(control: AbstractControl): ValidationErrors | null {
+        let checkControl: string = '';
+        if (control && control.value) {
+            checkControl = control.value;
         }
-        const valid: boolean = /^\d+$/.test(value);
+        const valid: boolean = /^\d+$/.test(checkControl);
         const err: ValidationErrors | null = valid
             ? null
             : {
@@ -41,11 +43,11 @@ export class ValidatorService {
               };
         return err;
     }
-    public oldPass(value: any): Observable<ValidationErrors | null> {
-        if (value && value.value) {
-            value = value.value;
+    public oldPass(control: FormGroup): Observable<ValidationErrors | null> {
+        if (control && control.value) {
+            control = control.value;
         }
-        return this._http.post('/user/checkPassword', { data: value }).pipe(
+        return this._http.post('/user/checkPassword', { data: control }).pipe(
             map((data: ValidationErrors) => (data ? data : null)),
             catchError(() => {
                 return of({ ERROR: true });
@@ -53,11 +55,11 @@ export class ValidatorService {
         );
     }
 
-    public username(value: any): Observable<ValidationErrors | null> {
-        if (value && value.value) {
-            value = value.value;
+    public username(control: FormGroup): Observable<ValidationErrors | null> {
+        if (control && control.value) {
+            control = control.value;
         }
-        return this._http.post('/auth/checkUsername', { username: value }).pipe(
+        return this._http.post('/auth/checkUsername', { username: control }).pipe(
             map((data: ValidationErrors) => (data ? data : null)),
             catchError(() => {
                 return of({ ERROR: true });

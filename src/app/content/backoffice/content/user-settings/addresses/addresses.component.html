@@ -13,7 +13,7 @@
             <mat-card *ngFor="let item of address.controls; index as i">
                 <mat-card-content>
                     <div fxLayout="row" fxLayoutAlign="end" *ngIf="address.controls.length > 1">
-                        <button type="button" mat-button (click)="removeAdr(i)">
+                        <button type="button" mat-button (click)="removeAdr(i, item)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>

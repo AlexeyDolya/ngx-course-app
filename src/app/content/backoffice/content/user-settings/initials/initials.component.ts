@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '@rootStore/reducers/user.reducer';
 import { Store } from '@ngrx/store';
@@ -14,9 +14,6 @@ import { ValidatorService } from '@shared/services/validator.service';
     styleUrls: ['./initials.component.scss'],
 })
 export class InitialsComponent implements OnInit, OnDestroy {
-    @Input()
-    public user!: IUser;
-
     public userInfoForm: FormGroup = new FormGroup({
         name: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
         surname: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
@@ -31,11 +28,10 @@ export class InitialsComponent implements OnInit, OnDestroy {
             .select('user')
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((user: IUser) => {
-                this.user = user;
                 this.userInfoForm.patchValue({
-                    name: this.user.name,
-                    surname: this.user.surname,
-                    male: this.user.gender,
+                    name: user.name,
+                    surname: user.surname,
+                    male: user.gender,
                 });
             });
     }
@@ -46,12 +42,6 @@ export class InitialsComponent implements OnInit, OnDestroy {
     }
 
     public onSubmit(): void {
-        this.user = {
-            ...this.user,
-            name: this.userInfoForm.value.name,
-            surname: this.userInfoForm.value.surname,
-            gender: this.userInfoForm.value.male,
-        };
-        this._store.dispatch(new EdittUserPending(this.user));
+        this._store.dispatch(new EdittUserPending(this.userInfoForm.value));
     }
 }
