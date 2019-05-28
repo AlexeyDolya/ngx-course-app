@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IRootState } from '@rootStore/reducers';
 import { Subject } from 'rxjs';
@@ -17,30 +17,30 @@ export class AddressesComponent implements OnInit, OnDestroy {
     public get address(): FormArray {
         return this.form.get('address') as FormArray;
     }
-
-    public form: FormGroup = new FormGroup({
-        address: new FormArray([
-            new FormGroup({
-                street: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                city: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                state: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                zip: new FormControl('', [Validators.required, this._validatorService.zipCodeValidator]),
-            }),
-        ]),
+    public emptyForm: FormGroup = this.fb.group({
+        street: ['', [Validators.required, this._validatorService.usernameValidator]],
+        city: ['', [Validators.required, this._validatorService.usernameValidator]],
+        state: ['', [Validators.required, this._validatorService.usernameValidator]],
+        zip: ['', [Validators.required, this._validatorService.zipCodeValidator]],
+    });
+    public form: FormGroup = this.fb.group({
+        address: new FormArray([this.emptyForm]),
     });
     private _controlUnsubscribe$$: Subject<boolean> = new Subject();
-    private user!: IUser;
 
-    public constructor(private _store: Store<IRootState>, private _validatorService: ValidatorService) {}
+    public constructor(
+        private _store: Store<IRootState>,
+        private _validatorService: ValidatorService,
+        private fb: FormBuilder
+    ) {}
 
     public ngOnInit(): void {
         this._store
             .select('user')
             .pipe(takeUntil(this._controlUnsubscribe$$))
             .subscribe((user: IUser) => {
-                this.user = user;
+                this.fillAddress(user.address);
             });
-        this.fillAddress(this.user.address);
     }
 
     public ngOnDestroy(): void {
@@ -51,36 +51,27 @@ export class AddressesComponent implements OnInit, OnDestroy {
     public onSubmit(): void {
         this._store.dispatch(
             new EdittUserPending({
-                ...this.user,
                 address: this.address.getRawValue(),
             })
         );
     }
 
     public addAddress(): void {
-        this.address.push(
-            new FormGroup({
-                street: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                city: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                state: new FormControl('', [Validators.required, this._validatorService.usernameValidator]),
-                zip: new FormControl('', [Validators.required, this._validatorService.zipCodeValidator]),
-            })
-        );
+        this.address.push(this.emptyForm);
     }
 
-    public removeAdr(index: number): void {
-        this.address.removeAt(index);
+    public removeAdr(_index: number): void {
         this._store.dispatch(
             new EdittUserPending({
-                ...this.user,
-                address: this.address.getRawValue(),
+                index: _index,
             })
         );
     }
-
     private fillAddress(address: IAddress[] | undefined): void {
         if (address && address.length > 0) {
-            this.address.removeAt(0);
+            while (this.address.length !== 0) {
+              this.address.removeAt(0);
+            }
             address.forEach((item: IAddress) =>
                 this.address.push(
                     new FormGroup({

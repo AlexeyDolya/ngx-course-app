@@ -10,11 +10,11 @@ export type IAddress = {
 export interface IUser {
     name: string;
     surname: string;
-    accessToken: string;
-    createdAt: Date;
-    email: string;
-    username: string;
-    _id: string;
+    accessToken?: string;
+    createdAt?: Date;
+    email?: string;
+    username?: string;
+    _id?: string;
     address?: IAddress[];
     gender: boolean;
 }
@@ -42,8 +42,8 @@ export function userReducer(state: IUser = initialState, action: any): IUser {
         }
         case UserActions.EDIT_USER_SUCCESS: {
             return {
-                ...state,
-                ...action.payload,
+              // ...state,
+              ...action.payload
             };
         }
         default: {
