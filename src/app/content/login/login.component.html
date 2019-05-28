@@ -1,7 +1,7 @@
 <div class="signin-content">
   <mat-card>
     <mat-card-content>
-      <form (submit)="login(f.value)" #f="ngForm">
+      <form (ngSubmit)="login(f.value)" #f="ngForm">
         <p>Log in to continue </p>
         <mat-form-field class="full-width">
           <input matInput placeholder="User name" name="username" ngModel required appUsernameValidator #c="ngModel">
