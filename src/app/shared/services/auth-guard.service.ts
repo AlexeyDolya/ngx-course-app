@@ -11,23 +11,25 @@ export class AuthGuardService implements CanActivate {
 
     public canActivate(_activatedRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         const url: string = state.url;
-        return this._store.select('auth', 'isLogged').pipe(
-            take(1),
-            switchMap((isLogged: boolean) => {
-                if (!isLogged && (url === '/login' || url === '/signup')) {
-                    return of(true);
-                }
+        return this._store
+            .select((store: IRootState) => store.auth.isLogged)
+            .pipe(
+                take(1),
+                switchMap((isLogged: boolean) => {
+                    if (!isLogged && (url === '/login' || url === '/signup')) {
+                        return of(true);
+                    }
 
-                if (isLogged && (url === '/login' || url === '/signup')) {
-                    this._router.navigate(['/backoffice']);
-                    return of(false);
-                }
+                    if (isLogged && (url === '/login' || url === '/signup')) {
+                        this._router.navigate(['/backoffice']);
+                        return of(false);
+                    }
 
-                if (!isLogged) {
-                    this._router.navigate(['/login']);
-                }
-                return of(isLogged);
-            })
-        );
+                    if (!isLogged) {
+                        this._router.navigate(['/login']);
+                    }
+                    return of(isLogged);
+                })
+            );
     }
 }

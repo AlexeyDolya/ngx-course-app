@@ -34,7 +34,7 @@ export const unread: any = createSelector(
 export function getTable(): MemoizedSelector<any, any> {
     return createSelector(
         selectAll,
-        ( notifies: INotify[]) => {
+        (notifies: INotify[]) => {
             return {
                 events: notifies,
             };
