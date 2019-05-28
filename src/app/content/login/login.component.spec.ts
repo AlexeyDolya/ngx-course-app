@@ -34,7 +34,7 @@ describe('Login component', () => {
     // });
     it('111', async () => {
         const nameField: DebugElement = fixture.debugElement.query(By.css('input[name="username"]'));
-        nameField.triggerEventHandler('input', { target: { value: 'asdasd#@' } });
+        nameField.triggerEventHandler('input', { target: { value: 'asdasd!!' } });
         const passwordField: DebugElement = fixture.debugElement.query(By.css('input[type=password]'));
         passwordField.triggerEventHandler('input', { target: { value: 'asdasd' } });
         // nameField.nativeElement.value = 'asdasd';
@@ -47,8 +47,9 @@ describe('Login component', () => {
         // fixture.detectChanges();
         //   submitButton.triggerEventHandler('click', null);
         // console.log('@#@#@#', submitButton.nativeElement);
-        // console.log('@#@#@#', submitButton.nativeElement.disabled);
+        fixture.detectChanges();
+        // await fixture.whenStable();
         const submitButton: DebugElement = fixture.debugElement.query(By.css('button[type="submit"]'));
-        expect(submitButton.nativeElement.disabled).toBeFalsy();
+        expect(submitButton.nativeElement.disabled).toBeTruthy();
     });
 });
